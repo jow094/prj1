@@ -31,6 +31,8 @@ public class ProjectController {
 	
 	@Inject
 	private WorkflowService wService;
+
+	@Inject
 	private MemberService mService;
 	
 	
@@ -91,17 +93,19 @@ public class ProjectController {
 
 			// 전달정보(파라메터) 저장
 			logger.debug(" vo :"+vo);
-			
-			MemberVO resultVO = mService.memberLogin(vo);
-			
-			if(resultVO == null){ logger.debug(" 로그인 실패, 다시 로그인 페이지로 이동 "); 
-			return "redirect:/member/login"; }
-			
-			//사용자의 아이디 정보를 세션 영역에 저장
-			session.setAttribute("userid", resultVO.getUserid());
-	
-			logger.debug(" 로그인 성공, 메인페이지로 이동 ");
-			
+		
+		 MemberVO resultVO = mService.memberLogin(vo);
+		
+		 if(resultVO == null){ logger.debug(" 로그인 실패, 다시 로그인 페이지로 이동 "); return
+		 "redirect:/project/login"; }
+		 
+		 
+		  //사용자의 아이디 정보를 세션 영역에 저장 
+		 
+		 session.setAttribute("userid",resultVO.getUserid());
+		 
+		 logger.debug(" 로그인 성공, 메인페이지로 이동 ");
+		 
 			return "redirect:/project/main";
 		}
 	

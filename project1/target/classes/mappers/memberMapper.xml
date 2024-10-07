@@ -13,7 +13,7 @@
 	
 	<!-- 로그인 체크 -->
 	<select id="loginMember" resultType="com.project.domain.MemberVO">
-	   select userid from member 
+	   select * from member 
 	   where userid=#{userid} and userpw=#{userpw}	
 	</select>
 	
