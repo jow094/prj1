@@ -3,19 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.project.mapper.workflowMapper">
+<mapper namespace="com.project.mapper.WorkflowMapper">
 	<!-- namespace를 사용해서 mapper 파일을 찾아오는 주소 설정 -->
 	
 	<!-- 워크플로우 상세 -->
 	<select id="getWorkflow" resultType="WorkflowVO">
-		select * from workflow 
+		select * from workflow_jo
 		 where wf_code=#{wf_code}	
 	</select>
 	
 	<!-- 워크플로우 목록 -->
-	<select id="getWorkflowList" resultType="WorkflowVO">
-		select * from workflow 
-		 where userid=#{wf_getter}	
+	<select id="getWorkflowList" resultType="com.project.domain.WorkflowVO">
+		select * from workflow_jo
+		 where wf_getter=#{userid}	
 	</select>
 	
 	

@@ -2,6 +2,8 @@ package com.project.service;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +32,15 @@ public class WorkflowServiceImpl implements WorkflowService{
 	private static final Logger logger = LoggerFactory.getLogger(WorkflowServiceImpl.class);
 	
 	// MemberDAO 객체 주입
-	@Autowired
+	@Inject
 	private WorkflowDAO wdao;
 
 	@Override
 	public List<WorkflowVO> showWorkflowList(String userid) {
-		logger.debug("컨트롤러 -> 서비스");
-		logger.debug("회원가입 메서드 memberJoin(MemberVO vo) 실행");
+		logger.debug("WorkflowServiceImpl : showWorkflowList(String userid) 실행");
+		List<WorkflowVO> workflowList = wdao.getWorkflowList(userid);
 		
-		logger.debug("서비스 -> DAO");
-		wdao.getWorkflowList(userid);
-		logger.debug("DAO -> 서비스");
-		logger.debug("서비스 -> 컨트롤러");
-		return null;
+		return workflowList;
 	}
 
 	@Override

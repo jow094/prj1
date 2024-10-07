@@ -90,7 +90,7 @@
                       >
                         <thead>
                           <tr>
-                            <th>NUM</th>
+                            <th>${workflowList}</th>
                             <th>TYPE</th>
                             <th>TITLE</th>
                             <th>SENDER</th>
@@ -109,7 +109,7 @@
                           </tr>
                         </tfoot>
                         <tbody>
-                          <c:forEach var="workflow" items="${WorkflowList}">
+                          <c:forEach var="workflow" items="${workflowList}">
 					        <tr>
 					            <td>${workflow.wf_code}</td>
 					            <td>${workflow.wf_type}</td>

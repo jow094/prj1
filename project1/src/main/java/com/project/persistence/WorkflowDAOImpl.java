@@ -27,7 +27,7 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 	private SqlSession sqlSession; // 자동으로 연결,자원해제,SQL실행,mybatis...
 	
 	// Mapper namespace 정보 저장
-	private static final String NAMESPACE = "com.project.mapper.workflowMapper";
+	private static final String NAMESPACE = "com.project.mapper.WorkflowMapper";
 
 	@Override
 	public WorkflowVO getWorkflow() {
@@ -38,10 +38,14 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 
 	@Override
 	public List<WorkflowVO> getWorkflowList(String userid) {
+		System.out.println(" WorkflowDAOImpl : getWorkflowList("+userid+") 실행");
 		
 		
 		
-		return null;
+		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getWorkflowList",userid);
+		System.out.println(" 실행 결과 (개수): "+result.size());
+		
+		return result;
 	}
 	
 	

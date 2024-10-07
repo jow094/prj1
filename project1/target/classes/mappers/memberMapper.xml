@@ -13,33 +13,33 @@
 	
 	<!-- 로그인 체크 -->
 	<select id="loginMember" resultType="com.project.domain.MemberVO">
-	   select * from member 
+	   select * from member_jo
 	   where userid=#{userid} and userpw=#{userpw}	
 	</select>
 	
 	
 	<!-- 회원정보 조회 -->
 	<select id="getMember" resultType="MemberVO">
-		select * from member 
+		select * from member_jo 
 		 where userid=#{userid}	
 	</select>
 	
 	
 	<!-- 회원정보 수정 -->
 	<update id="updateMember">
-		update member set username=#{username}, useremail=#{useremail}, updatedate=now()  
+		update member_jo set username=#{username}, useremail=#{useremail}, updatedate=now()  
 		where userid=#{userid} and userpw=#{userpw}	
 	</update>
 	
 	<!-- 회원정보 삭제 -->
 	<delete id="deleteMember">
-		delete from member  
+		delete from member_jo 
 		 where userid = #{userid} and userpw = #{userpw}	
 	</delete>	
 	
 	<!-- 회원정보 목록(list) -->
 	<select id="getMemberList" resultType="MemberVO">
-		select * from member	
+		select * from member_jo	
 	</select>
 	
 	
