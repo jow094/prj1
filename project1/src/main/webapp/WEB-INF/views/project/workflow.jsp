@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -90,7 +92,7 @@
                       >
                         <thead>
                           <tr>
-                            <th>${workflowList}</th>
+                            <th>NUM</th>
                             <th>TYPE</th>
                             <th>TITLE</th>
                             <th>SENDER</th>
