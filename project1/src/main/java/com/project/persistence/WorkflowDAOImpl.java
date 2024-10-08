@@ -37,12 +37,15 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 	}
 
 	@Override
-	public List<WorkflowVO> getWorkflowList(String userid) {
-		System.out.println(" WorkflowDAOImpl : getWorkflowList("+userid+") 실행");
+	public List<WorkflowVO> getWorkflowList(String userid,String status) {
+		System.out.println(" WorkflowDAOImpl : getWorkflowList("+userid+","+status+") 실행");
 		
+		WorkflowVO vo = new WorkflowVO();
 		
+		vo.setWf_getter(userid);
+		vo.setWf_status(status);
 		
-		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getWorkflowList",userid);
+		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getWorkflowList",vo);
 		System.out.println(" 실행 결과 (개수): "+result.size());
 		
 		return result;

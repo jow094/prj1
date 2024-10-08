@@ -36,9 +36,9 @@ public class WorkflowServiceImpl implements WorkflowService{
 	private WorkflowDAO wdao;
 
 	@Override
-	public List<WorkflowVO> showWorkflowList(String userid) {
-		logger.debug("WorkflowServiceImpl : showWorkflowList(String userid) 실행");
-		List<WorkflowVO> workflowList = wdao.getWorkflowList(userid);
+	public List<WorkflowVO> showWorkflowList(String userid,String status) {
+		logger.debug("WorkflowServiceImpl : showWorkflowList(String userid,String status) 실행");
+		List<WorkflowVO> workflowList = wdao.getWorkflowList(userid,status);
 		
 		return workflowList;
 	}

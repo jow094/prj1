@@ -13,9 +13,9 @@
 	</select>
 	
 	<!-- 워크플로우 목록 -->
-	<select id="getWorkflowList" resultType="com.project.domain.WorkflowVO">
+	<select id="getWorkflowList" parameterType="WorkflowVO" resultType="com.project.domain.WorkflowVO">
 		select * from workflow_jo
-		 where wf_getter=#{userid}	
+		 where wf_getter=#{wf_getter} and wf_status=#{wf_status}
 	</select>
 	
 	

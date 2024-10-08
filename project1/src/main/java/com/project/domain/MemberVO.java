@@ -2,6 +2,8 @@ package com.project.domain;
 
 import java.sql.Timestamp;
 
+import org.springframework.stereotype.Repository;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;

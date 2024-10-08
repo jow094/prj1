@@ -7,7 +7,7 @@ import com.project.domain.WorkflowVO;
 
 public interface WorkflowService {
 	
-	public List<WorkflowVO> showWorkflowList(String userid);
+	public List<WorkflowVO> showWorkflowList(String userid,String status);
 	public MemberVO showWorkflow(String wf_code);
 
 }

@@ -65,11 +65,28 @@ public class ProjectController {
 			String userid = (String)session.getAttribute("userid");
 			logger.debug(" workflow 조회 대상 아이디 : "+userid);
 			
-			List<WorkflowVO> workflowList = wService.showWorkflowList(userid);
+			List<WorkflowVO> workflowList = wService.showWorkflowList(userid,"진행");
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
 			model.addAttribute("workflowList",workflowList);
+		}
+		
+		// workflow 메인페이지 - GET
+		// http://localhost:8088/project/workoff
+		@RequestMapping(value = "/workoff",method = RequestMethod.GET)
+		public void workoffGET(HttpSession session, Model model) {
+			logger.debug(" /project/workoff -> workoffGET()실행 ");
+			logger.debug(" 연결된 뷰페이지 (views/project/workoff.jsp)로 이동 ");
+			
+			String userid = (String)session.getAttribute("userid");
+			logger.debug(" workflow 조회 대상 아이디 : "+userid);
+			
+			List<WorkflowVO> workoffList = wService.showWorkflowList(userid,"완료");
+			
+			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
+			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
+			model.addAttribute("workoffList",workoffList);
 		}
 		
 		

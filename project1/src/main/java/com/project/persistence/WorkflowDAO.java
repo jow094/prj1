@@ -15,6 +15,6 @@ public interface WorkflowDAO {
 
 	public WorkflowVO getWorkflow();
 	
-	public List<WorkflowVO> getWorkflowList(String userid);
+	public List<WorkflowVO> getWorkflowList(String userid,String status);
 	
 }
