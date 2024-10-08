@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,14 +77,14 @@
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="#">On working</a>
+                  <a href="#">Off working</a>
                 </li>
               </ul>
             </div>
             <!-- workflow_header end -->
             <!-- workflow_sent start -->
 			<div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="card">
                   <div class="card-header">
                     <h4 class="card-title">SENT</h4>
@@ -96,12 +97,12 @@
                       >
                         <thead>
                           <tr>
-                            <th>NUM</th>
-                            <th>TYPE</th>
-                            <th>TITLE</th>
-                            <th>GETTER</th>
-                            <th>STATUS</th>
-                            <th>DATE</th>
+                            <th style="width: 3%;">NUM</th>
+                            <th style="width: 3%;">TYPE</th>
+                            <th style="width: 50%;">TITLE</th>
+                            <th style="width: 18%;">GETTER</th>
+                            <th style="width: 3%;">STATUS</th>
+                            <th style="width: 23%;">DATE</th>
                           </tr>
                         </thead>
                         <tfoot>
@@ -117,30 +118,36 @@
                         <tbody>
                           <c:forEach var="workflow" items="${sentWorkflowList}">
 					        <tr>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_code}</a></td>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_type}</a></td>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_title}</a></td>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_getter}</a></td>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_status}</a></td>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_create_date}</a></td>
+					            <td style="text-align: center;">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					            		${workflow.wf_code}
+					            	</a>
+					            </td>
+					            <td style="text-align: center;">
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+						            	${workflow.wf_type}
+						            </a>
+						        </td>
+					            <td>
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+			                        	${workflow.wf_title}
+			                        </a>
+		                        </td>
+					            <td style="text-align: center;">
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+						            	${workflow.wf_getter}
+						            </a>
+					            </td>
+					            <td style="text-align: center;">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					            		${workflow.wf_status}
+					            	</a>
+					            </td>
+					            <td style="text-align: center;">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					           			<fmt:formatDate value="${workflow.wf_create_date}" pattern="yy.MM.dd HH:mm" />
+					           		</a>
+					           	</td>
 					        </tr>
 					      </c:forEach>
                         </tbody>
@@ -149,11 +156,9 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- workflow_sent end -->
-            <!-- workflow_received start -->
-			<div class="row">
-              <div class="col-md-12">
+        	  <!-- workflow_sent end -->
+         	  <!-- workflow_received start -->
+              <div class="col-md-6">
                 <div class="card">
                   <div class="card-header">
                     <h4 class="card-title">RECEIVED</h4>
@@ -166,12 +171,12 @@
                       >
                         <thead>
                           <tr>
-                            <th>NUM</th>
-                            <th>TYPE</th>
-                            <th>TITLE</th>
-                            <th>SENDER</th>
-                            <th>STATUS</th>
-                            <th>DATE</th>
+                            <th style="width: 3%;">NUM</th>
+                            <th style="width: 3%;">TYPE</th>
+                            <th style="width: 50%;">TITLE</th>
+                            <th style="width: 18%;">GETTER</th>
+                            <th style="width: 3%;">STATUS</th>
+                            <th style="width: 23%;">DATE</th>
                           </tr>
                         </thead>
                         <tfoot>
@@ -187,30 +192,36 @@
                         <tbody>
                           <c:forEach var="workflow" items="${receivedWorkflowList}">
 					        <tr>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_code}</a></td>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_type}</a></td>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_title}</a></td>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_sender}</a></td>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_status}</a></td>
-					            <td><a
-					            data-wfcode="${workflow.wf_code}"
-		                        data-bs-toggle="modal"
-		                        data-bs-target="#wfread">${workflow.wf_create_date}</a></td>
+					            <td style="text-align: center;">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					            		${workflow.wf_code}
+					            	</a>
+					            </td>
+					            <td style="text-align: center;">
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+						            	${workflow.wf_type}
+						            </a>
+						        </td>
+					            <td>
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+			                        	${workflow.wf_title}
+			                        </a>
+		                        </td>
+					            <td style="text-align: center;">
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+						            	${workflow.wf_getter}
+						            </a>
+					            </td>
+					            <td style="text-align: center;">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					            		${workflow.wf_status}
+					            	</a>
+					            </td>
+					            <td style="text-align: center;">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					           			<fmt:formatDate value="${workflow.wf_create_date}" pattern="yy.MM.dd HH:mm" />
+					           		</a>
+					           	</td>
 					        </tr>
 					      </c:forEach>
                         </tbody>
@@ -391,8 +402,13 @@
                   .unique()
                   .sort()
                   .each(function (d, j) {
-                    select.append(
-                      '<option value="' + d + '">' + d + "</option>"
+                	  var plainText = d.match(/>(.*?)</);  // '>'와 '<' 사이의 텍스트를 추출
+	                	if (plainText) {
+	                	  plainText = plainText[1];  // 추출한 값 중 첫 번째 그룹(태그 사이의 텍스트)을 선택
+	                	}
+	                	console.log(plainText);
+	                  select.append(
+	                    '<option value="' + plainText + '">' + plainText + "</option>"
                     );
                   });
               });
@@ -423,8 +439,13 @@
                     .unique()
                     .sort()
                     .each(function (d, j) {
-                      select.append(
-                        '<option value="' + d + '">' + d + "</option>"
+                    	var plainText = d.match(/>(.*?)</);  // '>'와 '<' 사이의 텍스트를 추출
+	                	if (plainText) {
+	                	  plainText = plainText[1];  // 추출한 값 중 첫 번째 그룹(태그 사이의 텍스트)을 선택
+	                	}
+	                	console.log(plainText);
+	                  select.append(
+	                    '<option value="' + plainText + '">' + plainText + "</option>"
                       );
                     });
                 });
