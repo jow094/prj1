@@ -92,7 +92,7 @@
                       >
                         <thead>
                           <tr>
-                            <th>${workflowList}</th>
+                            <th>NUM</th>
                             <th>TYPE</th>
                             <th>TITLE</th>
                             <th>SENDER</th>
