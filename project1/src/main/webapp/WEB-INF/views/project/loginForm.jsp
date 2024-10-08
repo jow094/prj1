@@ -21,7 +21,7 @@
 				<div class="intro_area text">
 					<h2>MEMBER</h2>
 					<p>LOGIN</p>
-				</div>	
+				</div>	 
 				
 				<div class="intro_area img">
 				</div>	
