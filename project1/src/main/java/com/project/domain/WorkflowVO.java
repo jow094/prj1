@@ -18,12 +18,14 @@ public class WorkflowVO {
 	private String wf_type;
 	private String wf_title;
 	private String wf_content;
-	private String wf_sender;
-	private String wf_getter;
-	private String wf_status;
 	private Timestamp wf_create_date;
 	private Timestamp wf_read_date;
 	private String wf_file;
-	
+	private String wf_status;
+	private String wf_sender;
+	private String wf_getter;
+	private String wf_comment;
+	private String wf_level;
+	private String wf_result;
 
 }

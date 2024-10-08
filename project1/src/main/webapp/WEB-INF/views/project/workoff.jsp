@@ -55,8 +55,11 @@
           <div class="page-inner">
 <!------------------------------------------------------------------------------------------------------------------>
           
-          <div class="page-header">
+			<!-- workflow_header start -->
+            <div class="page-header">
               <h3 class="fw-bold mb-3">WORK FLOW</h3>
+              <br>
+              <a href="/project/workflow">_______On working</a>  /  <h4 class="card-title"> Off working</h4>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                   <a href="#">
@@ -73,21 +76,92 @@
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="#">Off working</a>
+                  <a href="#">On working</a>
                 </li>
               </ul>
             </div>
-           
+            <!-- workflow_header end -->
+            <!-- workflow_sent start -->
 			<div class="row">
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
-                    <a href="/project/workflow">On working</a> / <h4 class="card-title">Off working</h4>
+                    <h4 class="card-title">SENT</h4>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
                       <table
-                        id="multi-filter-select"
+                        id="multi-filter-select-workflow-sent"
+                        class="display table table-striped table-hover"
+                      >
+                        <thead>
+                          <tr>
+                            <th>NUM</th>
+                            <th>TYPE</th>
+                            <th>TITLE</th>
+                            <th>GETTER</th>
+                            <th>STATUS</th>
+                            <th>DATE</th>
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <th>NUM</th>
+                            <th>TYPE</th>
+                            <th>TITLE</th>
+                            <th>GETTER</th>
+                            <th>STATUS</th>
+                            <th>DATE</th>
+                          </tr>
+                        </tfoot>
+                        <tbody>
+                          <c:forEach var="workflow" items="${sentWorkflowList}">
+					        <tr>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_code}</a></td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_type}</a></td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_title}</a></td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_getter}</a></td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_status}</a></td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_create_date}</a></td>
+					        </tr>
+					      </c:forEach>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- workflow_sent end -->
+            <!-- workflow_received start -->
+			<div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">RECEIVED</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table
+                        id="multi-filter-select-workflow-received"
                         class="display table table-striped table-hover"
                       >
                         <thead>
@@ -111,14 +185,32 @@
                           </tr>
                         </tfoot>
                         <tbody>
-                          <c:forEach var="workoff" items="${workoffList}">
+                          <c:forEach var="workflow" items="${receivedWorkflowList}">
 					        <tr>
-					            <td>${workoff.wf_code}</td>
-					            <td>${workoff.wf_type}</td>
-					            <td>${workoff.wf_title}</td>
-					            <td>${workoff.wf_sender}</td>
-					            <td>${workoff.wf_status}</td>
-					            <td>${workoff.wf_create_date}</td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_code}</a></td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_type}</a></td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_title}</a></td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_sender}</a></td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_status}</a></td>
+					            <td><a
+					            data-wfcode="${workflow.wf_code}"
+		                        data-bs-toggle="modal"
+		                        data-bs-target="#wfread">${workflow.wf_create_date}</a></td>
 					        </tr>
 					      </c:forEach>
                         </tbody>
@@ -128,6 +220,103 @@
                 </div>
               </div>
             </div>
+            <!-- workflow_received end -->
+            
+            <!-- 모달 start-->
+            <div class="modal fade" id="wfread" tabindex="-1" aria-labelledby="wfDetailLabel" aria-hidden="true">
+			    <div class="modal-dialog modal-xl">
+					<!-- modal content start -->
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <h5 class="modal-title" id="wfDetailLabel">Workflow Detail</h5>
+			                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			            </div>
+			            <div class="modal-body">
+							<!-- card -->
+							<div class="card">
+							  <div class="card-header">
+							    <div class="card-title">Wf_title</div>
+							  </div>
+							<!-- card-body -->
+							<div class="card-body">
+							
+						    	<div class="form-group">
+						    		<label for="smallInput">NUM</label>
+						            <input
+						              type="text"
+						              class="form-control form-control-sm"
+						              id = "wf_code"
+						              readonly
+						            />
+						            <label for="smallInput">TYPE</label>
+						            <input
+						              type="text"
+						              class="form-control form-control-sm"
+						              id = "wf_type"
+						              readonly
+						            />
+						            <label for="smallInput">TITLE</label>
+						            <input
+						              type="text"
+						              class="form-control form-control-sm"
+						              id = "wf_title"
+						              readonly
+						            />
+						            <label for="smallInput">FILE</label>
+						            <input
+						              type="text"
+						              class="form-control form-control-sm"
+						              id = "wf_file"
+						              readonly
+						            />
+						            <label for="smallInput">STATUS</label>
+						            <input
+						              type="text"
+						              class="form-control form-control-sm"
+						              id = "wf_status"
+						              readonly
+						            />
+						            <label for="smallInput">SENDER</label>
+						            <input
+						              type="text"
+						              class="form-control form-control-sm"
+						              id = "wf_sender"
+						              readonly
+						            />
+						            <label for="smallInput">CREATE DATE</label>
+						            <input
+						              type="text"
+						              class="form-control form-control-sm"
+						              id = "wf_create_date"
+						              readonly
+						            />
+						    	</div>
+						    	
+						    	<div class="form-group">
+						        	<label for="comment">Content</label>
+						        		<textarea class="form-control" rows="5" id="wf_content" readonly>
+						        	</textarea>
+						        </div>
+						          
+						        <div class="form-group">
+						        	<label for="comment">Comment</label>
+						        		<textarea class="form-control" rows="5" id="wf_comment" readonly>
+						        	</textarea>
+						        </div>
+			          		
+			                  </div>
+			                  <!-- card-body end -->
+			                </div>
+			                <!-- card end -->
+			                <!-- modal content end -->
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+            <!-- 모달 end-->
           
 <!------------------------------------------------------------------------------------------------------------------>
           </div>
@@ -178,7 +367,7 @@
     <script src="${pageContext.request.contextPath }/resources/assets/js/demo.js"></script>
      <script>
       $(document).ready(function () {
-        $("#multi-filter-select").DataTable({
+        $("#multi-filter-select-workflow-sent").DataTable({
           pageLength: 5,
           initComplete: function () {
             this.api()
@@ -209,8 +398,67 @@
               });
           },
         });
+        
+        $("#multi-filter-select-workflow-received").DataTable({
+            pageLength: 5,
+            initComplete: function () {
+              this.api()
+                .columns()
+                .every(function () {
+                  var column = this;
+                  var select = $(
+                    '<select class="form-select"><option value=""></option></select>'
+                  )
+                    .appendTo($(column.footer()).empty())
+                    .on("change", function () {
+                      var val = $.fn.dataTable.util.escapeRegex($(this).val());
 
-        // Add Row
+                      column
+                        .search(val ? "^" + val + "$" : "", true, false)
+                        .draw();
+                    });
+
+                  column
+                    .data()
+                    .unique()
+                    .sort()
+                    .each(function (d, j) {
+                      select.append(
+                        '<option value="' + d + '">' + d + "</option>"
+                      );
+                    });
+                });
+            },
+          });
+
+		$('#wfread').on('show.bs.modal', function (e) {
+        	
+        	var button = $(e.relatedTarget);
+            var wfCode = button.data('wfcode');
+        	
+            $.ajax({
+            url: '/project/wfread',
+            type: 'GET',
+            data: {wf_code: wfCode},
+            success: function (data) {
+            		console.log('AJAX 요청 성공, wf_code :', wfCode);
+                	console.log('받은 데이터:', data);
+	            	$('#wf_code').val(data.wf_code);
+	                $('#wf_type').val(data.wf_type);
+	                $('#wf_title').val(data.wf_title);
+	                $('#wf_file').val(data.wf_file);
+	                $('#wf_status').val(data.wf_status);
+	                $('#wf_sender').val(data.wf_sender);
+	                $('#wf_create_date').val(data.wf_create_date);
+	                $('#wf_content').val(data.wf_content);
+	                $('#comment').text(data.wf_comment);
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('AJAX 요청 실패:', status, error);
+	                console.log('xhr:', xhr);
+	            }
+            });
+          });
 
         var action =
           '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';

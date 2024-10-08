@@ -7,16 +7,48 @@
 	<!-- namespace를 사용해서 mapper 파일을 찾아오는 주소 설정 -->
 	
 	<!-- 워크플로우 상세 -->
-	<select id="getWorkflow" resultType="WorkflowVO">
+	<select id="getWorkflow" parameterType="String" resultType="WorkflowVO">
 		select * from workflow_jo
-		 where wf_code=#{wf_code}	
+		 where wf_code=#{wf_code}
 	</select>
 	
-	<!-- 워크플로우 목록 -->
-	<select id="getWorkflowList" parameterType="WorkflowVO" resultType="com.project.domain.WorkflowVO">
+	<!-- 보낸 워크플로우 목록 -->
+	<select id="getSentWorkflowList" parameterType="WorkflowVO" resultType="com.project.domain.WorkflowVO">
+		select * from workflow_jo
+		 where wf_sender=#{wf_sender} and wf_status=#{wf_status}
+	</select>
+	
+	<!-- 받은 워크플로우 목록 -->
+	<select id="getReceivedWorkflowList" parameterType="WorkflowVO" resultType="com.project.domain.WorkflowVO">
 		select * from workflow_jo
 		 where wf_getter=#{wf_getter} and wf_status=#{wf_status}
 	</select>
+	
+	<!-- 워크플로우 응답 -->
+	<update id="responseWorkflow" parameterType="WorkflowVO">
+		update workflow_jo 
+		 set 
+			 wf_read_date=now(), 
+			 wf_result=#{wf_result} 
+				<choose>
+		            <when test="wf_level='1'">
+		                ,wf_level='2',
+		                wf_comment_1st=#{wf_comment}
+		            </when>
+		            <when test="wf_level='2'">
+		                ,wf_level='3',
+		                wf_comment_2nd=#{wf_comment}
+		            </when>
+		            <when test="wf_level='3'">
+		                ,wf_level='4',
+		                wf_comment_3rd=#{wf_comment},
+				        wf_status='off'
+		            </when>
+		            <otherwise>
+		            </otherwise>
+		        </choose>
+		  where wf_code=#{wf_code}
+	</update>
 	
 	
 	

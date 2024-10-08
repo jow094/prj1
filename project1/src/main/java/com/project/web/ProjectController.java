@@ -1,5 +1,6 @@
 package com.project.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,10 +8,13 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.MemberVO;
 import com.project.domain.WorkflowVO;
@@ -61,15 +65,16 @@ public class ProjectController {
 			logger.debug(" /project/workflow -> workflowGET()실행 ");
 			logger.debug(" 연결된 뷰페이지 (views/project/workflow.jsp)로 이동 ");
 			
-			
 			String userid = (String)session.getAttribute("userid");
 			logger.debug(" workflow 조회 대상 아이디 : "+userid);
 			
-			List<WorkflowVO> workflowList = wService.showWorkflowList(userid,"진행");
+			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(userid,"on");
+			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(userid,"on");
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
-			model.addAttribute("workflowList",workflowList);
+			model.addAttribute("sentWorkflowList",sentWorkflowList);
+			model.addAttribute("receivedWorkflowList",receivedWorkflowList);
 		}
 		
 		// workflow 메인페이지 - GET
@@ -82,11 +87,45 @@ public class ProjectController {
 			String userid = (String)session.getAttribute("userid");
 			logger.debug(" workflow 조회 대상 아이디 : "+userid);
 			
-			List<WorkflowVO> workoffList = wService.showWorkflowList(userid,"완료");
+			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(userid,"off");
+			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(userid,"off");
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
-			model.addAttribute("workoffList",workoffList);
+			model.addAttribute("sentWorkflowList",sentWorkflowList);
+			model.addAttribute("receivedWorkflowList",receivedWorkflowList);
+		}
+		
+		// workflow 상세정보 가져오기 - GET
+		// http://localhost:8088/project/wfread
+		@RequestMapping(value = "/wfread",method = RequestMethod.GET)
+		@ResponseBody
+		public WorkflowVO wfReadGET(@RequestParam("wf_code") String wfCode, HttpSession session) {
+			logger.debug(" /project/wfread -> wfReadGET()실행 ");
+			
+			logger.debug(" 조회 대상 wf_code : "+wfCode);
+			
+			WorkflowVO result = wService.showWorkflow(wfCode);
+			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
+			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
+			logger.debug(" ajax로 보낼 리턴값 : "+result);
+			return result;
+		}
+		
+		// workflow 응답하기 - POST
+		// http://localhost:8088/project/wfresponse
+		@RequestMapping(value = "/wfresponse",method = RequestMethod.POST)
+		public String wfResponsePOST(WorkflowVO vo, HttpSession session) {
+			logger.debug(" /project/wfresponse -> wfResponseGET()실행 ");
+			logger.debug("전달받은 vo :"+vo.toString());
+			
+			logger.debug(" 응답 대상 wf_code : "+vo.getWf_code());
+			vo.setWf_getter((String)session.getAttribute("userid"));
+			logger.debug(" 응답자 id : "+vo.getWf_getter());
+			
+			wService.responseWorkflow(vo);
+			
+			return "redirect:/project/workoff";
 		}
 		
 		

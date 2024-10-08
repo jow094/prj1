@@ -8,10 +8,13 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.project.domain.MemberVO;
 import com.project.domain.WorkflowVO;
+import com.project.service.WorkflowServiceImpl;
 
 /**
  *	 MemberDAO 동작을 수행 
@@ -28,27 +31,51 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 	
 	// Mapper namespace 정보 저장
 	private static final String NAMESPACE = "com.project.mapper.WorkflowMapper";
+	
+	private static final Logger logger = LoggerFactory.getLogger(WorkflowServiceImpl.class);
 
 	@Override
-	public WorkflowVO getWorkflow() {
+	public WorkflowVO getWorkflow(String wf_code) {
+		WorkflowVO result = sqlSession.selectOne(NAMESPACE + ".getWorkflow",wf_code);
+		logger.debug(" 실행 결과 : "+result);
 		
-		
-		return null;
+		return result;
 	}
 
 	@Override
-	public List<WorkflowVO> getWorkflowList(String userid,String status) {
-		System.out.println(" WorkflowDAOImpl : getWorkflowList("+userid+","+status+") 실행");
+	public List<WorkflowVO> getSentWorkflowList(String userid,String status) {
+		logger.debug(" WorkflowDAOImpl : getSentWorkflowList("+userid+","+status+") 실행");
+		
+		WorkflowVO vo = new WorkflowVO();
+		
+		vo.setWf_sender(userid);
+		vo.setWf_status(status);
+		
+		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getSentWorkflowList",vo);
+		logger.debug(" 실행 결과 (개수): "+result.size());
+		
+		return result;
+	}
+	
+	@Override
+	public List<WorkflowVO> getReceivedWorkflowList(String userid,String status) {
+		logger.debug(" WorkflowDAOImpl : getReceivedWorkflowList("+userid+","+status+") 실행");
 		
 		WorkflowVO vo = new WorkflowVO();
 		
 		vo.setWf_getter(userid);
 		vo.setWf_status(status);
 		
-		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getWorkflowList",vo);
-		System.out.println(" 실행 결과 (개수): "+result.size());
+		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getReceivedWorkflowList",vo);
+		logger.debug(" 실행 결과 (개수): "+result.size());
 		
 		return result;
+	}
+
+	@Override
+	public int updateWorkflow(WorkflowVO vo) {
+		logger.debug(" WorkflowDAOImpl : updateWorkflow("+vo+") 실행");
+		return sqlSession.update(NAMESPACE + ".responseWorkflow", vo);
 	}
 	
 	

@@ -13,8 +13,9 @@ import com.project.domain.WorkflowVO;
  */
 public interface WorkflowDAO {
 
-	public WorkflowVO getWorkflow();
-	
-	public List<WorkflowVO> getWorkflowList(String userid,String status);
+	public WorkflowVO getWorkflow(String wf_code);
+	public List<WorkflowVO> getSentWorkflowList(String userid,String status);
+	public List<WorkflowVO> getReceivedWorkflowList(String userid,String status);
+	public int updateWorkflow(WorkflowVO vo);
 	
 }
