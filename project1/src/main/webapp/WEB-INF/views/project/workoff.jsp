@@ -56,11 +56,9 @@
           <div class="page-inner">
 <!------------------------------------------------------------------------------------------------------------------>
           
-			<!-- workflow_header start -->
+			   <!-- workflow_header start -->
             <div class="page-header">
               <h3 class="fw-bold mb-3">WORK FLOW</h3>
-              <br>
-              <a href="/project/workflow">_______On working</a>  /  <h4 class="card-title"> Off working</h4>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                   <a href="#">
@@ -71,7 +69,7 @@
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="#">work flow</a>
+                  <a href="#">WORK FLOW</a>
                 </li>
                 <li class="separator">
                   <i class="icon-arrow-right"></i>
@@ -82,6 +80,15 @@
               </ul>
             </div>
             <!-- workflow_header end -->
+            
+            <!-- workflow_header_2 start -->
+             <div class="page-header">
+              <h5><a href="/project/workflow">&nbsp; On working</a></h5>
+              <h3> &nbsp; / &nbsp; </h3> 
+              <h4 class="card-title">Off working &nbsp; </h4>
+            </div>
+            <!-- workflow_header_2 end -->
+            
             <!-- workflow_sent start -->
 			<div class="row">
               <div class="col-md-6">

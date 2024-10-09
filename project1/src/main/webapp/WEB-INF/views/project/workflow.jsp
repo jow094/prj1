@@ -58,8 +58,6 @@
             <!-- workflow_header start -->
             <div class="page-header">
               <h3 class="fw-bold mb-3">WORK FLOW</h3>
-              <br>
-              <h4 class="card-title">_______ On working</h4> / <a href="/project/workoff">Off working</a>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                   <a href="#">
@@ -70,7 +68,7 @@
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="#">work flow</a>
+                  <a href="#">WORK FLOW</a>
                 </li>
                 <li class="separator">
                   <i class="icon-arrow-right"></i>
@@ -81,6 +79,15 @@
               </ul>
             </div>
             <!-- workflow_header end -->
+            
+            <!-- workflow_header_2 start -->
+             <div class="page-header">
+              <h4 class="card-title">On working &nbsp; </h4> 
+              <h3> &nbsp; / &nbsp; </h3> 
+              <h5><a href="/project/workoff">&nbsp; Off working</a></h5>
+            </div>
+            <!-- workflow_header_2 end -->
+            
             <!-- workflow_sent start -->
 			<div class="row">
               <div class="col-md-6">
@@ -440,40 +447,40 @@
     <script src="${pageContext.request.contextPath }/resources/assets/js/demo.js"></script>
      <script>
       $(document).ready(function () {
-	        $("#multi-filter-select-workflow-sent").DataTable({
-	          pageLength: 5,
-	          initComplete: function () {
-	            this.api()
-	              .columns()
-	              .every(function () {
-	                var column = this;
-	                var select = $(
-	                  '<select class="form-select"><option value=""></option></select>'
-	                )
-	                  .appendTo($(column.footer()).empty())
-	                  .on("change", function () {
-	                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
-	
-	                    column
-	                      .search(val ? "^" + val + "$" : "", true, false)
-	                      .draw();
-	                  });
-	
-	                column
-	                .data()
-	                .unique()
-	                .sort()
-	                .each(function (d, j) {
-	                	console.log(d);
-	                	var text = $(d).text().replace(/\s+/g,'');  // 태그영역을 제거하고 문자만 추출한 뒤 모든 종류의 공백 제거
-	                	console.log(text);  // d만 출력됨
-	                	select.append(
-	    	                    '<option value="' + text + '">' + text + "</option>"
-	                    );
-	                });
-	            });
-	        },
-	      });
+    	  $("#multi-filter-select-workflow-sent").DataTable({
+    		    pageLength: 5,
+    		    initComplete: function () {
+    		        this.api()
+    		            .columns()
+    		            .every(function () {
+    		                var column = this;
+    		                var select = $('<select class="form-select"><option value=""></option></select>')
+    		                    .appendTo($(column.footer()).empty())
+    		                    .on("change", function () {
+    		                        var val = $.fn.dataTable.util.escapeRegex($(this).val().trim());
+    		                        column.search(val ? "^" + val + "$" : "", true, false).draw();
+    		                    });
+
+    		                column
+    		                    .data()
+    		                    .unique()
+    		                    .sort()
+    		                    .each(function (d, j) {
+    		                        console.log("Raw data:", d);
+    		                        var textMatch = d.match(/>([^<]+)</); // 정규 표현식으로 텍스트 추출
+    		                        var text = textMatch ? textMatch[1].trim() : ''; // 공백 제거
+
+    		                        // text가 무엇인지 확인
+    		                        console.log("Processed text:",text);
+
+    		                        // select에 추가하기 전에 확인
+    		                        if (text) {
+    		                            select.append('<option value="' + text + '">' + text + '</option>');
+    		                        }
+    		                    });
+    		            });
+    		    },
+    		});
 
         $("#multi-filter-select-workflow-received").DataTable({
             pageLength: 5,
