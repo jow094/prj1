@@ -85,6 +85,7 @@ public class MemberDAOImpl implements MemberDAO {
 		MemberVO resultVO
 		    = sqlSession.selectOne(NAMESPACE + ".loginMember",vo);		
 		
+		System.out.println(" 로그인 시도 VO : "+vo);
 		System.out.println(" DAO : "+resultVO);
 		
 		return resultVO;

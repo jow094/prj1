@@ -63,7 +63,7 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 		
 		WorkflowVO vo = new WorkflowVO();
 		
-		vo.setWf_getter(userid);
+		vo.setWf_receiver(userid);
 		vo.setWf_status(status);
 		
 		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getReceivedWorkflowList",vo);

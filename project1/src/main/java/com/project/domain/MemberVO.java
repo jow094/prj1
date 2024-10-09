@@ -32,8 +32,8 @@ public class MemberVO {
 	//private String uId; //getUId() (x)
 	//private String userId; //getUserId() (o)
 	
-	private String userid;  // getUserid();
-	private String userpw;
+	private String id;  // getUserid();
+	private String pw;
 	private String username;
 	private String useremail;
 	private Timestamp regdate;

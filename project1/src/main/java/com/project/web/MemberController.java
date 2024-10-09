@@ -104,7 +104,7 @@ public class MemberController {
 			}
 			
 			//사용자의 아이디 정보를 세션 영역에 저장
-			session.setAttribute("userid", resultVO.getUserid());
+			session.setAttribute("userid", resultVO.getId());
 	
 			logger.debug(" 로그인 성공, 메인페이지로 이동 ");
 			

@@ -126,32 +126,32 @@
                           <c:forEach var="workflow" items="${sentWorkflowList}">
 					        <tr>
 					            <td style="text-align: center;">
-					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 					            		${workflow.wf_code}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 						            	${workflow.wf_type}
 						            </a>
 						        </td>
 					            <td>
-						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 			                        	${workflow.wf_title}
 			                        </a>
 		                        </td>
 					            <td style="text-align: center;">
-						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 						            	${workflow.wf_getter}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 					            		${workflow.wf_status}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 					           			<fmt:formatDate value="${workflow.wf_create_date}" pattern="yy.MM.dd HH:mm" />
 					           		</a>
 					           	</td>
@@ -200,32 +200,32 @@
                           <c:forEach var="workflow" items="${receivedWorkflowList}">
 					        <tr>
 					            <td style="text-align: center;">
-					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 					            		${workflow.wf_code}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 						            	${workflow.wf_type}
 						            </a>
 						        </td>
 					            <td>
-						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 			                        	${workflow.wf_title}
 			                        </a>
 		                        </td>
 					            <td style="text-align: center;">
-						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+						            <a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 						            	${workflow.wf_getter}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 					            		${workflow.wf_status}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfread">
+					            	<a data-wfcode="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#wfreadonly">
 					           			<fmt:formatDate value="${workflow.wf_create_date}" pattern="yy.MM.dd HH:mm" />
 					           		</a>
 					           	</td>
@@ -241,98 +241,269 @@
             <!-- workflow_received end -->
             
             <!-- 모달 start-->
-            <div class="modal fade" id="wfread" tabindex="-1" aria-labelledby="wfDetailLabel" aria-hidden="true">
-			    <div class="modal-dialog modal-xl">
+		    <div class="modal fade" id="wfreadonly" tabindex="-1" aria-labelledby="wfDetailLabel" aria-hidden="true">
+				<div class="modal-dialog modal-xl">
 					<!-- modal content start -->
-			        <div class="modal-content">
-			            <div class="modal-header">
-			                <h5 class="modal-title" id="wfDetailLabel">Workflow Detail</h5>
-			                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			            </div>
-			            <div class="modal-body">
-							<!-- card -->
-							<div class="card">
-							  <div class="card-header">
-							    <div class="card-title">Wf_title</div>
-							  </div>
-							<!-- card-body -->
-							<div class="card-body">
-							
-						    	<div class="form-group">
-						    		<label for="smallInput">NUM</label>
-						            <input
-						              type="text"
-						              class="form-control form-control-sm"
-						              id = "wf_code"
-						              readonly
-						            />
-						            <label for="smallInput">TYPE</label>
-						            <input
-						              type="text"
-						              class="form-control form-control-sm"
-						              id = "wf_type"
-						              readonly
-						            />
-						            <label for="smallInput">TITLE</label>
-						            <input
-						              type="text"
-						              class="form-control form-control-sm"
-						              id = "wf_title"
-						              readonly
-						            />
-						            <label for="smallInput">FILE</label>
-						            <input
-						              type="text"
-						              class="form-control form-control-sm"
-						              id = "wf_file"
-						              readonly
-						            />
-						            <label for="smallInput">STATUS</label>
-						            <input
-						              type="text"
-						              class="form-control form-control-sm"
-						              id = "wf_status"
-						              readonly
-						            />
-						            <label for="smallInput">SENDER</label>
-						            <input
-						              type="text"
-						              class="form-control form-control-sm"
-						              id = "wf_sender"
-						              readonly
-						            />
-						            <label for="smallInput">CREATE DATE</label>
-						            <input
-						              type="text"
-						              class="form-control form-control-sm"
-						              id = "wf_create_date"
-						              readonly
-						            />
-						    	</div>
-						    	
-						    	<div class="form-group">
-						        	<label for="comment">Content</label>
-						        		<textarea class="form-control" rows="5" id="wf_content" readonly>
-						        	</textarea>
-						        </div>
-						          
-						        <div class="form-group">
-						        	<label for="comment">Comment</label>
-						        		<textarea class="form-control" rows="5" id="wf_comment" readonly>
-						        	</textarea>
-						        </div>
-			          		
-			                  </div>
-			                  <!-- card-body end -->
-			                </div>
-			                <!-- card end -->
-			                <!-- modal content end -->
-			            </div>
-			            <div class="modal-footer">
-			                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			            </div>
-			        </div>
-			    </div>
+					<div class="modal-content">
+						<!-- modal header start -->
+						<div class="modal-header">
+							<h5 class="modal-title" id="wfDetailLabel">WORKFLOW - Off working</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<!-- modal header end -->
+						<!-- modal body start -->
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card" style="background-color:rgba(0, 0, 0, 0.05);">
+										<div class="card-header">
+											<div class="card-title">READ WORKFLOW</div>
+										</div>
+										<!-- card body start -->
+										<div class="card-body">
+											<form>
+												<div class="row">
+													<div class="col-md-6 col-lg-2">
+														<div class="form-group">
+											                <label class="control-label"> NUM </label>
+											                <p id="wf_code" class="form-control-static"></p>
+									                    </div>
+								                    </div>
+								                    <div class="col-md-6 col-lg-2">
+														<div class="form-group">
+											                <label class="control-label"> TYPE </label>
+											                <p id="wf_type" class="form-control-static"></p>
+									                    </div>
+								                    </div>
+								                    <div class="col-md-6 col-lg-2">
+														<div class="form-group">
+											                <label class="control-label"> STATUS </label>
+											                <p id="wf_status" class="form-control-static"></p>
+									                    </div>
+								                    </div>
+								                    <div class="col-md-6 col-lg-2">
+														<div class="form-group">
+											                <label class="control-label"> DATE </label>
+											                <p id="wf_create_date" class="form-control-static"></p>
+									                    </div>
+								                    </div>
+								                     <div class="col-md-6 col-lg-2">
+														<div class="form-group">
+											                <label class="control-label"> SENDER </label>
+											                <p id="wf_sender" class="form-control-static"></p>
+									                    </div>
+								                    </div>
+								                    <div class="col-md-6 col-lg-2">
+														<div class="form-group">
+											                <label class="control-label"> RECEIVER </label>
+											                <p id="wf_getter" class="form-control-static"></p>
+									                    </div>
+								                    </div>
+												</div>
+												<div class="row">
+													 <div class="col-md-6 col-lg-8">
+														<div class="form-group">
+											                <label class="control-label"> TITLE </label>
+											                <p id="wf_title" class="form-control-static"></p>
+									                    </div>
+									                    <div class="form-group">
+									                        <div class="input-group" style="height: 400px;">
+										                        <span 
+											                        class="input-group-text" 
+											                        style="writing-mode: vertical-lr; text-orientation: upright;">
+										                       		CONTENT
+										                        </span>
+										                        <textarea
+										                        id="wf_content"
+										                        class="form-control"
+										                        aria-label="With textarea"
+										                        readonly>
+										                        </textarea>
+									                         </div>
+								                        </div>
+									                    <div class="form-group">
+											                <label class="control-label"> FILE </label>
+											                <p id="wf_file" class="form-control-static"></p>
+									                    </div>
+								                    </div>
+								                    <div class="col-md-6 col-lg-4">
+								                    	 <!-- 1차승인자 start -->
+									                     <div class="form-group" style="height:100px; display: flex; display: flex; flex-direction:column;">
+									                     	<div style="flex:0.2;">
+									                     		getter_1st
+									                     	</div>
+									                    	<div style="flex:0.8; display: flex; ">
+									                    		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
+									                    			<img src="${pageContext.request.contextPath }/resources/assets/img/jm_denis.jpg"
+														        	alt="img1" 
+														        	style="width: 40px; height: 40px; border-radius: 50%;">
+									                    		</div>
+									                    		<div style="flex:0.4; display: flex; flex-direction:column;">
+									                    			<div style="flex:0.4; font-weight: bold; color: black;">
+									                    				name
+									                    			</div>
+									                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+									                    				department
+										                    		</div>
+										                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+										                    			position
+										                    		</div>
+									                    		</div>
+									                    		<div style="flex:0.4; display: flex; align-items: center; justify-content: center;">
+									                    			result
+									                    		</div>
+									                     	</div>
+									                     </div>
+									                     <!-- 1차승인자 end -->
+									                     <!-- 2차승인자 start -->
+									                     <div class="form-group" style="height:100px; display: flex; display: flex; flex-direction:column;">
+									                     	<div style="flex:0.2;">
+									                     		getter_2st
+									                     	</div>
+									                    	<div style="flex:0.8; display: flex; ">
+									                    		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
+									                    			<img src="${pageContext.request.contextPath }/resources/assets/img/jm_denis.jpg"
+														        	alt="img1" 
+														        	style="width: 40px; height: 40px; border-radius: 50%;">
+									                    		</div>
+									                    		<div style="flex:0.4; display: flex; flex-direction:column;">
+									                    			<div style="flex:0.4; font-weight: bold; color: black;">
+									                    				name
+									                    			</div>
+									                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+									                    				department
+										                    		</div>
+										                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+										                    			position
+										                    		</div>
+									                    		</div>
+									                    		<div style="flex:0.4; display: flex; align-items: center; justify-content: center;">
+									                    			result
+									                    		</div>
+									                     	</div>
+									                     </div>
+									                     <!-- 2차승인자 end -->
+									                     <!-- 3차승인자 start -->
+									                     <div class="form-group" style="height:100px; display: flex; display: flex; flex-direction:column;">
+									                     	<div style="flex:0.2;">
+									                     		getter_3st
+									                     	</div>
+									                    	<div style="flex:0.8; display: flex; ">
+									                    		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
+									                    			<img src="${pageContext.request.contextPath }/resources/assets/img/jm_denis.jpg"
+														        	alt="img1" 
+														        	style="width: 40px; height: 40px; border-radius: 50%;">
+									                    		</div>
+									                    		<div style="flex:0.4; display: flex; flex-direction:column;">
+									                    			<div style="flex:0.4; font-weight: bold; color: black;">
+									                    				name
+									                    			</div>
+									                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+									                    				department
+										                    		</div>
+										                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+										                    			position
+										                    		</div>
+									                    		</div>
+									                    		<div style="flex:0.4; display: flex; align-items: center; justify-content: center;">
+									                    			result
+									                    		</div>
+									                     	</div>
+									                     </div>
+									                     <!-- 3차승인자 end -->
+									                     
+									                     <div class="form-group">
+									                         <label for="comment">Comment</label>
+									                         <textarea class="form-control" id="comment" rows="5" readonly>
+									                         	this workflow is completed at 00:00.
+									                         </textarea>
+								                         </div>
+								                         <div class="form-group">
+															 <label class="form-label">RESULT</label>
+															 <div class="selectgroup w-100">
+															 	<label class="selectgroup-item">
+																	<input
+																	   type="radio"
+																	   name="wf_result"
+																	   value="2"
+																	   class="selectgroup-input"
+																	   checked
+																	 />
+																	<span class="selectgroup-button selectgroup-button-icon">
+										                         		<i class="fas fa-check"></i>
+																	</span>
+																</label>
+																<label class="selectgroup-item">
+																	<input
+																	   type="radio"
+																	   name="wf_result"
+																	   value="2"
+																	   class="selectgroup-input"
+																	   disabled
+																	 />
+																	<span class="selectgroup-button selectgroup-button-icon">
+																		<i class="fas fa-ban"></i>
+																	</span>
+																</label>
+																<label class="selectgroup-item">
+																	<input
+																	   type="radio"
+																	   name="wf_result"
+																	   value="2"
+																	   class="selectgroup-input"
+																	   disabled
+																	 />
+																	<span class="selectgroup-button selectgroup-button-icon">
+																		<i class="fas fa-redo"></i>
+																	</span>
+																</label>
+															 </div>
+														 </div>
+								                    </div>
+												</div>
+											</form>
+										</div>
+										<!-- card-body end -->
+										<div class="card-action">
+											<a href="#">
+												<div style="width: 100%; height: auto; flex-grow: 1; display: flex;">
+												    <!-- 프로필 사진 -->
+												    <div style="width: 5%; display: flex; align-items: center; justify-content: center; padding-right:40px;">
+												        <img src="${pageContext.request.contextPath }/resources/assets/img/jm_denis.jpg"
+												        	 alt="img1" 
+												        	 style="width: 40px; height: 40px; border-radius: 50%;">
+												    </div>
+												    <div style="width: 95%; height: auto; display: flex; flex-direction: column; padding: 5px;">
+												        <!-- 이름 -->
+												        <div style="flex: 0.3; font-weight: bold; color: black;">
+															writer
+												        </div>
+												        <div style="flex: 0.7; display: flex;">
+												      		<!-- 댓글내용 -->
+												            <div style="flex: 0.9; max-width: 90%; overflow-wrap: break-word; color: rgba(0, 0, 0, 0.7);">
+												           		content
+												            </div>
+												      		<!-- 작성시각 -->
+												            <div style="flex: 0.1; color: rgba(0, 0, 0, 0.5); display: flex; align-items: flex-end; justify-content: flex-end;">
+												            	date
+												            </div>
+												        </div>
+												    </div>
+												</div>
+							                </a>
+										</div>
+								   </div>
+								   <!-- card end -->
+							</div> 
+						</div>
+						<!-- modal footer start -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						</div>
+						<!-- modal footer end -->
+					</div>
+					<!-- modal content end -->
+				</div>
 			</div>
             <!-- 모달 end-->
           
@@ -383,114 +554,120 @@
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="${pageContext.request.contextPath }/resources/assets/js/setting-demo.js"></script>
     <script src="${pageContext.request.contextPath }/resources/assets/js/demo.js"></script>
-     <script>
-      $(document).ready(function () {
-        $("#multi-filter-select-workflow-sent").DataTable({
-          pageLength: 5,
-          initComplete: function () {
-            this.api()
-              .columns()
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select class="form-select"><option value=""></option></select>'
-                )
-                  .appendTo($(column.footer()).empty())
-                  .on("change", function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+    <script>
+    $(document).ready(function () {
+	    $("#multi-filter-select-workflow-sent").DataTable({
+			pageLength: 5,
+			initComplete: function () {
+				this.api()
+				.columns()
+				.every(function () {
+					var column = this;
+					var select = $('<select class="form-select"><option value=""></option></select>')
+					.appendTo($(column.footer()).empty())
+					.on("change", function () {
+						var val = $.fn.dataTable.util.escapeRegex($(this).val().trim());
+						column.search(val ? "^\\s*" + val + "\\s*$" : "", true, false).draw();
+					});
+		
+					column
+					.data()
+					.unique()
+					.sort()
+					.each(function (d, j) {
+						var textMatch = d.match(/>([^<]+)</); 
+						var text = textMatch ? textMatch[1].trim() : '';
+			
+						if (text) {
+							select.append('<option value="' + text + '">' + text + '</option>');
+						}
+					});
+				});
+			},
+		});
+	    
+	    $("#multi-filter-select-workflow-received").DataTable({
+			pageLength: 5,
+			initComplete: function () {
+				this.api()
+				.columns()
+				.every(function () {
+					var column = this;
+					var select = $('<select class="form-select"><option value=""></option></select>')
+					.appendTo($(column.footer()).empty())
+					.on("change", function () {
+						var val = $.fn.dataTable.util.escapeRegex($(this).val().trim());
+						column.search(val ? "^\\s*" + val + "\\s*$" : "", true, false).draw();
+					});
+		
+					column
+					.data()
+					.unique()
+					.sort()
+					.each(function (d, j) {
+						var textMatch = d.match(/>([^<]+)</); 
+						var text = textMatch ? textMatch[1].trim() : '';
+			
+						if (text) {
+							select.append('<option value="' + text + '">' + text + '</option>');
+						}
+					});
+				});
+			},
+		});
 
-                    column
-                      .search(val ? "^" + val + "$" : "", true, false)
-                      .draw();
-                  });
+		$('#wfreadonly').on('show.bs.modal', function (e) {
+			 	
+			var button = $(e.relatedTarget);
+			var wfCode = button.data('wfcode');
+			 	
+			$.ajax({
+				url: '/project/wfread',
+				type: 'GET',
+				data: {wf_code: wfCode},
+				success: function (data) {
+					console.log('AJAX success, wf_code :', wfCode);
+					console.log('taken data:', data);
+					console.log('createDate:', data.wf_create_date);
+					         	
+					const DBdate = data.wf_create_date;
+					const date = new Date(DBdate);
+					console.log('date:', date); 
+					         	
+					const resultDate = 
+					String(date.getFullYear()).slice(-2) + '.' + // YY
+					String(date.getMonth() + 1).padStart(2, '0') + '.' + // MM
+					String(date.getDate()).padStart(2, '0') + ' / ' + // DD
+					String(date.getHours()).padStart(2, '0') + ':' + // HH
+					String(date.getMinutes()).padStart(2, '0'); // MM
+					
+					console.log('resultDate:', resultDate); // 변환된 날짜를 출력
+					         	
+					$('#wf_code').text(data.wf_code);
+					$('#wf_type').text(data.wf_type);
+					$('#wf_title').text(data.wf_title);
+					$('#wf_file').text(data.wf_file);
+					$('#wf_status').text(data.wf_status);
+					$('#wf_level').text(data.wf_level);
+					$('#wf_sender').text(data.wf_sender);
+					$('#wf_create_date').text(resultDate);
+					$('#wf_content').text(data.wf_content);
+					$('#wf_getter').text(data.wf_getter);
+					$('#wf_getter_1st').text(data.wf_getter_1st);
+					$('#wf_getter_2nd').text(data.wf_getter_2nd);
+					$('#wf_getter_3rd').text(data.wf_getter_3rd);
+				},
+				error: function(xhr, status, error) {
+					console.error('AJAX 요청 실패:', status, error);
+					console.log('xhr:', xhr);
+				}
+			});
+		});
 
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                	  var plainText = d.match(/>(.*?)</);  // '>'와 '<' 사이의 텍스트를 추출
-	                	if (plainText) {
-	                	  plainText = plainText[1];  // 추출한 값 중 첫 번째 그룹(태그 사이의 텍스트)을 선택
-	                	}
-	                	console.log(plainText);
-	                  select.append(
-	                    '<option value="' + plainText + '">' + plainText + "</option>"
-                    );
-                  });
-              });
-          },
-        });
-        
-        $("#multi-filter-select-workflow-received").DataTable({
-            pageLength: 5,
-            initComplete: function () {
-              this.api()
-                .columns()
-                .every(function () {
-                  var column = this;
-                  var select = $(
-                    '<select class="form-select"><option value=""></option></select>'
-                  )
-                    .appendTo($(column.footer()).empty())
-                    .on("change", function () {
-                      var val = $.fn.dataTable.util.escapeRegex($(this).val());
+	var action =
+    	'<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
 
-                      column
-                        .search(val ? "^" + val + "$" : "", true, false)
-                        .draw();
-                    });
-
-                  column
-                    .data()
-                    .unique()
-                    .sort()
-                    .each(function (d, j) {
-                    	var plainText = d.match(/>(.*?)</);  // '>'와 '<' 사이의 텍스트를 추출
-	                	if (plainText) {
-	                	  plainText = plainText[1];  // 추출한 값 중 첫 번째 그룹(태그 사이의 텍스트)을 선택
-	                	}
-	                	console.log(plainText);
-	                  select.append(
-	                    '<option value="' + plainText + '">' + plainText + "</option>"
-                      );
-                    });
-                });
-            },
-          });
-
-		$('#wfread').on('show.bs.modal', function (e) {
-        	
-        	var button = $(e.relatedTarget);
-            var wfCode = button.data('wfcode');
-        	
-            $.ajax({
-            url: '/project/wfread',
-            type: 'GET',
-            data: {wf_code: wfCode},
-            success: function (data) {
-            		console.log('AJAX 요청 성공, wf_code :', wfCode);
-                	console.log('받은 데이터:', data);
-	            	$('#wf_code').val(data.wf_code);
-	                $('#wf_type').val(data.wf_type);
-	                $('#wf_title').val(data.wf_title);
-	                $('#wf_file').val(data.wf_file);
-	                $('#wf_status').val(data.wf_status);
-	                $('#wf_sender').val(data.wf_sender);
-	                $('#wf_create_date').val(data.wf_create_date);
-	                $('#wf_content').val(data.wf_content);
-	                $('#comment').text(data.wf_comment);
-	            },
-	            error: function(xhr, status, error) {
-	                console.error('AJAX 요청 실패:', status, error);
-	                console.log('xhr:', xhr);
-	            }
-            });
-          });
-
-        var action =
-          '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-      });
+    });
     </script>
   </body>
 </html>

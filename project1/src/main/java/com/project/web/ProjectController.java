@@ -58,7 +58,6 @@ public class ProjectController {
 			logger.debug(" 연결된 뷰페이지 (views/project/main.jsp)로 이동 ");
 		}
 	
-		// workflow 메인페이지 - GET
 		// http://localhost:8088/project/workflow
 		@RequestMapping(value = "/workflow",method = RequestMethod.GET)
 		public void workflowGET(HttpSession session, Model model) {
@@ -68,8 +67,8 @@ public class ProjectController {
 			String userid = (String)session.getAttribute("userid");
 			logger.debug(" workflow 조회 대상 아이디 : "+userid);
 			
-			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(userid,"on");
-			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(userid,"on");
+			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(userid,"1");
+			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(userid,"1");
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
@@ -77,7 +76,6 @@ public class ProjectController {
 			model.addAttribute("receivedWorkflowList",receivedWorkflowList);
 		}
 		
-		// workflow 메인페이지 - GET
 		// http://localhost:8088/project/workoff
 		@RequestMapping(value = "/workoff",method = RequestMethod.GET)
 		public void workoffGET(HttpSession session, Model model) {
@@ -87,8 +85,8 @@ public class ProjectController {
 			String userid = (String)session.getAttribute("userid");
 			logger.debug(" workflow 조회 대상 아이디 : "+userid);
 			
-			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(userid,"off");
-			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(userid,"off");
+			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(userid,"0");
+			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(userid,"0");
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
@@ -120,8 +118,8 @@ public class ProjectController {
 			logger.debug("전달받은 vo :"+vo.toString());
 			
 			logger.debug(" 응답 대상 wf_code : "+vo.getWf_code());
-			vo.setWf_getter((String)session.getAttribute("userid"));
-			logger.debug(" 응답자 id : "+vo.getWf_getter());
+			vo.setWf_receiver((String)session.getAttribute("userid"));
+			logger.debug(" 응답자 id : "+vo.getWf_receiver());
 			
 			wService.responseWorkflow(vo);
 			
@@ -152,13 +150,13 @@ public class ProjectController {
 		
 		 MemberVO resultVO = mService.memberLogin(vo);
 		
-		 if(resultVO == null){ logger.debug(" 로그인 실패, 다시 로그인 페이지로 이동 "); return
-		 "redirect:/project/login"; }
+		 if(resultVO == null){ logger.debug(" 로그인 실패, 다시 로그인 페이지로 이동 "); 
+		 return "redirect:/project/login"; }
 		 
 		 
 		  //사용자의 아이디 정보를 세션 영역에 저장 
 		 
-		 session.setAttribute("userid",resultVO.getUserid());
+		 session.setAttribute("userid",resultVO.getId());
 		 
 		 logger.debug(" 로그인 성공, 메인페이지로 이동 ");
 		 

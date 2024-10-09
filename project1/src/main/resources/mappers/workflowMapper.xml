@@ -8,45 +8,187 @@
 	
 	<!-- 워크플로우 상세 -->
 	<select id="getWorkflow" parameterType="String" resultType="WorkflowVO">
-		select * from workflow_jo
+		select * from workflow
 		 where wf_code=#{wf_code}
 	</select>
 	
 	<!-- 보낸 워크플로우 목록 -->
-	<select id="getSentWorkflowList" parameterType="WorkflowVO" resultType="com.project.domain.WorkflowVO">
-		select * from workflow_jo
+	<select id="getSentWorkflowList" parameterType="WorkflowVO" resultType="WorkflowVO">
+		select * from workflow
 		 where wf_sender=#{wf_sender} and wf_status=#{wf_status}
 	</select>
 	
 	<!-- 받은 워크플로우 목록 -->
-	<select id="getReceivedWorkflowList" parameterType="WorkflowVO" resultType="com.project.domain.WorkflowVO">
-		select * from workflow_jo
-		 where wf_getter=#{wf_getter} and wf_status=#{wf_status}
+	<select id="getReceivedWorkflowList" parameterType="WorkflowVO" resultType="WorkflowVO">
+		select * from workflow
+		 where wf_receiver=#{wf_receiver} and wf_status=#{wf_status}
 	</select>
 	
 	<!-- 워크플로우 응답 -->
 	<update id="responseWorkflow" parameterType="WorkflowVO">
-		update workflow_jo 
+		update workflow
 		 set 
-			 wf_read_date=now(), 
-			 wf_result=#{wf_result} 
 				<choose>
-		            <when test="wf_level='1'">
-		                ,wf_level='2',
-		                wf_comment_1st=#{wf_comment}
+		            <!-- 1차 승인 대기중 -->
+		            <when test="wf_progress='1'">
+		            	<choose>
+		            		<!-- 다음 승인이 필요한 경우 -->
+		            		<when test="wf_receiver_2nd != null">
+		            			<choose>
+		            				<!-- 승인 -->
+		            				<when test="wf_result = '1'">
+		            					wf_progress='2'
+					         		     ,wf_result_1st=#{wf_result}
+					          		     ,wf_comment_1st=#{wf_comment} 
+					         		     ,wf_result_date_1st=now()
+										 ,wf_receiver=#{wf_receiver_2nd}
+		            				</when>
+		            				<!-- 반려 -->
+		            				<when test="wf_result = '0'">
+		            					wf_progress='0'
+				            			 ,wf_result=#{wf_result} 
+							             ,wf_result_1st=#{wf_result}
+							             ,wf_comment_1st=#{wf_comment} 
+				               			 ,wf_result_date=now() 
+							             ,wf_result_date_1st=now()
+				                		 ,wf_status='0' 
+		            				</when>
+		            				<!-- 보류 -->
+		            				<when test="wf_result = '2'">
+					         		     wf_result_1st=#{wf_result}
+					          		     ,wf_comment_1st=#{wf_comment} 
+					         		     ,wf_result_date_1st=now()
+		            				</when>
+		            				<otherwise>
+		           					</otherwise>
+		            			</choose>
+		            		</when>
+		            		<!-- 다음 승인이 필요 없는 경우 -->
+		            		<when test="wf_receiver_2nd == null">
+		                		 <choose>
+		            				<!-- 승인/반려 -->
+		                		 	<when test="wf_result = '1' or wf_result = '0'">
+									    wf_progress='0'
+				            			 ,wf_result=#{wf_result} 
+							             ,wf_result_1st=#{wf_result}
+							             ,wf_comment_1st=#{wf_comment} 
+				               			 ,wf_result_date=now() 
+							             ,wf_result_date_1st=now()
+				                		 ,wf_status='0' 
+									</when>
+		            				<!-- 보류 -->
+		            				<when test="wf_result = '2'">
+					         		     wf_result_1st=#{wf_result}
+					          		     ,wf_comment_1st=#{wf_comment} 
+					         		     ,wf_result_date_1st=now()
+		            				</when>
+		            				<otherwise>
+		           					</otherwise>
+		            			</choose>
+		            		</when>
+		            		<otherwise>
+		           			</otherwise>
+		            	</choose>
 		            </when>
-		            <when test="wf_level='2'">
-		                ,wf_level='3',
-		                wf_comment_2nd=#{wf_comment}
+		            <!-- 1차 승인 완료 -->
+		            
+		            
+		            
+		            
+		            <!-- 2차 승인 대기중 -->
+		            <when test="wf_progress='2'">
+		            	<choose>
+		            		<!-- 다음 승인이 필요한 경우 -->
+		            		<when test="wf_receiver_3nd != null">
+		            			<choose>
+		            				<!-- 승인 -->
+		            				<when test="wf_result = '1'">
+		            					wf_progress='3'
+					         		     ,wf_result_2nd=#{wf_result}
+					          		     ,wf_comment_2nd=#{wf_comment} 
+					         		     ,wf_result_date_2nd=now()
+										 ,wf_receiver=#{wf_receiver_3rd}
+		            				</when>
+		            				<!-- 반려 -->
+		            				<when test="wf_result = '0'">
+		            					wf_progress='0'
+				            			 ,wf_result=#{wf_result} 
+							             ,wf_result_2nd=#{wf_result}
+							             ,wf_comment_2nd=#{wf_comment} 
+				               			 ,wf_result_date=now() 
+							             ,wf_result_date_2nd=now()
+				                		 ,wf_status='0' 
+		            				</when>
+		            				<!-- 보류 -->
+		            				<when test="wf_result = '2'">
+					         		     wf_result_2nd=#{wf_result}
+					          		     ,wf_comment_2nd=#{wf_comment} 
+					         		     ,wf_result_date_2nd=now()
+		            				</when>
+		            				<otherwise>
+		           					</otherwise>
+		            			</choose>
+		            		</when>
+		            		<!-- 다음 승인이 필요 없는 경우 -->
+		            		<when test="wf_receiver_3nd == null">
+		            			<choose>
+		            				<!-- 승인/반려 -->
+		                		 	<when test="wf_result = '1' or wf_result = '0'">
+									    wf_progress='0'
+				            			 ,wf_result=#{wf_result} 
+							             ,wf_result_2nd=#{wf_result}
+							             ,wf_comment_2nd=#{wf_comment} 
+				               			 ,wf_result_date=now() 
+							             ,wf_result_date_2nd=now()
+				                		 ,wf_status='0' 
+									</when>
+		            				<!-- 보류 -->
+		            				<when test="wf_result = '2'">
+					         		     wf_result_2nd=#{wf_result}
+					          		     ,wf_comment_2nd=#{wf_comment} 
+					         		     ,wf_result_date_2nd=now()
+		            				</when>
+		            				<otherwise>
+		           					</otherwise>
+		            			</choose>
+		            		</when>
+		            		<otherwise>
+		           			</otherwise>
+		            	</choose>
 		            </when>
-		            <when test="wf_level='3'">
-		                ,wf_level='4',
-		                wf_comment_3rd=#{wf_comment},
-				        wf_status='off'
+		            <!-- 2차 승인 완료 -->
+		            
+		            
+		            <!-- 3차 승인 대기 -->
+		            <when test="wf_progress='3'">
+		                <choose>
+            				<!-- 승인/반려 -->
+                		 	<when test="wf_result = '1' or wf_result = '0'">
+							    wf_progress='0'
+		            			 ,wf_result=#{wf_result} 
+					             ,wf_result_3rd=#{wf_result}
+					             ,wf_comment_3rd=#{wf_comment} 
+		               			 ,wf_result_date=now() 
+					             ,wf_result_date_3rd=now()
+		                		 ,wf_status='0' 
+							</when>
+            				<!-- 보류 -->
+            				<when test="wf_result = '2'">
+			         		     wf_result_3rd=#{wf_result}
+			          		     ,wf_comment_3rd=#{wf_comment} 
+			         		     ,wf_result_date_3rd=now()
+            				</when>
+            				<otherwise>
+           					</otherwise>
+            			</choose>
 		            </when>
+		            <!-- 3차 승인 완료 -->
+
 		            <otherwise>
 		            </otherwise>
+
 		        </choose>
+		        
 		  where wf_code=#{wf_code}
 	</update>
 	
