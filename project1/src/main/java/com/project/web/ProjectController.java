@@ -130,21 +130,18 @@ public class ProjectController {
 		// workflow 응답하기 - POST
 		// http://localhost:8088/project/wfresponse
 		@RequestMapping(value = "/wfresponse",method = RequestMethod.POST)
-		public String wfResponsePOST(WorkflowVO vo) {
+		public String wfResponsePOST(WorkflowVO uvo) {
 			logger.debug(" /project/wfresponse -> wfResponseGET()실행 ");
-			logger.debug("전달받은 vo :"+vo.toString());
+			logger.debug("전달받은 uvo.wf_code :"+ uvo.getWf_code());
+			logger.debug(" uvo.wf_result : "+uvo.getWf_result());
+			logger.debug(" uvo.wf_comment : "+uvo.getWf_comment());
 			
-			logger.debug(" vo.wf_code : "+vo.getWf_code());
-			logger.debug(" vo.wf_progress : "+vo.getWf_progress());
-			logger.debug(" vo.wf_sender : "+vo.getWf_sender());
-			logger.debug(" vo.wf_receiver : "+vo.getWf_receiver());
-			logger.debug(" vo.wf_receiver_1st : "+vo.getWf_receiver_1st());
-			logger.debug(" vo.wf_receiver_2nd : "+vo.getWf_receiver_2nd());
-			logger.debug(" vo.wf_receiver_3rd : "+vo.getWf_receiver_3rd());
-			logger.debug(" vo.wf_result : "+vo.getWf_result());
-			logger.debug(" vo.wf_comment : "+vo.getWf_comment());
+			WorkflowVO responseVO = wService.showWorkflow(uvo.getWf_code());
+			responseVO.setWf_result(uvo.getWf_result());
+			responseVO.setWf_comment(uvo.getWf_comment());
 			
-			wService.responseWorkflow(vo);
+			logger.debug(" 업로드 할 responseVO : "+ responseVO.toString());
+			wService.responseWorkflow(responseVO);
 			
 			return "redirect:/project/workoff";
 		}
