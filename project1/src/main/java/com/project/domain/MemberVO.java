@@ -33,32 +33,32 @@ public class MemberVO {
 	//private String uId; //getUId() (x)
 	//private String userId; //getUserId() (o)
 	
-	private String id;
-	private String cid;
-	private String pw;
-	private String profile;
-	private String username;
-	private Date birth;
-	private String gender;
-	private String tel;
-	private String email;
-	private String addr;
-	private String dnum;
-	private String position;
-	private String job_id;
-	private int status;
-	private int bnum;
-	private int work_type;
-	private String salary;
-	private String account_num;
-	private String bank_name;
-	private String account_name;
-	private Date start_date;
-	private Date break_date;
-	private Date restart_date;
-	private Date quit_date;
-	private String power;
-	private int level;
+	private String emp_id;
+	private String emp_cid;
+	private String emp_pw;
+	private String emp_profile;
+	private String emp_name;
+	private Date emp_birth;
+	private String emp_gender;
+	private String emp_tel;
+	private String emp_email;
+	private String emp_addr;
+	private String emp_dnum;
+	private String emp_position_id;
+	private String emp_job_id;
+	private int emp_status;
+	private int emp_bnum;
+	private int emp_work_type;
+	private String emp_salary;
+	private String emp_account_num;
+	private String emp_bank_name;
+	private String emp_account_name;
+	private Date emp_start_date;
+	private Date emp_break_date;
+	private Date emp_restart_date;
+	private Date emp_quit_date;
+	private String emp_power;
+	private int emp_level;
 	
 	
 

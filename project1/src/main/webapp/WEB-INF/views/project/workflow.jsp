@@ -299,13 +299,12 @@
 															        	style="width: 40px; height: 40px; border-radius: 50%;">
 										                    		</div>
 										                    		<div style="flex:0.7; display: flex; flex-direction:column; margin-left:10px;">
-										                    			<div style="flex:0.3; font-weight: bold; color: black;" id="wf_sender">
+										                    			<div style="flex:0.3; font-weight: bold; color: black;" id="wf_sender_emp_name">
 										                    				<input type="hidden" id="wf_sender_hidden" name="wf_sender"/>
 										                    			</div>
-										                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
-										                    				department
+										                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_sender_emp_department">
 											                    		</div>
-											                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+											                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_sender_emp_position_id">
 											                    			position
 											                    		</div>
 										                    		</div>
@@ -324,13 +323,13 @@
 															        	style="width: 40px; height: 40px; border-radius: 50%;">
 										                    		</div>
 										                    		<div style="flex:0.7; display: flex; flex-direction:column; margin-left:10px;">
-										                    			<div style="flex:0.3; font-weight: bold; color: black;" id="wf_receiver">
+										                    			<div style="flex:0.3; font-weight: bold; color: black;" id="wf_receiver_emp_name">
 										                    				<input type="hidden" id="wf_receiver_hidden" name="wf_receiver"/>
 										                    			</div>
-										                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+										                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_receiver_emp_department">
 										                    				department
 											                    		</div>
-											                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+											                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_receiver_emp_position_id">
 											                    			position
 											                    		</div>
 										                    		</div>
@@ -370,7 +369,7 @@
 								                    	<!-- 1차승인자 start -->
 									                     <div class="form-group" style="height:100px; display: flex; display: flex; flex-direction:column;">
 									                     	<div style="flex:0.2;">
-									                     		getter_1st
+									                     		FIRST RECEIVER
 									                     	</div>
 									                    	<div style="flex:0.8; display: flex; ">
 									                    		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
@@ -379,13 +378,13 @@
 														        	style="width: 40px; height: 40px; border-radius: 50%;">
 									                    		</div>
 									                    		<div style="flex:0.4; display: flex; flex-direction:column;">
-									                    			<div style="flex:0.4; font-weight: bold; color: black;" id="wf_receiver_1st">
+									                    			<div style="flex:0.4; font-weight: bold; color: black;" id="wf_receiver_1st_emp_name">
 									                    				<input type="hidden" id="wf_receiver_1st_hidden" name="wf_receiver_1st"/>
 									                    			</div>
-									                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+									                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_receiver_1st_emp_department">
 									                    				department
 										                    		</div>
-										                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+										                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_receiver_1st_emp_position_id">
 										                    			position
 										                    		</div>
 									                    		</div>
@@ -401,7 +400,7 @@
 									                     <!-- 2차승인자 start -->
 									                     <div class="form-group" style="height:100px; display: flex; display: flex; flex-direction:column;">
 									                     	<div style="flex:0.2;">
-									                     		getter_2st
+									                     		SECOND RECEIVER
 									                     	</div>
 									                    	<div style="flex:0.8; display: flex; ">
 									                    		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
@@ -410,13 +409,13 @@
 														        	style="width: 40px; height: 40px; border-radius: 50%;">
 									                    		</div>
 									                    		<div style="flex:0.4; display: flex; flex-direction:column;">
-									                    			<div style="flex:0.4; font-weight: bold; color: black;" id="wf_receiver_2nd">
+									                    			<div style="flex:0.4; font-weight: bold; color: black;" id="wf_receiver_2nd_emp_name">
 									                    				<input type="hidden" id="wf_receiver_2nd_hidden" name="wf_receiver_2nd"/>
 									                    			</div>
-									                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+									                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_receiver_2nd_emp_department">
 									                    				department
 										                    		</div>
-										                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+										                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_receiver_2nd_emp_position_id">
 										                    			position
 										                    		</div>
 									                    		</div>
@@ -434,7 +433,7 @@
 									                     <!-- 3차승인자 start -->
 									                     <div class="form-group" style="height:100px; display: flex; display: flex; flex-direction:column;">
 									                     	<div style="flex:0.2;">
-									                     		getter_3st
+									                     		THIRD RECEIVER
 									                     	</div>
 									                    	<div style="flex:0.8; display: flex; ">
 									                    		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
@@ -443,13 +442,13 @@
 														        	style="width: 40px; height: 40px; border-radius: 50%;">
 									                    		</div>
 									                    		<div style="flex:0.4; display: flex; flex-direction:column;">
-									                    			<div style="flex:0.4; font-weight: bold; color: black;" id="wf_receiver_3rd">
+									                    			<div style="flex:0.4; font-weight: bold; color: black;" id="wf_receiver_3rd_emp_name">
 									                    				<input type="hidden" id="wf_receiver_3rd_hidden" name="wf_receiver_3rd"/>
 									                    			</div>
-									                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+									                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_receiver_3rd_emp_department">
 									                    				department
 										                    		</div>
-										                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);">
+										                    		<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_receiver_3rd_emp_position_id">
 										                    			position
 										                    		</div>
 									                    		</div>
@@ -708,22 +707,25 @@
 					$('#wf_create_date').text(getDate(data.resultWVO.wf_create_date));
 					$('#wf_content').text(data.resultWVO.wf_content);
 					
-					$('#wf_sender_name').text(data.senderMVO.username);
-					$('#wf_sender_department').text(data.senderMVO.dnum);
-					$('#wf_sender_position').text(data.senderMVO.position);
+					$('#wf_sender_emp_name').text(data.senderMVO.emp_name);
+					$('#wf_sender_emp_department').text(data.senderMVO.emp_dnum);
+					$('#wf_sender_emp_position_id').text(data.senderMVO.emp_position_id);
 					
-					$('#wf_receiver_name').text(data.resultWVO.wf_receiver);
-					$('#wf_receiver_department').text(data.resultWVO.wf_receiver);
-					$('#wf_receiver_position').text(data.resultWVO.wf_receiver);
-					$('#wf_receiver_1st_name').text(data.resultWVO.wf_receiver_1st);
-					$('#wf_receiver_1st_department').text(data.resultWVO.wf_receiver_1st);
-					$('#wf_receiver_1st_position').text(data.resultWVO.wf_receiver_1st);
-					$('#wf_receiver_2nd_name').text(data.resultWVO.wf_receiver_2nd);
-					$('#wf_receiver_2nd_department').text(data.resultWVO.wf_receiver_2nd);
-					$('#wf_receiver_2nd_position').text(data.resultWVO.wf_receiver_2nd);
-					$('#wf_receiver_3rd_name').text(data.resultWVO.wf_receiver_3rd);
-					$('#wf_receiver_3rd_department').text(data.resultWVO.wf_receiver_3rd);
-					$('#wf_receiver_3rd_position').text(data.resultWVO.wf_receiver_3rd);
+					$('#wf_receiver_emp_name').text(data.receiverMVO.emp_name);
+					$('#wf_receiver_emp_department').text(data.receiverMVO.emp_dnum);
+					$('#wf_receiver_emp_position_id').text(data.receiverMVO.emp_position_id);
+					
+					$('#wf_receiver_1st_emp_name').text(data.receiverMVO1.emp_name);
+					$('#wf_receiver_1st_emp_department').text(data.receiverMVO1.emp_dnum);
+					$('#wf_receiver_1st_emp_position_id').text(data.receiverMVO1.emp_position_id);
+					
+					$('#wf_receiver_2nd_emp_name').text(data.receiverMVO2.emp_name);
+					$('#wf_receiver_2nd_emp_department').text(data.receiverMVO2.emp_dnum);
+					$('#wf_receiver_2nd_emp_position_id').text(data.receiverMVO2.emp_position_id);
+					
+					$('#wf_receiver_3rd_emp_name').text(data.receiverMVO3.emp_name);
+					$('#wf_receiver_3rd_emp_department').text(data.receiverMVO3.emp_dnum);
+					$('#wf_receiver_3rd_emp_position_id').text(data.receiverMVO3.emp_position_id);
 					
 					$('#wf_result_1st').text(data.resultWVO.wf_result_1st);
 					$('#wf_result_2nd').text(data.resultWVO.wf_result_2nd);

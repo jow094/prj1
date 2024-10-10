@@ -14,28 +14,15 @@
 	<!-- 로그인 체크 -->
 	<select id="loginMember" resultType="com.project.domain.MemberVO">
 	   select * from employee
-	   where id=#{id} and pw=#{pw}	
+	   where emp_id=#{emp_id} and enmp_pw=#{emp_pw}	
 	</select>
 	
 	
 	<!-- 회원정보 조회 -->
 	<select id="getMember" resultType="MemberVO">
 		select * from employee
-		 where id=#{id}	
+		 where emp_id=#{emp_id}	
 	</select>
-	
-	
-	<!-- 회원정보 수정 -->
-	<update id="updateMember">
-		update employee set username=#{username}, useremail=#{useremail}, updatedate=now()  
-		where userid=#{userid} and userpw=#{userpw}	
-	</update>
-	
-	<!-- 회원정보 삭제 -->
-	<delete id="deleteMember">
-		delete from employee
-		 where userid = #{userid} and userpw = #{userpw}	
-	</delete>	
 	
 	<!-- 회원정보 목록(list) -->
 	<select id="getMemberList" resultType="MemberVO">
