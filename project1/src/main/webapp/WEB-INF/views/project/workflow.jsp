@@ -276,7 +276,6 @@
 														<div class="form-group">
 											                <label class="control-label"> PROGRESS </label>
 											                <p id="wf_progress" class="form-control-static"></p>
-											                <input type="hidden" id="wf_progress_hidden" name="wf_progress"/>
 									                    </div>
 								                    </div>
 								                    <div class="col-md-6 col-lg-2" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
@@ -298,7 +297,6 @@
 											                    		</div>
 											                    		<div style="flex:0.7; display: flex; flex-direction:column; margin-left:10px;">
 											                    			<div style="flex:0.3; font-weight: bold; color: black;" id="wf_sender_emp_name">
-											                    				<input type="hidden" id="wf_sender_hidden" name="wf_sender"/>
 											                    			</div>
 											                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_sender_emp_dnum">
 												                    		</div>
@@ -323,7 +321,6 @@
 											                    		</div>
 											                    		<div style="flex:0.7; display: flex; flex-direction:column; margin-left:10px;">
 											                    			<div style="flex:0.3; font-weight: bold; color: black;" id="wf_receiver_emp_name">
-											                    				<input type="hidden" id="wf_receiver_hidden" name="wf_receiver"/>
 											                    			</div>
 											                    			<div style="flex:0.3; color: rgba(0, 0, 0, 0.7);" id="wf_receiver_emp_dnum">
 												                    		</div>
@@ -378,7 +375,6 @@
 										                    		</div>
 										                    		<div style="flex:0.4; display: flex; flex-direction:column;">
 										                    			<div style="flex:0.4; font-weight: bold; color: black;" id="wf_receiver_1st_emp_name">
-										                    				<input type="hidden" id="wf_receiver_1st_hidden" name="wf_receiver_1st"/>
 										                    			</div>
 										                    			<div style="flex:0.3;" id="wf_receiver_1st_emp_dnum">
 											                    		</div>
@@ -409,7 +405,6 @@
 										                    		</div>
 										                    		<div style="flex:0.4; display: flex; flex-direction:column;">
 										                    			<div style="flex:0.4; font-weight: bold; color: black;" id="wf_receiver_2nd_emp_name">
-										                    				<input type="hidden" id="wf_receiver_2nd_hidden" name="wf_receiver_2nd"/>
 										                    			</div>
 										                    			<div style="flex:0.3;" id="wf_receiver_2nd_emp_dnum">
 											                    		</div>
@@ -442,7 +437,6 @@
 										                    		</div>
 										                    		<div style="flex:0.4; display: flex; flex-direction:column;">
 										                    			<div style="flex:0.4; font-weight: bold; color: black;" id="wf_receiver_3rd_emp_name">
-										                    				<input type="hidden" id="wf_receiver_3rd_hidden" name="wf_receiver_3rd"/>
 										                    			</div>
 										                    			<div style="flex:0.3;" id="wf_receiver_3rd_emp_dnum">
 											                    		</div>
@@ -721,24 +715,6 @@
 					/* val start */
 					$('#wf_code_hidden').val(data.resultWVO.wf_code);
 					console.log('wf_code for hidden : ', data.resultWVO.wf_code);
-					
-					$('#wf_progress_hidden').val(data.resultWVO.wf_progress);
-					console.log('wf_progress for hidden : ', data.resultWVO.wf_progress);
-					
-					$('#wf_sender_hidden').val(data.resultWVO.wf_sender);
-					console.log('wf_sender for hidden : ', data.resultWVO.wf_sender);
-					
-					$('#wf_receiver_hidden').val(data.resultWVO.wf_receiver);
-					console.log('wf_receiver for hidden : ', data.resultWVO.wf_receiver);
-					
-					$('#wf_receiver_1st_hidden').val(data.resultWVO.wf_receiver_1st);
-					console.log('wf_receiver_1st for hidden : ', data.resultWVO.wf_receiver_1st);
-					
-					$('#wf_receiver_2nd_hidden').val(data.resultWVO.wf_receiver_2nd);
-					console.log('wf_receiver_2nd for hidden : ', data.resultWVO.wf_receiver_2nd);
-					
-					$('#wf_receiver_3rd_hidden').val(data.resultWVO.wf_receiver_3rd);
-					console.log('wf_receiver_3rd for hidden : ', data.resultWVO.wf_receiver_3rd);
 					/* val end */
 					
 					/* wf_info start */

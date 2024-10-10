@@ -46,10 +46,10 @@ public class MemberVO {
 	private String emp_dnum;
 	private String emp_position;
 	private String emp_job;
-	private int emp_status;
-	private int emp_bnum;
-	private int emp_work_type;
-	private String emp_salary;
+	private String emp_status;
+	private String emp_bnum;
+	private String emp_work_type;
+	private int emp_salary;
 	private String emp_account_num;
 	private String emp_bank_name;
 	private String emp_account_name;
@@ -58,7 +58,7 @@ public class MemberVO {
 	private Date emp_restart_date;
 	private Date emp_quit_date;
 	private String emp_power;
-	private int emp_level;
+	private String emp_level;
 	
 	
 
