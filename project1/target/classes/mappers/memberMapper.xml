@@ -14,7 +14,7 @@
 	<!-- 로그인 체크 -->
 	<select id="loginMember" resultType="com.project.domain.MemberVO">
 	   select * from employee
-	   where emp_id=#{emp_id} and enmp_pw=#{emp_pw}	
+	   where emp_id=#{emp_id} and emp_pw=#{emp_pw}	
 	</select>
 	
 	

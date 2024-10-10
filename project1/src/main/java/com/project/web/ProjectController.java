@@ -130,13 +130,19 @@ public class ProjectController {
 		// workflow 응답하기 - POST
 		// http://localhost:8088/project/wfresponse
 		@RequestMapping(value = "/wfresponse",method = RequestMethod.POST)
-		public String wfResponsePOST(WorkflowVO vo, HttpSession session) {
+		public String wfResponsePOST(WorkflowVO vo) {
 			logger.debug(" /project/wfresponse -> wfResponseGET()실행 ");
 			logger.debug("전달받은 vo :"+vo.toString());
 			
-			logger.debug(" 응답 대상 wf_code : "+vo.getWf_code());
-			vo.setWf_receiver((String)session.getAttribute("userid"));
-			logger.debug(" 응답자 id : "+vo.getWf_receiver());
+			logger.debug(" vo.wf_code : "+vo.getWf_code());
+			logger.debug(" vo.wf_progress : "+vo.getWf_progress());
+			logger.debug(" vo.wf_sender : "+vo.getWf_sender());
+			logger.debug(" vo.wf_receiver : "+vo.getWf_receiver());
+			logger.debug(" vo.wf_receiver_1st : "+vo.getWf_receiver_1st());
+			logger.debug(" vo.wf_receiver_2nd : "+vo.getWf_receiver_2nd());
+			logger.debug(" vo.wf_receiver_3rd : "+vo.getWf_receiver_3rd());
+			logger.debug(" vo.wf_result : "+vo.getWf_result());
+			logger.debug(" vo.wf_comment : "+vo.getWf_comment());
 			
 			wService.responseWorkflow(vo);
 			

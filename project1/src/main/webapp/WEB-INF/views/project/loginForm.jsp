@@ -45,11 +45,11 @@
 									<ul class="form">
 										<li class="clear">
 											<label class="tit must">아이디</label>
-											<div class="blank"><input type="text" name="id" placeholder="아이디를 입력해주세요."/></div>
+											<div class="blank"><input type="text" name="emp_id" placeholder="아이디를 입력해주세요."/></div>
 										</li>
 										<li class="clear">
 											<label class="tit must">비밀번호</label>
-											<div class="blank"><input type="password" name="pw" placeholder="비밀번호를 입력해주세요."/></div>
+											<div class="blank"><input type="password" name="emp_pw" placeholder="비밀번호를 입력해주세요."/></div>
 										</li>
 									</ul>
 									<input type="hidden" name="bno" value="${oldDto.bno }">

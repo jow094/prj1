@@ -44,8 +44,8 @@ public class MemberVO {
 	private String emp_email;
 	private String emp_addr;
 	private String emp_dnum;
-	private String emp_position_id;
-	private String emp_job_id;
+	private String emp_position;
+	private String emp_job;
 	private int emp_status;
 	private int emp_bnum;
 	private int emp_work_type;

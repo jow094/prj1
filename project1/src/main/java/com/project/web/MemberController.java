@@ -1,6 +1,7 @@
 package com.project.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.MemberVO;
 import com.project.persistence.MemberDAO;
@@ -151,6 +153,20 @@ public class MemberController {
 			logger.debug(" 연결된 뷰 페이지 이동");
 			
 		}
+		
+		// 회원정보 조회 - GET
+		
+			@RequestMapping(value = "/memberInfoModal",method = RequestMethod.GET)
+			@ResponseBody
+			public MemberVO memberInfoModal(String emp_id) {
+				logger.debug("/member/memberInfoModal -> memberInfoModal() 실행");
+				logger.debug(" 조회 대상 아이디 : "+emp_id);
+				
+				MemberVO resultVO = mService.memberInfo(emp_id);
+				logger.debug(" 조회 결과 : "+resultVO);
+				
+				return resultVO;
+			}
 		
 		// 회원정보 수정 - 입력 (GET)
 		
