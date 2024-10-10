@@ -98,24 +98,27 @@ public class ProjectController {
 		// http://localhost:8088/project/wfread
 		@RequestMapping(value = "/wfread",method = RequestMethod.GET)
 		@ResponseBody
-		public WorkflowVO wfReadGET(@RequestParam("wf_code") String wfCode, HttpSession session, Model model) {
+		public void wfReadGET(@RequestParam("wf_code") String wfCode, HttpSession session, Model model) {
 			logger.debug(" /project/wfread -> wfReadGET()실행 ");
 			
 			logger.debug(" 조회 대상 wf_code : "+wfCode);
 			
 			
 			WorkflowVO resultWVO = wService.showWorkflow(wfCode);
-			List <MemberVO> memberList = new ArrayList<MemberVO>();
-			MemberVO resultMVO = mService.memberInfo(resultWVO.getWf_sender());
-			MemberVO resultMVO = mService.memberInfo(resultWVO.getWf_sender());
-			MemberVO resultMVO = mService.memberInfo(resultWVO.getWf_sender());
-			MemberVO resultMVO = mService.memberInfo(resultWVO.getWf_sender());
+			MemberVO senderMVO = mService.memberInfo(resultWVO.getWf_sender());
+			MemberVO receiverMVO1 = mService.memberInfo(resultWVO.getWf_sender());
+			MemberVO receiverMVO2 = mService.memberInfo(resultWVO.getWf_sender());
+			MemberVO receiverMVO3 = mService.memberInfo(resultWVO.getWf_sender());
 			
+			model.addAttribute("resultWVO",resultWVO);
+			model.addAttribute("senderMVO",senderMVO);
+			model.addAttribute("receiverMVO1",receiverMVO1);
+			model.addAttribute("receiverMVO2",receiverMVO2);
+			model.addAttribute("receiverMVO3",receiverMVO3);
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
-			logger.debug(" ajax로 보낼 리턴값 : "+result);
-			return result;
+			logger.debug(" ajax로 보낼 리턴값 : "+model);
 		}
 		
 		// workflow 응답하기 - POST
