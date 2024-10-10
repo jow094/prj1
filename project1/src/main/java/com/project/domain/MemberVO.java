@@ -1,5 +1,6 @@
 package com.project.domain;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import org.springframework.stereotype.Repository;
@@ -32,12 +33,33 @@ public class MemberVO {
 	//private String uId; //getUId() (x)
 	//private String userId; //getUserId() (o)
 	
-	private String id;  // getUserid();
+	private String id;
+	private String cid;
 	private String pw;
+	private String profile;
 	private String username;
-	private String useremail;
-	private Timestamp regdate;
-	private Timestamp updatedate;
+	private Date birth;
+	private String gender;
+	private String tel;
+	private String email;
+	private String addr;
+	private String dnum;
+	private String position;
+	private String job_id;
+	private int status;
+	private int bnum;
+	private int work_type;
+	private String salary;
+	private String account_num;
+	private String bank_name;
+	private String account_name;
+	private Date start_date;
+	private Date break_date;
+	private Date restart_date;
+	private Date quit_date;
+	private String power;
+	private int level;
+	
 	
 
 }

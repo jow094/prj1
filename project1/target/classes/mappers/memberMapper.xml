@@ -21,7 +21,7 @@
 	<!-- 회원정보 조회 -->
 	<select id="getMember" resultType="MemberVO">
 		select * from employee
-		 where userid=#{userid}	
+		 where id=#{id}	
 	</select>
 	
 	
