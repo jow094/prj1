@@ -1,7 +1,9 @@
 package com.project.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -94,11 +96,10 @@ public class ProjectController {
 			model.addAttribute("receivedWorkflowList",receivedWorkflowList);
 		}
 		
-		// workflow 상세정보 가져오기 - GET
 		// http://localhost:8088/project/wfread
 		@RequestMapping(value = "/wfread",method = RequestMethod.GET)
 		@ResponseBody
-		public void wfReadGET(@RequestParam("wf_code") String wfCode, HttpSession session, Model model) {
+		public Map<String, Object> wfReadGET(@RequestParam("wf_code") String wfCode) {
 			logger.debug(" /project/wfread -> wfReadGET()실행 ");
 			
 			logger.debug(" 조회 대상 wf_code : "+wfCode);
@@ -106,19 +107,24 @@ public class ProjectController {
 			
 			WorkflowVO resultWVO = wService.showWorkflow(wfCode);
 			MemberVO senderMVO = mService.memberInfo(resultWVO.getWf_sender());
-			MemberVO receiverMVO1 = mService.memberInfo(resultWVO.getWf_sender());
-			MemberVO receiverMVO2 = mService.memberInfo(resultWVO.getWf_sender());
-			MemberVO receiverMVO3 = mService.memberInfo(resultWVO.getWf_sender());
+			MemberVO receiverMVO = mService.memberInfo(resultWVO.getWf_receiver());
+			MemberVO receiverMVO1 = mService.memberInfo(resultWVO.getWf_receiver_1st());
+			MemberVO receiverMVO2 = mService.memberInfo(resultWVO.getWf_receiver_2nd());
+			MemberVO receiverMVO3 = mService.memberInfo(resultWVO.getWf_receiver_3rd());
 			
-			model.addAttribute("resultWVO",resultWVO);
-			model.addAttribute("senderMVO",senderMVO);
-			model.addAttribute("receiverMVO1",receiverMVO1);
-			model.addAttribute("receiverMVO2",receiverMVO2);
-			model.addAttribute("receiverMVO3",receiverMVO3);
+			Map<String, Object> resultMap = new HashMap<String,Object>();
+			
+			resultMap.put("resultWVO",resultWVO);
+			resultMap.put("senderMVO",senderMVO);
+			resultMap.put("receiverMVO",receiverMVO);
+			resultMap.put("receiverMVO1",receiverMVO1);
+			resultMap.put("receiverMVO2",receiverMVO2);
+			resultMap.put("receiverMVO3",receiverMVO3);
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
-			logger.debug(" ajax로 보낼 리턴값 : "+model);
+			logger.debug(" ajax로 보낼 리턴값 : "+resultMap);
+			return resultMap;
 		}
 		
 		// workflow 응답하기 - POST

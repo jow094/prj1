@@ -512,7 +512,7 @@
 										                         <button
 										                         class="btn btn-black btn-border"
 										                         type="submit"
-										                         style="width:100%";
+										                         style="width:100%;"
 										                         >
 										                         SUBMIT
 										                         </button>
@@ -699,25 +699,38 @@
 					        String(date.getMinutes()).padStart(2, '0');
 					};
 					         	
-					$('#wf_code').text(data.wf_code);
-					$('#wf_type').text(data.wf_type);
-					$('#wf_title').text(data.wf_title);
-					$('#wf_file').text(data.wf_file);
-					$('#wf_progress').text(data.wf_progress);
-					$('#wf_level').text(data.wf_level);
-					$('#wf_sender').text(data.wf_sender);
-					$('#wf_create_date').text(getDate(data.wf_create_date));
-					$('#wf_content').text(data.wf_content);
-					$('#wf_receiver').text(data.wf_receiver);
-					$('#wf_receiver_1st').text(data.wf_receiver_1st);
-					$('#wf_receiver_2nd').text(data.wf_receiver_2nd);
-					$('#wf_receiver_3rd').text(data.wf_receiver_3rd);
-					$('#wf_result_1st').text(data.wf_result_1st);
-					$('#wf_result_2nd').text(data.wf_result_2nd);
-					$('#wf_result_3rd').text(data.wf_result_3rd);
-		            $('#wf_result_date_1st').text(getDate(data.wf_result_date_1st));
-		            $('#wf_result_date_2nd').text(getDate(data.wf_result_date_2nd));
-		            $('#wf_result_date_3rd').text(getDate(data.wf_result_date_3rd));
+					$('#wf_code').text(data.resultWVO.wf_code);
+					$('#wf_type').text(data.resultWVO.wf_type);
+					$('#wf_title').text(data.resultWVO.wf_title);
+					$('#wf_file').text(data.resultWVO.wf_file);
+					$('#wf_progress').text(data.resultWVO.wf_progress);
+					$('#wf_level').text(data.resultWVO.wf_level);
+					$('#wf_create_date').text(getDate(data.resultWVO.wf_create_date));
+					$('#wf_content').text(data.resultWVO.wf_content);
+					
+					$('#wf_sender_name').text(data.senderMVO.username);
+					$('#wf_sender_department').text(data.senderMVO.dnum);
+					$('#wf_sender_position').text(data.senderMVO.position);
+					
+					$('#wf_receiver_name').text(data.resultWVO.wf_receiver);
+					$('#wf_receiver_department').text(data.resultWVO.wf_receiver);
+					$('#wf_receiver_position').text(data.resultWVO.wf_receiver);
+					$('#wf_receiver_1st_name').text(data.resultWVO.wf_receiver_1st);
+					$('#wf_receiver_1st_department').text(data.resultWVO.wf_receiver_1st);
+					$('#wf_receiver_1st_position').text(data.resultWVO.wf_receiver_1st);
+					$('#wf_receiver_2nd_name').text(data.resultWVO.wf_receiver_2nd);
+					$('#wf_receiver_2nd_department').text(data.resultWVO.wf_receiver_2nd);
+					$('#wf_receiver_2nd_position').text(data.resultWVO.wf_receiver_2nd);
+					$('#wf_receiver_3rd_name').text(data.resultWVO.wf_receiver_3rd);
+					$('#wf_receiver_3rd_department').text(data.resultWVO.wf_receiver_3rd);
+					$('#wf_receiver_3rd_position').text(data.resultWVO.wf_receiver_3rd);
+					
+					$('#wf_result_1st').text(data.resultWVO.wf_result_1st);
+					$('#wf_result_2nd').text(data.resultWVO.wf_result_2nd);
+					$('#wf_result_3rd').text(data.resultWVO.wf_result_3rd);
+		            $('#wf_result_date_1st').text(getDate(data.resultWVO.wf_result_date_1st));
+		            $('#wf_result_date_2nd').text(getDate(data.resultWVO.wf_result_date_2nd));
+		            $('#wf_result_date_3rd').text(getDate(data.resultWVO.wf_result_date_3rd));
 					
 					$('#wf_code_hidden').val(data.wf_code);
 					$('#wf_progress_hidden').val(data.wf_progress);
