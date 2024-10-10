@@ -718,26 +718,22 @@
 					/* wf_result text end */
 					
 					/* comment start */
-					<!-- comment 1 start -->
+					/* comment 1 start */
 					if (data.resultWVO.wf_comment_1st != null) {
 						$('#commentSection').append(`
 							<a href="#">
 								<div style="width: 100%; height: auto; flex-grow: 1; display: flex;">
-								    <!-- 프로필 사진 -->
 								    <div style="width: 5%; display: flex; align-items: center; justify-content: center; padding-right:40px;">
 								        <img src="${pageContext.request.contextPath }/resources/assets/img/jm_denis.jpg"
 								        	 alt="img1" 
 								        	 style="width: 40px; height: 40px; border-radius: 50%;">
 								    </div>
 								    <div style="width: 95%; height: auto; display: flex; flex-direction: column; padding: 5px;">
-								        <!-- 이름 -->
 								        <div style="flex: 0.3; font-weight: bold; color: black;" id="comment_wf_receiver_1st_emp_name">
 								        </div>
 								        <div style="flex: 0.7; display: flex;">
-								      		<!-- 댓글내용 -->
 								            <div style="flex: 0.9; max-width: 90%; overflow-wrap: break-word; color: rgba(0, 0, 0, 0.7);" id="comment_wf_comment_1st">
 								            </div>
-								      		<!-- 작성시각 -->
 								            <div style="flex: 0.1; color: rgba(0, 0, 0, 0.5); display: flex; align-items: flex-end; justify-content: flex-end;" id="comment_wf_result_date_1st">
 								            </div>
 								        </div>
@@ -751,27 +747,23 @@
 			    	} else {
 			    				console.log('No comment_1st available');
 			    			}
-					<!-- comment 1 end -->
-					<!-- comment 2 start -->
+					/* comment 1 end */
+					/* comment 2 start */
 					if (data.resultWVO.wf_comment_2nd != null) {
 						$('#commentSection').append(`
 							<a href="#">
 								<div style="width: 100%; height: auto; flex-grow: 1; display: flex;">
-								    <!-- 프로필 사진 -->
 								    <div style="width: 5%; display: flex; align-items: center; justify-content: center; padding-right:40px;">
 								        <img src="${pageContext.request.contextPath }/resources/assets/img/jm_denis.jpg"
 								        	 alt="img1" 
 								        	 style="width: 40px; height: 40px; border-radius: 50%;">
 								    </div>
 								    <div style="width: 95%; height: auto; display: flex; flex-direction: column; padding: 5px;">
-								        <!-- 이름 -->
 								        <div style="flex: 0.3; font-weight: bold; color: black;" id="comment_wf_receiver_2nd_emp_name">
 								        </div>
 								        <div style="flex: 0.7; display: flex;">
-								      		<!-- 댓글내용 -->
 								            <div style="flex: 0.9; max-width: 90%; overflow-wrap: break-word; color: rgba(0, 0, 0, 0.7);" id="comment_wf_comment_2nd">
 								            </div>
-								      		<!-- 작성시각 -->
 								            <div style="flex: 0.1; color: rgba(0, 0, 0, 0.5); display: flex; align-items: flex-end; justify-content: flex-end;" id="comment_wf_result_date_2nd">
 								            </div>
 								        </div>
@@ -785,27 +777,23 @@
 			    	} else {
 			    				console.log('No comment_2nd available');
 			    			}
-					<!-- comment 2 end -->
-					<!-- comment 3 start -->
+					/* comment 2 end */
+					/* comment 3 start */
 					if (data.resultWVO.wf_comment_3rd != null) {
 						$('#commentSection').append(`
 							<a href="#">
 								<div style="width: 100%; height: auto; flex-grow: 1; display: flex;">
-								    <!-- 프로필 사진 -->
 								    <div style="width: 5%; display: flex; align-items: center; justify-content: center; padding-right:40px;">
 								        <img src="${pageContext.request.contextPath }/resources/assets/img/jm_denis.jpg"
 								        	 alt="img1" 
 								        	 style="width: 40px; height: 40px; border-radius: 50%;">
 								    </div>
 								    <div style="width: 95%; height: auto; display: flex; flex-direction: column; padding: 5px;">
-								        <!-- 이름 -->
 								        <div style="flex: 0.3; font-weight: bold; color: black;" id="comment_wf_receiver_3rd_emp_name">
 								        </div>
 								        <div style="flex: 0.7; display: flex;">
-								      		<!-- 댓글내용 -->
 								            <div style="flex: 0.9; max-width: 90%; overflow-wrap: break-word; color: rgba(0, 0, 0, 0.7);" id="comment_wf_comment_3rd">
 								            </div>
-								      		<!-- 작성시각 -->
 								            <div style="flex: 0.1; color: rgba(0, 0, 0, 0.5); display: flex; align-items: flex-end; justify-content: flex-end;" id="comment_wf_result_date_3rd">
 								            </div>
 								        </div>
@@ -819,8 +807,7 @@
 			    	} else {
 			    				console.log('No comment_3rd available');
 			    			}
-					<!-- comment 3 end -->
-					/* comment end */
+					/* comment 3 end */
 					
 					/* val start */
 					$('#wf_code_hidden').val(data.wf_code);
