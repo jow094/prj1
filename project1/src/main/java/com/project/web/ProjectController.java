@@ -97,29 +97,29 @@ public class ProjectController {
 		}
 		
 		// http://localhost:8088/project/wfread
-		@RequestMapping(value = "/wfread",method = RequestMethod.GET)
+		@RequestMapping(value = "/readWorkflow",method = RequestMethod.GET)
 		@ResponseBody
-		public Map<String, Object> wfReadGET(@RequestParam("wf_code") String wfCode) {
-			logger.debug(" /project/wfread -> wfReadGET()실행 ");
+		public Map<String, Object> readWorkflow(@RequestParam("wf_code") String wfCode) {
+			logger.debug(" /project/readWorkflow -> readWorkflow()실행 ");
 			
 			logger.debug(" 조회 대상 wf_code : "+wfCode);
 			
 			
-			WorkflowVO resultWVO = wService.showWorkflow(wfCode);
-			MemberVO senderMVO = mService.memberInfo(resultWVO.getWf_sender());
-			MemberVO receiverMVO = mService.memberInfo(resultWVO.getWf_receiver());
-			MemberVO receiverMVO1 = mService.memberInfo(resultWVO.getWf_receiver_1st());
-			MemberVO receiverMVO2 = mService.memberInfo(resultWVO.getWf_receiver_2nd());
-			MemberVO receiverMVO3 = mService.memberInfo(resultWVO.getWf_receiver_3rd());
+			WorkflowVO workflowVO = wService.showWorkflow(wfCode);
+			MemberVO senderVO = mService.memberInfo(workflowVO.getWf_sender());
+			MemberVO receiverVO = mService.memberInfo(workflowVO.getWf_receiver());
+			MemberVO receiver_1st_VO = mService.memberInfo(workflowVO.getWf_receiver_1st());
+			MemberVO receiver_2nd_VO = mService.memberInfo(workflowVO.getWf_receiver_2nd());
+			MemberVO receiver_3rd_VO = mService.memberInfo(workflowVO.getWf_receiver_3rd());
 			
 			Map<String, Object> resultMap = new HashMap<String,Object>();
 			
-			resultMap.put("resultWVO",resultWVO);
-			resultMap.put("senderMVO",senderMVO);
-			resultMap.put("receiverMVO",receiverMVO);
-			resultMap.put("receiverMVO1",receiverMVO1);
-			resultMap.put("receiverMVO2",receiverMVO2);
-			resultMap.put("receiverMVO3",receiverMVO3);
+			resultMap.put("workflowVO",workflowVO);
+			resultMap.put("senderVO",senderVO);
+			resultMap.put("receiverVO",receiverVO);
+			resultMap.put("receiver_1st_VO",receiver_1st_VO);
+			resultMap.put("receiver_2nd_VO",receiver_2nd_VO);
+			resultMap.put("receiver_3rd_VO",receiver_3rd_VO);
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
@@ -130,8 +130,8 @@ public class ProjectController {
 		// workflow 응답하기 - POST
 		// http://localhost:8088/project/wfresponse
 		@RequestMapping(value = "/wfresponse",method = RequestMethod.POST)
-		public String wfResponsePOST(WorkflowVO uvo) {
-			logger.debug(" /project/wfresponse -> wfResponseGET()실행 ");
+		public String responseWorkflow(WorkflowVO uvo) {
+			logger.debug(" /project/responseWorkflow -> responseWorkflow()실행 ");
 			logger.debug("전달받은 uvo.wf_code :"+ uvo.getWf_code());
 			logger.debug(" uvo.wf_result : "+uvo.getWf_result());
 			logger.debug(" uvo.wf_comment : "+uvo.getWf_comment());
