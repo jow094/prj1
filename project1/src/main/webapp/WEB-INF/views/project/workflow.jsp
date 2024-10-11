@@ -555,7 +555,10 @@
 					                    			</div>
 					                    			<div style="flex:0.8; color: rgba(0, 0, 0, 0.7);">
 					                    				<p id="emp_dnum"></p>
+					                    				<p id="emp_bnum"></p>
 					                    				<p id="emp_position"></p>
+					                    				<p id="emp_tel"></p>
+					                    				<p id="emp_email"></p>
 						                    		</div>
 					                    		</div>
 					                    	</div>
@@ -894,7 +897,10 @@
 		            
 		            $('#emp_name').text(emp.emp_name);
 					$('#emp_dnum').text(emp.emp_dnum);
+					$('#emp_bnum').text(emp.emp_bnum);
 					$('#emp_position').text(emp.emp_position);
+					$('#emp_tel').text(emp.emp_tel);
+					$('#emp_email').text(emp.emp_email);
 		        },
 		        error: function(xhr, status, error) {
 		            console.error('AJAX 요청 실패:', status, error);
