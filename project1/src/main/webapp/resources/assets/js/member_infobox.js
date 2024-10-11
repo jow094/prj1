@@ -24,12 +24,4 @@ $(document).ready(function () {
 	    });
 	});
 
-	$('#get_employee_info').on('hidden.bs.modal', function (e) {
-		console.log('get_employee_info modal is closed.');
-	    $(this).css({
-	        'top': '',
-	        'left': '',
-	        'transform': ''
-	    });
-	});
 });

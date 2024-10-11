@@ -66,11 +66,11 @@ public class ProjectController {
 			logger.debug(" /project/workflow -> workflowGET()실행 ");
 			logger.debug(" 연결된 뷰페이지 (views/project/workflow.jsp)로 이동 ");
 			
-			String userid = (String)session.getAttribute("userid");
-			logger.debug(" workflow 조회 대상 아이디 : "+userid);
+			String emp_id = (String)session.getAttribute("emp_id");
+			logger.debug(" workflow 조회 대상 아이디 : "+emp_id);
 			
-			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(userid,"1");
-			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(userid,"1");
+			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(emp_id,"1");
+			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(emp_id,"1");
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
@@ -84,11 +84,11 @@ public class ProjectController {
 			logger.debug(" /project/workoff -> workoffGET()실행 ");
 			logger.debug(" 연결된 뷰페이지 (views/project/workoff.jsp)로 이동 ");
 			
-			String userid = (String)session.getAttribute("userid");
-			logger.debug(" workflow 조회 대상 아이디 : "+userid);
+			String emp_id = (String)session.getAttribute("emp_id");
+			logger.debug(" workflow 조회 대상 아이디 : "+emp_id);
 			
-			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(userid,"0");
-			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(userid,"0");
+			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(emp_id,"0");
+			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(emp_id,"0");
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
@@ -99,12 +99,12 @@ public class ProjectController {
 		// http://localhost:8088/project/wfread
 		@RequestMapping(value = "/readWorkflow",method = RequestMethod.GET)
 		@ResponseBody
-		public Map<String, Object> readWorkflow(@RequestParam("wf_code") String wfCode) {
+		public Map<String, Object> readWorkflow(@RequestParam("wf_code") String wfCode, HttpSession session) {
 			logger.debug(" /project/readWorkflow -> readWorkflow()실행 ");
 			
 			logger.debug(" 조회 대상 wf_code : "+wfCode);
 			
-			
+			String emp_id = (String)session.getAttribute("emp_id");
 			WorkflowVO workflowVO = wService.showWorkflow(wfCode);
 			MemberVO senderVO = mService.memberInfo(workflowVO.getWf_sender());
 			MemberVO receiverVO = mService.memberInfo(workflowVO.getWf_receiver());
@@ -114,6 +114,7 @@ public class ProjectController {
 			
 			Map<String, Object> resultMap = new HashMap<String,Object>();
 			
+			resultMap.put("login_id",emp_id);
 			resultMap.put("workflowVO",workflowVO);
 			resultMap.put("senderVO",senderVO);
 			resultMap.put("receiverVO",receiverVO);
@@ -162,23 +163,23 @@ public class ProjectController {
 			
 		@RequestMapping(value = "/login",method = RequestMethod.POST)
 		public String loginPost(MemberVO vo,HttpSession session, Model model) {
-	    //public String loginMemberPost(@RequestParam("userid") String userid, @ModelAttribute("userpw") String userpw {
+	    //public String loginMemberPost(@RequestParam("emp_id") String emp_id, @ModelAttribute("emp_pw") String emp_pw {
 			logger.debug(" /project/login(POST) -> loginPOST()실행 ");
-
+	
 			// 전달정보(파라메터) 저장
 			logger.debug(" vo :"+vo);
-		
-		 MemberVO resultVO = mService.memberLogin(vo);
-		
-		 if(resultVO == null){ logger.debug(" 로그인 실패, 다시 로그인 페이지로 이동 "); 
-		 return "redirect:/project/login"; }
-		 
-		 
-		  //사용자의 아이디 정보를 세션 영역에 저장 
-		 
-		 session.setAttribute("userid",resultVO.getEmp_id());
-		 
-		 logger.debug(" 로그인 성공, 메인페이지로 이동 ");
+			
+			 MemberVO resultVO = mService.memberLogin(vo);
+			
+			 if(resultVO == null){ logger.debug(" 로그인 실패, 다시 로그인 페이지로 이동 "); 
+			 return "redirect:/project/login"; }
+			 
+			 
+			  //사용자의 아이디 정보를 세션 영역에 저장 
+			 session.removeAttribute("emp_id");
+			 session.setAttribute("emp_id",resultVO.getEmp_id());
+			 
+			 logger.debug(" 로그인 성공, 메인페이지로 이동 ");
 		 
 			return "redirect:/project/main";
 		}

@@ -15,8 +15,7 @@
 								<div class="form-group" style= "display: flex; height: 400px; flex-direction:column;">
 									<div style="display: flex; flex:0.5;">
 			                    		<div style="display: flex; flex:0.5; align-items: center; justify-content: center;">
-			                    			<img src="${pageContext.request.contextPath }/resources/assets/img/jm_denis.jpg"
-								        	alt="img1" 
+			                    			<img src=""
 								        	style="width: 100px; height: 100px; border-radius: 50%;">
 			                    		</div>
 			                    		<div style="flex:0.5; display: flex; flex-direction:column;">
