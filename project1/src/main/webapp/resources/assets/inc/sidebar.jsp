@@ -51,29 +51,13 @@
                   </ul>
                 </div>
               </li>
-              <!-- workflow start-->
-             <li class="nav-item active">
-                <a
-                  data-bs-toggle="collapse"
-                  href="#dashboard"
-                  class="collapsed"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-home"></i>
-                  <p>Workflow</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="dashboard">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="../project/workflow">
-                        <span class="sub-item">Workflow</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+              
+              <li class="nav-item">
+		          <a href="../project/workflow">
+		          	<span class="sub-item">WORK FLOW</span>
+		          </a>
               </li>
-              <!-- workflow end-->
+              
               <li class="nav-section">
                 <span class="sidebar-mini-icon">
                   <i class="fa fa-ellipsis-h"></i>
