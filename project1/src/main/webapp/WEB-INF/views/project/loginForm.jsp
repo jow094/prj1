@@ -37,11 +37,7 @@
 					
 					<!-- bodytext_area -->
 					<div class="bodytext_area box_center">
-							<form action="" method="post" class="info">
-								<input type="hidden" name = "oldURL" value="<%=request.getParameter("oldURL")%>">	
-								<fieldset class = "info">
-									<legend>로그인 양식</legend>
-									<!-- 이전 페이지 정보 저장 -->
+							<form action="" method="post" class="info" id="loginForm">
 									<ul class="form">
 										<li class="clear">
 											<label class="tit must">아이디</label>
@@ -52,13 +48,11 @@
 											<div class="blank"><input type="password" name="emp_pw" placeholder="비밀번호를 입력해주세요."/></div>
 										</li>
 									</ul>
-									<input type="hidden" name="bno" value="${oldDto.bno }">
 									<p class="btn_line" >
 										<a><input type= "submit" value="로그인" class="btn_basic"></a> 
 										<a href="./MemberJoin.me"><input type= "button" value="회원가입" class="btn_basic"></a>
 										<a href="./Main.me"><input type= "button" value="메인으로" class="btn_basic"></a>
 									</p>	
-								</fieldset>
 							</form>
 					</div>
 					<!-- //bodytext_area -->
@@ -74,6 +68,5 @@
 		
 
 	<%@ include file="/resources/assets/inc/footer.jsp" %>
-
 </body>
 </html>

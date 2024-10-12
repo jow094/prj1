@@ -44,6 +44,14 @@ public class WorkflowServiceImpl implements WorkflowService{
 	}
 	
 	@Override
+	public List<WorkflowVO> showSentWorkflowList(String userid,String status,String AlarmToken) {
+		logger.debug("WorkflowServiceImpl : showSentWorkflowList(String userid,String status) 실행");
+		List<WorkflowVO> workflowList = wdao.getSentWorkflowList(userid,status,AlarmToken);
+		
+		return workflowList;
+	}
+	
+	@Override
 	public List<WorkflowVO> showReceivedWorkflowList(String userid,String status) {
 		logger.debug("WorkflowServiceImpl : showReceivedWorkflowList(String userid,String status) 실행");
 		List<WorkflowVO> workflowList = wdao.getReceivedWorkflowList(userid,status);

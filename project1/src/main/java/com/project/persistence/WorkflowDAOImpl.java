@@ -58,6 +58,21 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 	}
 	
 	@Override
+	public List<WorkflowVO> getSentWorkflowList(String userid,String status,String AlarmToken) {
+		logger.debug(" WorkflowDAOImpl : getSentWorkflowList("+userid+","+status+") 실행");
+		
+		WorkflowVO vo = new WorkflowVO();
+		
+		vo.setWf_sender(userid);
+		vo.setWf_status(status);
+		
+		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getRecentSentWorkflowList",vo);
+		logger.debug(" 실행 결과 (개수): "+result.size());
+		
+		return result;
+	}
+	
+	@Override
 	public List<WorkflowVO> getReceivedWorkflowList(String userid,String status) {
 		logger.debug(" WorkflowDAOImpl : getReceivedWorkflowList("+userid+","+status+") 실행");
 		

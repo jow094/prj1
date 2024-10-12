@@ -166,19 +166,16 @@ public class ProjectController {
 		}
 		
 		@RequestMapping(value = "/login",method = RequestMethod.POST)
-		public String loginPOST(MemberVO vo,HttpSession session) {
-			logger.debug(" /project/login(GET) -> loginGET()실행 ");
+		public String loginPOST(MemberVO vo,HttpSession session,Model model) {
+			logger.debug(" /project/login(GET) -> loginPOST()실행 ");
 			logger.debug(" /project/loginForm.jsp");
 			MemberVO resultVO = mService.memberLogin(vo);
 			
-			if(resultVO == null) {
-			return "/project/loginForm";
-				}
-			
 			session.removeAttribute("emp_id");
 			session.setAttribute("emp_id", resultVO.getEmp_id());
+			session.setAttribute("logined", true);
 			
-			return "/project/main";
+			return "redirect:/project/main";
 		}
 			
 		// http://localhost:8088/project/checkAlarm
@@ -207,20 +204,35 @@ public class ProjectController {
 		}
 		
 		// http://localhost:8088/project/checkUnread
-		@RequestMapping(value = "/checkUnread",method = RequestMethod.GET)
+		@RequestMapping(value = "/checkUnread",method = RequestMethod.POST)
 		@ResponseBody
 		public Map<String, Object> checkUnread(HttpSession session) {
 			
 			String emp_id = (String)session.getAttribute("emp_id");
 			logger.debug(" checkUnread for "+ emp_id);
 			
-			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(emp_id,"1");
+			Map<String, Object> resultMap = new HashMap<String,Object>();
+			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(emp_id,"0","1");
 			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(emp_id,"1");
 			
-			Map<String, Object> resultMap = new HashMap<String,Object>();
-			resultMap.put("sentWorkflowList", sentWorkflowList);
-			resultMap.put("receivedWorkflowList", receivedWorkflowList);
+			for (int i = 0; i<receivedWorkflowList.size(); i++) {
+				resultMap.put("workflow_sender_"+i,mService.memberInfo(receivedWorkflowList.get(i).getWf_sender())); //
+				resultMap.put("receivedWorkflow_"+i, receivedWorkflowList.get(i));
+			}
 			
+			resultMap.put("emp_id", emp_id);
+			resultMap.put("receivedWorkflow_count", receivedWorkflowList.size());
+			resultMap.put("sentWorkflowList", sentWorkflowList);
+			
+			for (int i = 0; i < sentWorkflowList.size(); i++) {
+				waService.checkAlarmedWorkflow(sentWorkflowList.get(i).getWf_code());
+			}
+			
+			for (int i = 0; i < receivedWorkflowList.size(); i++) {
+				waService.checkAlarmedWorkflow(receivedWorkflowList.get(i).getWf_code());
+			}
+			
+			session.removeAttribute("logined");
 			logger.debug(" ajax로 보낼 리턴값 : " + resultMap);
 			return resultMap;
 		}

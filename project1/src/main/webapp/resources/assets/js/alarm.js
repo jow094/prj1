@@ -1,21 +1,5 @@
 $(document).ready(function () {
 	
-	function checkUnread() {
-		$.ajax({
-	        url: '/project/checkUnread',
-			type: 'GET',
-	        success: function(data) {
-	        	console.log('unread Alarm : ', data);
-	            if (data != null) {
-	                showAlarm(data);
-	            }
-	        },
-	        error: function(err) {
-	            console.error('Error fetching data:', err);
-	        }
-	    });
-	}
-	
 	function checkAlarm() {
 		$.ajax({
 	        url: '/project/checkAlarm',
@@ -40,6 +24,5 @@ $(document).ready(function () {
 	    */	
 	}
 	
-	checkUnread();
 	setInterval(checkAlarm, 10000);
 });
