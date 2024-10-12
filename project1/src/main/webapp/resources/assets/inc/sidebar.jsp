@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script src="${pageContext.request.contextPath }/resources/assets/js/core/jquery-3.7.1.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/assets/js/core/bootstrap.min.js"></script>
+    
       <!-- Sidebar -->
       <div class="sidebar" data-background-color="dark">
         <div class="sidebar-logo">
@@ -290,3 +292,6 @@
         </div>
       </div>
       <!-- End Sidebar -->
+      
+      
+<script src="${pageContext.request.contextPath }/resources/assets/js/alarm.js"></script>

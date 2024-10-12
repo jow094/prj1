@@ -5,7 +5,7 @@ $(document).ready(function () {
 	    const date = new Date(stringDate);
 	    return String(date.getFullYear()).slice(-2) + '.' +
 		       String(date.getMonth() + 1).padStart(2, '0') + '.' +
-		       String(date.getDate()).padStart(2, '0') + ' / ' +
+		       String(date.getDate()).padStart(2, '0') + '_' +
 		       String(date.getHours()).padStart(2, '0') + ':' +
 		       String(date.getMinutes()).padStart(2, '0');
 	};
@@ -18,12 +18,13 @@ $(document).ready(function () {
 	var receiver_2nd_VO;
 	var receiver_3rd_VO;
 	
-	$('.workflow_modal').on('show.bs.modal', function (e) {
-
-		var button = $(e.relatedTarget);
+	$('.workflow_table').on('click', 'a[data-wf_code]', function (e) {
+		
+	    var button = $(this);
 	    var wf_code = button.data('wf_code');
 	    
-
+	    console.trace();
+	    console.log('workflow_modal is opened.');
 	    console.log('AJAX requested for wf_code :', wf_code); // wf_code 값 출력
 		
 		$.ajax({
@@ -66,11 +67,9 @@ $(document).ready(function () {
 				$('#wf_receiver_1st_emp_position').text(receiver_1st_VO.emp_position);
 				/* set workflow basic info end*/
 				
-				if (receiver_2nd_VO != null) {
+				/* set receivers start */
+				if (data.receiver_2nd_VO != null) {
 					receiver_2nd_VO = data.receiver_2nd_VO;
-					$('#wf_receiver_2nd_emp_name').text(receiver_2nd_VO.emp_name);
-					$('#wf_receiver_2nd_emp_dnum').text(receiver_2nd_VO.emp_dnum);
-					$('#wf_receiver_2nd_emp_position').text(receiver_2nd_VO.emp_position);
 					$('#receivers').append(`
 						<div class="form-group get_receiver_2nd" style="height:100px; display: flex; flex-direction:column; ">
 		                	<div style="flex:0.2;">
@@ -100,13 +99,13 @@ $(document).ready(function () {
 		                    </a>
 		                </div>
                     `);
+					$('#wf_receiver_2nd_emp_name').text(receiver_2nd_VO.emp_name);
+					$('#wf_receiver_2nd_emp_dnum').text(receiver_2nd_VO.emp_dnum);
+					$('#wf_receiver_2nd_emp_position').text(receiver_2nd_VO.emp_position);
 				}
 				
-				if (receiver_3rd_VO != null) {
+				if (data.receiver_3rd_VO != null) {
 					receiver_3rd_VO = data.receiver_3rd_VO;
-					$('#wf_receiver_3rd_emp_name').text(receiver_3rd_VO.emp_name);
-					$('#wf_receiver_3rd_emp_dnum').text(receiver_3rd_VO.emp_dnum);
-					$('#wf_receiver_3rd_emp_position').text(receiver_3rd_VO.emp_position);
 					$('#receivers').append(`
 						<div class="form-group get_receiver_3rd" style="height:100px; display: flex; flex-direction:column; ">
 		                	<div style="flex:0.2;">
@@ -136,7 +135,11 @@ $(document).ready(function () {
 		                    </a>
 		                </div>
                     `);
+					$('#wf_receiver_3rd_emp_name').text(receiver_3rd_VO.emp_name);
+					$('#wf_receiver_3rd_emp_dnum').text(receiver_3rd_VO.emp_dnum);
+					$('#wf_receiver_3rd_emp_position').text(receiver_3rd_VO.emp_position);
 				}
+				/* set receivers end */
 				
 				/* set result start */
 				if(workflowVO.wf_result_1st != null){
@@ -189,38 +192,19 @@ $(document).ready(function () {
 		        appendComment(receiver_3rd_VO, workflowVO.wf_comment_3rd, workflowVO.wf_result_date_3rd, 'get_receiver_3rd');
 		        /* set comment end */
 		        
+		        /* modify form as status start*/
+		        const div_card = document.querySelector('.card'); 
+		        const div_select = document.querySelector('#select_result'); 
+		        const div_approval = document.querySelector('#approval'); 
+		        const div_reject = document.querySelector('#reject'); 
+		        const div_hold = document.querySelector('#hold'); 
+		        const div_submit = document.querySelector('#submit_button'); 
+		        const textarea_comment = document.querySelector('#wf_comment'); 
 		        
-		        const div_card = document.querySelector('.card'); // 색깔변경할거임
-		        const origin_div_card = window.getComputedStyle(div_card).backgroundColor;
-		        
-		        const div_approval = document.querySelector('#approval'); // 안보이게 할거임
-		        const origin_div_approval = window.getComputedStyle(div_approval).display;
-		        
-		        const div_reject = document.querySelector('#reject'); // 안보이게 할거임
-		        const origin_div_reject = window.getComputedStyle(div_reject).display;
-		        
-		        const div_hold = document.querySelector('#hold'); // 안보이게 할거임
-		        const origin_div_hold = window.getComputedStyle(div_hold).display;
-		        
-		        const div_submit = document.querySelector('#submit_button'); //안보이게 할거임
-		        const origin_div_submit = window.getComputedStyle(div_submit).display;
-		        
-		        const textarea_comment = document.querySelector('#wf_comment'); // 벨류도 주고 리드온리도 줄거임
-		        
-		        div_card.style.backgroundColor = origin_div_card;
-		    	textarea_comment.value = '';
-		    	textarea_comment.removeAttribute('readonly');
-		    	div_submit.style.display=origin_div_submit_button;
-		    	div_approval.style.display=origin_div_approval;
-		    	div_reject.style.display=origin_div_reject;
-		    	div_hold.style.display=origin_div_hold;
-		    	textarea_comment.style.paddingTop = '0';
-		        
-    			/* 끝난거 */
 	    		if(workflowVO.wf_status == '0'){
 	    			
 		    		div_card.style.backgroundColor = 'rgb(200,200,200)';
-		    	    textarea_comment.value = '해당 요청은 '+ getDate(workflowVO.wf_result_date) +'에 종료 되었습니다.';
+		    	    textarea_comment.value = '해당 요청은  '+ getDate(workflowVO.wf_result_date) +'  에 종료 되었습니다.';
 		    	    textarea_comment.readOnly = true;
 		    	    div_submit.style.display='none';
 		    	    
@@ -238,15 +222,24 @@ $(document).ready(function () {
 		    	    }
 	    		}else{
 	    			if (login_id != workflowVO.wf_receiver) {
-	    				div_approval.style.display='none';
-	    				div_reject.style.display='none';
-		    	    	div_hold.style.display='none';
+	    				div_select.style.display='none';
 		    	    	div_submit.style.display='none';
 	    				textarea_comment.value = '해당 요청의 현재 담당자가 아닙니다.';
 			    	    textarea_comment.readOnly = true;
 			    	    textarea_comment.style.paddingTop = '60px';
+	    			}else{
+	    				div_card.style.backgroundColor = '#fff';
+	    		    	textarea_comment.value = '';
+	    		    	textarea_comment.removeAttribute('readonly');
+	    		    	textarea_comment.style.paddingTop = '0';
+	    		    	div_submit.style.display='block';
+	    		    	div_approval.style.display='block';
+		    	    	div_reject.style.display='block';
+		    	    	div_hold.style.display='block';
 	    			}
 		    	}
+	    		/* modify form as status end*/
+	    		
 		        
 			},
 			error: function(xhr, status, error) {
@@ -256,37 +249,57 @@ $(document).ready(function () {
 		});
 	});
 	
-	$('.workflow_modal').on('click', '.get_sender', function() {
+	$('#workflow_modal').on('click', '#get_sender', function() {
 	    $('#get_employee_info').data('emp_id', workflowVO.wf_sender).modal('show');
 	});
 
-	$('.workflow_modal').on('click', '.get_receiver', function() {
+	$('#workflow_modal').on('click', '#get_receiver', function() {
 		$('#get_employee_info').data('emp_id', workflowVO.wf_receiver).modal('show');
 	});
 
-	$('.workflow_modal').on('click', '.get_receiver_1st', function() {
+	$('#workflow_modal').on('click', '.get_receiver_1st', function() {
 	    $('#get_employee_info').data('emp_id', workflowVO.wf_receiver_1st).modal('show');
 	});
 
-	$('.workflow_modal').on('click', '.get_receiver_2nd', function() {
+	$('#workflow_modal').on('click', '.get_receiver_2nd', function() {
 	    $('#get_employee_info').data('emp_id', workflowVO.wf_receiver_2nd).modal('show');
 	});
 
-	$('.workflow_modal').on('click', '.get_receiver_3rd', function() {
+	$('#workflow_modal').on('click', '.get_receiver_3rd', function() {
 	    $('#get_employee_info').data('emp_id', workflowVO.wf_receiver_3rd).modal('show');
 	});
 	
-	$('.workflow_modal').on('hidden.bs.modal', function (e) {
-	    console.log('workflow_modal is closed.');
-
-	    if (!$('.workflow_modal').hasClass('show')) {
+	$('#workflow_modal').on('click', '.get_receiver_3rd', function() {
+	    $('#get_employee_info').data('emp_id', workflowVO.wf_receiver_3rd).modal('show');
+	});
+	
+	$('#submit_button .btn').off('click').on('click', function(e) {
+        e.preventDefault();
+        var result = $('input[name="wf_result"]:checked').val();
+        console.log('check result : ', result);
+    	
+    	if (!result) {
+    	        e.preventDefault();
+    	        alert("해당 요청에 대한 승인여부를 체크해주세요.");
+	    }else{
+	        if (result === "1") {
+	            alert("해당 요청을 승인 처리하였습니다.");
+	        } else if (result === "0") {
+	            alert("해당 요청을 반려 처리하였습니다.");
+	        } else if (result === "2") {
+	            alert("해당 요청을 보류 처리하였습니다.");
+	        }
+	        $('#workflow_response_submit').submit();
+	    }
+    });
+	
+	$('#workflow_modal').off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+		
+	    	console.log('workflow_modal is closed.');
 	        $('#commentSection').empty();
 	        $('.get_receiver_2nd').remove();
 	        $('.get_receiver_3rd').remove();
-	        
-	    }
 	});
-	
 });
 
 	

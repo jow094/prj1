@@ -101,7 +101,7 @@
                     <h4 class="card-title">SENT</h4>
                   </div>
                   <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="workflow_table">
                       <table
                         class="display table table-striped table-hover multi-filter-select"
                       >
@@ -125,36 +125,36 @@
                             <th>DATE</th>
                           </tr>
                         </tfoot>
-                        <tbody>
+                        <tbody class="workflow_modal">
                           <c:forEach var="workflow" items="${sentWorkflowList}">
 					        <tr>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					            		${workflow.wf_code}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 						            	${workflow.wf_type}
 						            </a>
 						        </td>
 					            <td>
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 			                        	${workflow.wf_title}
 			                        </a>
 		                        </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 						            	${workflow.wf_receiver}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					            		${workflow.wf_status}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					           			<fmt:formatDate value="${workflow.wf_create_date}" pattern="yy.MM.dd HH:mm" />
 					           		</a>
 					           	</td>
@@ -174,7 +174,7 @@
                     <h4 class="card-title">RECEIVED</h4>
                   </div>
                   <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="workflow_table">
                       <table
                         class="display table table-striped table-hover multi-filter-select"
                       >
@@ -202,32 +202,32 @@
                           <c:forEach var="workflow" items="${receivedWorkflowList}">
 					        <tr>
 					           <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					            		${workflow.wf_code}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 						            	${workflow.wf_type}
 						            </a>
 						        </td>
 					            <td>
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 			                        	${workflow.wf_title}
 			                        </a>
 		                        </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 						            	${workflow.wf_sender}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					            		${workflow.wf_status}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					           			<fmt:formatDate value="${workflow.wf_create_date}" pattern="yy.MM.dd HH:mm" />
 					           		</a>
 					           	</td>
@@ -293,7 +293,6 @@
 	<script src="${pageContext.request.contextPath }/resources/assets/js/multi_filter_select_table.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/assets/js/workflow_infobox.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/assets/js/member_infobox.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/assets/js/validate.js"></script>
     
   </body>
 </html>

@@ -60,7 +60,7 @@
         <div class="container">
           <div class="page-inner">
 <!------------------------------------------------------------------------------------------------------------------>
-             <!-- workflow_header start -->
+           <!-- workflow_header start -->
             <div class="page-header">
               <h3 class="fw-bold mb-3">WORK FLOW</h3>
               <ul class="breadcrumbs mb-3">
@@ -79,7 +79,7 @@
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="#">On working</a>
+                  <a href="#">Off working</a>
                 </li>
               </ul>
             </div>
@@ -96,12 +96,12 @@
             <!-- workflow_sent start -->
 			<div class="row">
               <div class="col-md-6">
-                <div class="card">
+                <div class="card" style="background-color: rgb(240,240,240);">
                   <div class="card-header">
                     <h4 class="card-title">SENT</h4>
                   </div>
                   <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="workflow_table">
                       <table
                         class="display table table-striped table-hover multi-filter-select"
                       >
@@ -125,36 +125,36 @@
                             <th>DATE</th>
                           </tr>
                         </tfoot>
-                        <tbody>
+                        <tbody class="workflow_modal">
                           <c:forEach var="workflow" items="${sentWorkflowList}">
 					        <tr>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					            		${workflow.wf_code}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 						            	${workflow.wf_type}
 						            </a>
 						        </td>
 					            <td>
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 			                        	${workflow.wf_title}
 			                        </a>
 		                        </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 						            	${workflow.wf_receiver}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					            		${workflow.wf_status}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					           			<fmt:formatDate value="${workflow.wf_create_date}" pattern="yy.MM.dd HH:mm" />
 					           		</a>
 					           	</td>
@@ -169,12 +169,12 @@
             <!-- workflow_sent end -->
             <!-- workflow_received start -->
               <div class="col-md-6">
-                <div class="card">
+                <div class="card" style="background-color: rgb(240,240,240);">
                   <div class="card-header">
                     <h4 class="card-title">RECEIVED</h4>
                   </div>
                   <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="workflow_table">
                       <table
                         class="display table table-striped table-hover multi-filter-select"
                       >
@@ -202,32 +202,32 @@
                           <c:forEach var="workflow" items="${receivedWorkflowList}">
 					        <tr>
 					           <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					            		${workflow.wf_code}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 						            	${workflow.wf_type}
 						            </a>
 						        </td>
 					            <td>
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 			                        	${workflow.wf_title}
 			                        </a>
 		                        </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 						            	${workflow.wf_sender}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					            		${workflow.wf_status}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target=".workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
 					           			<fmt:formatDate value="${workflow.wf_create_date}" pattern="yy.MM.dd HH:mm" />
 					           		</a>
 					           	</td>
@@ -293,7 +293,6 @@
 	<script src="${pageContext.request.contextPath }/resources/assets/js/multi_filter_select_table.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/assets/js/workflow_infobox.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/assets/js/member_infobox.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/assets/js/validate.js"></script>
     
   </body>
 </html>

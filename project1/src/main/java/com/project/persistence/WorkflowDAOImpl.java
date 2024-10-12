@@ -77,8 +77,10 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 		logger.debug(" WorkflowDAOImpl : updateWorkflow("+vo+") 실행");
 		return sqlSession.update(NAMESPACE + ".responseWorkflow", vo);
 	}
-	
-	
-	
+
+	@Override
+	public List<WorkflowVO> checkWorkflow(String emp_id) {
+		return sqlSession.selectList(NAMESPACE + ".getReceiveWorkflowAlarm",emp_id);
+	}
 	
 }

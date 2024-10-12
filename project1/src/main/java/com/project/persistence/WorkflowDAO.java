@@ -17,5 +17,5 @@ public interface WorkflowDAO {
 	public List<WorkflowVO> getSentWorkflowList(String userid,String status);
 	public List<WorkflowVO> getReceivedWorkflowList(String userid,String status);
 	public int updateWorkflow(WorkflowVO vo);
-	
+	public List<WorkflowVO> checkWorkflow(String emp_id);
 }

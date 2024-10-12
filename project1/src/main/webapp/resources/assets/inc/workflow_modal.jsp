@@ -2,7 +2,7 @@
 <script src="${pageContext.request.contextPath }/resources/assets/js/core/bootstrap.min.js"></script>
 
 <!-- workflow_modal modal start-->
-<div class="modal fade workflow_modal" tabindex="1" aria-labelledby="wfDetail" aria-hidden="true">
+<div class="modal fade" id="workflow_modal" tabindex="1" aria-labelledby="wfDetail" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 		<!-- modal content start -->
 		<div class="modal-content" style="background-color: rgba(0,0,0,0.3);">
@@ -50,7 +50,7 @@
 											<div class="form-group" >
 								                <label class="control-label"> SENDER </label>
 								                <a href="#">
-									                <div class="form-group get_sender" style="height:80px; display: flex;">
+									                <div class="form-group" id="get_sender" style="height:80px; display: flex;">
 								                    	<div style="display: flex; ">
 								                    		<div style="display: flex; flex:0.3; align-items: center; justify-content: center;">
 								                    			<img src=""
@@ -73,7 +73,7 @@
 											<div class="form-group">
 								                <label class="control-label"> RECEIVER </label>
 								                <a href="#">
-								            		<div class="form-group get_receiver" style="height:80px; display: flex;">
+								            		<div class="form-group" id="get_receiver" style="height:80px; display: flex;">
 								                    	<div style="display: flex; ">
 								                    		<div style="display: flex; flex:0.3; align-items: center; justify-content: center;">
 								                    			<img src=""
@@ -225,7 +225,3 @@
 	</div>
 </div>
 <!-- workflow_modal modal end-->
-<script src="${pageContext.request.contextPath }/resources/assets/js/validate.js"></script>
-<script>
-	validate("workflow_response_submit","wf_result","result for this request");
-</script>

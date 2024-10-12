@@ -45,12 +45,6 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public MemberVO memberLogin(MemberVO vo) {
-		logger.debug("컨트롤러 -> 서비스");
-		logger.debug("로그인 메서드 memberLogin(MemberVO vo) 실행");
-		logger.debug("서비스 -> DAO");
-		logger.debug("DAO -> 서비스");
-		logger.debug("서비스 -> 컨트롤러");
-		
 		return mdao.checkMember(vo);
 	}
 	

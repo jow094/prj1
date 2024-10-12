@@ -4,7 +4,6 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.project.mapper.WorkflowMapper">
-	<!-- namespace를 사용해서 mapper 파일을 찾아오는 주소 설정 -->
 	
 	<!-- 워크플로우 상세 -->
 	<select id="getWorkflow" parameterType="String" resultType="WorkflowVO">
@@ -29,13 +28,10 @@
 		update workflow
 		 set 
 				<choose>
-		            <!-- 1차 승인 대기중 -->
 		            <when test="wf_progress='1'">
 		            	<choose>
-		            		<!-- 다음 승인이 필요한 경우 -->
 		            		<when test="wf_receiver_2nd != null">
 		            			<choose>
-		            				<!-- 승인 -->
 		            				<when test="wf_result = '1'">
 		            					wf_progress='2'
 					         		     ,wf_result_1st=#{wf_result}
@@ -43,7 +39,6 @@
 					         		     ,wf_result_date_1st=now()
 										 ,wf_receiver=#{wf_receiver_2nd}
 		            				</when>
-		            				<!-- 반려 -->
 		            				<when test="wf_result = '0'">
 		            					wf_progress='0'
 				            			 ,wf_result=#{wf_result} 
@@ -53,7 +48,6 @@
 							             ,wf_result_date_1st=now()
 				                		 ,wf_status='0' 
 		            				</when>
-		            				<!-- 보류 -->
 		            				<when test="wf_result = '2'">
 					         		     wf_result_1st=#{wf_result}
 					          		     ,wf_comment_1st=#{wf_comment} 
@@ -63,10 +57,8 @@
 		           					</otherwise>
 		            			</choose>
 		            		</when>
-		            		<!-- 다음 승인이 필요 없는 경우 -->
 		            		<when test="wf_receiver_2nd == null">
 		                		 <choose>
-		            				<!-- 승인/반려 -->
 		                		 	<when test="wf_result = '1' or wf_result = '0'">
 									    wf_progress='0'
 				            			 ,wf_result=#{wf_result} 
@@ -76,7 +68,6 @@
 							             ,wf_result_date_1st=now()
 				                		 ,wf_status='0' 
 									</when>
-		            				<!-- 보류 -->
 		            				<when test="wf_result = '2'">
 					         		     wf_result_1st=#{wf_result}
 					          		     ,wf_comment_1st=#{wf_comment} 
@@ -90,18 +81,11 @@
 		           			</otherwise>
 		            	</choose>
 		            </when>
-		            <!-- 1차 승인 완료 -->
 		            
-		            
-		            
-		            
-		            <!-- 2차 승인 대기중 -->
 		            <when test="wf_progress='2'">
 		            	<choose>
-		            		<!-- 다음 승인이 필요한 경우 -->
 		            		<when test="wf_receiver_3nd != null">
 		            			<choose>
-		            				<!-- 승인 -->
 		            				<when test="wf_result = '1'">
 		            					wf_progress='3'
 					         		     ,wf_result_2nd=#{wf_result}
@@ -109,7 +93,6 @@
 					         		     ,wf_result_date_2nd=now()
 										 ,wf_receiver=#{wf_receiver_3rd}
 		            				</when>
-		            				<!-- 반려 -->
 		            				<when test="wf_result = '0'">
 		            					wf_progress='0'
 				            			 ,wf_result=#{wf_result} 
@@ -119,7 +102,6 @@
 							             ,wf_result_date_2nd=now()
 				                		 ,wf_status='0' 
 		            				</when>
-		            				<!-- 보류 -->
 		            				<when test="wf_result = '2'">
 					         		     wf_result_2nd=#{wf_result}
 					          		     ,wf_comment_2nd=#{wf_comment} 
@@ -129,10 +111,8 @@
 		           					</otherwise>
 		            			</choose>
 		            		</when>
-		            		<!-- 다음 승인이 필요 없는 경우 -->
 		            		<when test="wf_receiver_3nd == null">
 		            			<choose>
-		            				<!-- 승인/반려 -->
 		                		 	<when test="wf_result = '1' or wf_result = '0'">
 									    wf_progress='0'
 				            			 ,wf_result=#{wf_result} 
@@ -142,7 +122,6 @@
 							             ,wf_result_date_2nd=now()
 				                		 ,wf_status='0' 
 									</when>
-		            				<!-- 보류 -->
 		            				<when test="wf_result = '2'">
 					         		     wf_result_2nd=#{wf_result}
 					          		     ,wf_comment_2nd=#{wf_comment} 
@@ -156,13 +135,9 @@
 		           			</otherwise>
 		            	</choose>
 		            </when>
-		            <!-- 2차 승인 완료 -->
 		            
-		            
-		            <!-- 3차 승인 대기 -->
 		            <when test="wf_progress='3'">
 		                <choose>
-            				<!-- 승인/반려 -->
                 		 	<when test="wf_result = '1' or wf_result = '0'">
 							    wf_progress='0'
 		            			 ,wf_result=#{wf_result} 
@@ -172,7 +147,6 @@
 					             ,wf_result_date_3rd=now()
 		                		 ,wf_status='0' 
 							</when>
-            				<!-- 보류 -->
             				<when test="wf_result = '2'">
 			         		     wf_result_3rd=#{wf_result}
 			          		     ,wf_comment_3rd=#{wf_comment} 
@@ -182,7 +156,6 @@
            					</otherwise>
             			</choose>
 		            </when>
-		            <!-- 3차 승인 완료 -->
 
 		            <otherwise>
 		            </otherwise>
@@ -192,17 +165,25 @@
 		  where wf_code=#{wf_code}
 	</update>
 	
+	<!-- 받은 워크플로우 알람 -->
+	<select id="getWorkflowAlarmList" parameterType="String" resultType="com.project.domain.WorkflowAlarmVO">
+		select wf.wf_code as wf_code, wf.wf_type as wf_type, wf.wf_title as wf_title, wf.wf_progress as wf_progress , wf.wf_sender as wf_sender,  
+	        case 
+	            when wf.wf_progress = '1' then wf.wf_create_date
+	            when wf.wf_progress = '2' then wf.wf_result_date_1st
+	            when wf.wf_progress = '3' then wf.wf_result_date_2nd
+	            else null
+	        end as wf_date,
+	        emp.emp_name as emp_name, 
+	        emp.emp_bnum as emp_bnum, 
+	        emp.emp_dnum as emp_dnum, 
+	        emp.emp_position as emp_position
+	    from workflow wf join employee emp on wf.wf_sender = emp.emp_id
+	    where wf.wf_receiver = #{emp_id} and wf.wf_status = '1' and wf.wf_alarm_token = '1'
+	</select>
 	
+	<update id="WorkflowAlarmCheck" parameterType="String">
+		update workflow set wf_alarm_token = '0' where wf_code=#{wf_code}
+	</update>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-</mapper>  
-  
+</mapper>

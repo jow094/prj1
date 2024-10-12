@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.MemberVO;
+import com.project.domain.WorkflowAlarmVO;
 import com.project.domain.WorkflowVO;
 import com.project.persistence.MemberDAO;
 import com.project.service.MemberService;
+import com.project.service.WorkflowAlarmService;
 import com.project.service.WorkflowService;
 
 //@RequestMapping(value = "/member/*")
@@ -35,11 +37,18 @@ public class ProjectController {
 	//@Inject
 	//private MemberDAO mdao;
 	
+	
+	
+	
+	@Inject
+	private MemberService mService;
+	
 	@Inject
 	private WorkflowService wService;
 
 	@Inject
-	private MemberService mService;
+	private WorkflowAlarmService waService;
+
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
@@ -96,7 +105,7 @@ public class ProjectController {
 			model.addAttribute("receivedWorkflowList",receivedWorkflowList);
 		}
 		
-		// http://localhost:8088/project/wfread
+		// http://localhost:8088/project/readWorkflow
 		@RequestMapping(value = "/readWorkflow",method = RequestMethod.GET)
 		@ResponseBody
 		public Map<String, Object> readWorkflow(@RequestParam("wf_code") String wfCode, HttpSession session) {
@@ -147,41 +156,73 @@ public class ProjectController {
 			return "redirect:/project/workoff";
 		}
 		
+		// http://localhost:8088/project/login
+		@RequestMapping(value = "/login",method = RequestMethod.GET)
+		public String loginGet(MemberVO vo) {
+			logger.debug(" /project/login(GET) -> loginGET()실행 ");
+			logger.debug(" /project/loginForm.jsp");
+			
+			return "/project/loginForm";
+		}
 		
-		// 로그인 처리 -입력
-				// http://localhost:8088/project/login
-				@RequestMapping(value = "/login",method = RequestMethod.GET)
-				public String loginGet(MemberVO vo) {
-					logger.debug(" /project/login(GET) -> loginGET()실행 ");
-					logger.debug(" /project/loginForm.jsp");
-					
-					return "/project/loginForm";
+		@RequestMapping(value = "/login",method = RequestMethod.POST)
+		public String loginPOST(MemberVO vo,HttpSession session) {
+			logger.debug(" /project/login(GET) -> loginGET()실행 ");
+			logger.debug(" /project/loginForm.jsp");
+			MemberVO resultVO = mService.memberLogin(vo);
+			
+			if(resultVO == null) {
+			return "/project/loginForm";
 				}
 			
-		// 로그인 처리 -처리(post)
-				// http://localhost:8088/project/login
+			session.removeAttribute("emp_id");
+			session.setAttribute("emp_id", resultVO.getEmp_id());
 			
-		@RequestMapping(value = "/login",method = RequestMethod.POST)
-		public String loginPost(MemberVO vo,HttpSession session, Model model) {
-	    //public String loginMemberPost(@RequestParam("emp_id") String emp_id, @ModelAttribute("emp_pw") String emp_pw {
-			logger.debug(" /project/login(POST) -> loginPOST()실행 ");
-	
-			// 전달정보(파라메터) 저장
-			logger.debug(" vo :"+vo);
-			
-			 MemberVO resultVO = mService.memberLogin(vo);
-			
-			 if(resultVO == null){ logger.debug(" 로그인 실패, 다시 로그인 페이지로 이동 "); 
-			 return "redirect:/project/login"; }
-			 
-			 
-			  //사용자의 아이디 정보를 세션 영역에 저장 
-			 session.removeAttribute("emp_id");
-			 session.setAttribute("emp_id",resultVO.getEmp_id());
-			 
-			 logger.debug(" 로그인 성공, 메인페이지로 이동 ");
-		 
-			return "redirect:/project/main";
+			return "/project/main";
 		}
-	
+			
+		// http://localhost:8088/project/checkAlarm
+		@RequestMapping(value = "/checkAlarm",method = RequestMethod.GET)
+		@ResponseBody
+		public Map<String, Object> checkAlarm(HttpSession session) {
+			
+			String emp_id = (String)session.getAttribute("emp_id");
+			logger.debug(" checkAlarm for "+ emp_id);
+			
+			List<WorkflowAlarmVO> alarmList = waService.checkWorkflow(emp_id);
+			
+			logger.debug(" checked Alarm : "+ alarmList.size() + "개");
+			
+			Map<String, Object> resultMap = new HashMap<String,Object>();
+			resultMap.put("count", alarmList.size());
+			
+			for (int i = 0; i < alarmList.size(); i++) {
+			    WorkflowAlarmVO alarm = alarmList.get(i);
+			    waService.checkAlarmedWorkflow(alarm.getWf_code());
+			    resultMap.put("alarm_" + i, alarm);
+			}
+			
+			logger.debug(" ajax로 보낼 리턴값 : "+resultMap);
+			return resultMap;
+		}
+		
+		// http://localhost:8088/project/checkUnread
+		@RequestMapping(value = "/checkUnread",method = RequestMethod.GET)
+		@ResponseBody
+		public Map<String, Object> checkUnread(HttpSession session) {
+			
+			String emp_id = (String)session.getAttribute("emp_id");
+			logger.debug(" checkUnread for "+ emp_id);
+			
+			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(emp_id,"1");
+			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(emp_id,"1");
+			
+			Map<String, Object> resultMap = new HashMap<String,Object>();
+			resultMap.put("sentWorkflowList", sentWorkflowList);
+			resultMap.put("receivedWorkflowList", receivedWorkflowList);
+			
+			logger.debug(" ajax로 보낼 리턴값 : " + resultMap);
+			return resultMap;
+		}
+
 }
