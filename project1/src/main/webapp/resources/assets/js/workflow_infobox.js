@@ -10,7 +10,6 @@ $(document).ready(function () {
 		       String(date.getMinutes()).padStart(2, '0');
 	};
 	
-	var logined_id;
 	var workflowVO;
 	
 	$('.workflow_table').on('click', 'a[data-wf_code]', function (e) {
@@ -30,7 +29,6 @@ $(document).ready(function () {
 				console.log('AJAX success for wf_code :', wf_code);
 				console.log('taken data:', data);
 				
-				logined_id = data.logined_id;
 				workflowVO = data.workflowVO;
 		    	
 				/* value to next page start */
@@ -128,9 +126,6 @@ $(document).ready(function () {
 		                    </a>
 		                </div>
                     `);
-					$('#wf_receiver_3rd_emp_name').text(receiver_3rd_VO.emp_name);
-					$('#wf_receiver_3rd_emp_dnum').text(receiver_3rd_VO.emp_dnum);
-					$('#wf_receiver_3rd_emp_position').text(receiver_3rd_VO.emp_position);
 				}
 				/* set receivers end */
 				
@@ -214,7 +209,7 @@ $(document).ready(function () {
 		    	    	div_reject.style.display='none';
 		    	    }
 	    		}else{
-	    			if (logined_id != workflowVO.wf_receiver) {
+	    			if (data.logined_id != workflowVO.wf_receiver) {
 	    				div_select.style.display='none';
 		    	    	div_submit.style.display='none';
 	    				textarea_comment.value = '해당 요청의 현재 담당자가 아닙니다.';

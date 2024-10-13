@@ -39,6 +39,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/plugins.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/kaiadmin.min.css" />
+    
+    <!--   Core JS Files   -->
+	<script src="${pageContext.request.contextPath }/resources/assets/js/core/jquery-3.7.1.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/assets/js/core/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/assets/js/core/bootstrap.min.js"></script>
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/demo.css" />
@@ -68,11 +73,6 @@
     </div>
     <!-- main-wrapper -->
     
-	<!--   Core JS Files   -->
-	<script src="${pageContext.request.contextPath }/resources/assets/js/core/jquery-3.7.1.min.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/assets/js/core/popper.min.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/assets/js/core/bootstrap.min.js"></script>
-	
 	<!-- jQuery Scrollbar -->
 	<script src="${pageContext.request.contextPath }/resources/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 	
@@ -105,11 +105,11 @@
 	<script src="${pageContext.request.contextPath }/resources/assets/js/setting-demo.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/assets/js/demo.js"></script>
 	
-  	<%@ include file="/resources/assets/inc/unread_workflow_modal.jsp" %>
   	
 	<c:if test="${logined == true}">
-		<script src="${pageContext.request.contextPath }/resources/assets/js/login_alarm.js"></script>
+	  	<%@ include file="/resources/assets/inc/login_alarm_modal.jsp" %>
 	</c:if>
+		
 	
 	</body>
 </html>

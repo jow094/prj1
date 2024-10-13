@@ -1,4 +1,4 @@
-<%@ include file="/resources/assets/inc/get_employee_info.jsp" %>
+<script src="${pageContext.request.contextPath }/resources/assets/js/workflow_infobox.js"></script>
 
 <!-- workflow_modal modal start-->
 <div class="modal fade" id="workflow_modal" tabindex="0" aria-labelledby="wfDetail" aria-hidden="true" style="z-index: 1060;">

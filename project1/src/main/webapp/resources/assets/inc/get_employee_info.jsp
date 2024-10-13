@@ -1,3 +1,5 @@
+<script src="${pageContext.request.contextPath }/resources/assets/js/member_infobox.js"></script>
+
 <!-- get_employee_info modal start -->
 <div class="modal fade" id="get_employee_info" tabindex="1" aria-labelledby="memberDetail" aria-hidden="true" style=" z-index: 1070; background-color: rgba(0,0,0,0.5);">
 	<div class="modal-dialog modal-md" >

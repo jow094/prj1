@@ -36,6 +36,7 @@ public class WorkflowVO {
 	private String wf_result_2nd;
 	private String wf_result_3rd;
 	private Timestamp wf_result_date;
+	private Timestamp wf_last_result_date;
 	private Timestamp wf_result_date_1st;
 	private Timestamp wf_result_date_2nd;
 	private Timestamp wf_result_date_3rd;

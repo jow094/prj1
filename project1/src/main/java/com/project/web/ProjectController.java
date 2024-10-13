@@ -19,11 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.MemberVO;
-import com.project.domain.WorkflowAlarmVO;
 import com.project.domain.WorkflowVO;
 import com.project.persistence.MemberDAO;
 import com.project.service.MemberService;
-import com.project.service.WorkflowAlarmService;
 import com.project.service.WorkflowService;
 
 //@RequestMapping(value = "/member/*")
@@ -46,8 +44,6 @@ public class ProjectController {
 	@Inject
 	private WorkflowService wService;
 
-	@Inject
-	private WorkflowAlarmService waService;
 
 	
 	
@@ -81,8 +77,6 @@ public class ProjectController {
 			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(emp_id,"1");
 			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(emp_id,"1");
 			
-			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
-			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
 			model.addAttribute("sentWorkflowList",sentWorkflowList);
 			model.addAttribute("receivedWorkflowList",receivedWorkflowList);
 		}
@@ -99,8 +93,6 @@ public class ProjectController {
 			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(emp_id,"0");
 			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(emp_id,"0");
 			
-			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
-			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
 			model.addAttribute("sentWorkflowList",sentWorkflowList);
 			model.addAttribute("receivedWorkflowList",receivedWorkflowList);
 		}
@@ -174,56 +166,39 @@ public class ProjectController {
 			
 			String emp_id = (String)session.getAttribute("emp_id");
 			logger.debug(" checkAlarm for "+ emp_id);
+			Map<String, Object> alarms = wService.realtimeCheckWorkflow(emp_id);
 			
-			List<WorkflowAlarmVO> alarmList = waService.checkWorkflow(emp_id);
+			int alarmCount = ((List<WorkflowVO>)alarms.get("sentWorkflowList")).size() + ((List<WorkflowVO>)alarms.get("receivedWorkflowList")).size();
 			
-			logger.debug(" checked Alarm : "+ alarmList.size() + "개");
-			
-			Map<String, Object> resultMap = new HashMap<String,Object>();
-			resultMap.put("count", alarmList.size());
-			
-			for (int i = 0; i < alarmList.size(); i++) {
-			    WorkflowAlarmVO alarm = alarmList.get(i);
-			    waService.checkAlarmedWorkflow(alarm.getWf_code());
-			    resultMap.put("alarm_" + i, alarm);
+			if (alarmCount>0) {
+			logger.debug(" gotten Alarms : " + (alarmCount + "개의 실시간 알람이 있습니다."));
+			logger.debug(" gotten Alarms : " + alarms);
 			}
 			
-			logger.debug(" ajax로 보낼 리턴값 : "+resultMap);
-			return resultMap;
+			return alarms;
 		}
 		
-		// http://localhost:8088/project/checkUnread
-		@RequestMapping(value = "/checkUnread",method = RequestMethod.GET)
+		// http://localhost:8088/project/loginAlarm
+		@RequestMapping(value = "/loginAlarm",method = RequestMethod.GET)
 		@ResponseBody
-		public Map<String, Object> checkUnread(HttpSession session) {
+		public Map<String, Object> loginAlarm(HttpSession session) {
 			
 			String emp_id = (String)session.getAttribute("emp_id");
-			logger.debug(" checkUnread for "+ emp_id);
+			logger.debug(" loginAlarm for "+ emp_id);
+			Map<String, Object> loginAlarms = wService.loginCheckWorkflow(emp_id);
 			
-			Map<String, Object> resultMap = new HashMap<String,Object>();
-			List<WorkflowVO> sentWorkflowList = wService.showSentWorkflowList(emp_id,"0","1");
-			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(emp_id,"1");
+			loginAlarms.put("emp_id", emp_id);
 			
-			for (int i = 0; i<receivedWorkflowList.size(); i++) {
-				resultMap.put("workflow_sender_"+i,mService.memberInfo(receivedWorkflowList.get(i).getWf_sender())); //
-				resultMap.put("receivedWorkflow_"+i, receivedWorkflowList.get(i));
-			}
+			int alarmCount =((List<WorkflowVO>)loginAlarms.get("sentWorkflowList")).size() + ((List<WorkflowVO>)loginAlarms.get("receivedWorkflowList")).size();
+				
+				if (alarmCount>0) {
+				logger.debug(" gotten Alarms : " + (alarmCount + "개의 로그인 알람이 있습니다."));
+				logger.debug(" gotten Alarms : " + loginAlarms);
+				}
 			
-			resultMap.put("emp_id", emp_id);
-			resultMap.put("receivedWorkflow_count", receivedWorkflowList.size());
-			resultMap.put("sentWorkflowList", sentWorkflowList);
-			
-			for (int i = 0; i < sentWorkflowList.size(); i++) {
-				waService.checkAlarmedWorkflow(sentWorkflowList.get(i).getWf_code());
-			}
-			
-			for (int i = 0; i < receivedWorkflowList.size(); i++) {
-				waService.checkAlarmedWorkflow(receivedWorkflowList.get(i).getWf_code());
-			}
-			
+			logger.debug(" 세션의 로그인 토큰을 삭제합니다.");
 			session.removeAttribute("logined");
-			logger.debug(" ajax로 보낼 리턴값 : " + resultMap);
-			return resultMap;
+			return loginAlarms;
 		}
 
 }

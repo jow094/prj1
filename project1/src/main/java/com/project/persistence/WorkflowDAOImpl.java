@@ -43,12 +43,11 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 	}
 
 	@Override
-	public List<WorkflowVO> getSentWorkflowList(String userid,String status) {
-		logger.debug(" WorkflowDAOImpl : getSentWorkflowList("+userid+","+status+") 실행");
+	public List<WorkflowVO> getSentWorkflowList(String emp_id,String status) {
 		
 		WorkflowVO vo = new WorkflowVO();
 		
-		vo.setWf_sender(userid);
+		vo.setWf_sender(emp_id);
 		vo.setWf_status(status);
 		
 		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getSentWorkflowList",vo);
@@ -58,27 +57,11 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 	}
 	
 	@Override
-	public List<WorkflowVO> getSentWorkflowList(String userid,String status,String AlarmToken) {
-		logger.debug(" WorkflowDAOImpl : getSentWorkflowList("+userid+","+status+") 실행");
+	public List<WorkflowVO> getReceivedWorkflowList(String emp_id,String status) {
 		
 		WorkflowVO vo = new WorkflowVO();
 		
-		vo.setWf_sender(userid);
-		vo.setWf_status(status);
-		
-		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getRecentSentWorkflowList",vo);
-		logger.debug(" 실행 결과 (개수): "+result.size());
-		
-		return result;
-	}
-	
-	@Override
-	public List<WorkflowVO> getReceivedWorkflowList(String userid,String status) {
-		logger.debug(" WorkflowDAOImpl : getReceivedWorkflowList("+userid+","+status+") 실행");
-		
-		WorkflowVO vo = new WorkflowVO();
-		
-		vo.setWf_receiver(userid);
+		vo.setWf_receiver(emp_id);
 		vo.setWf_status(status);
 		
 		List<WorkflowVO>result = sqlSession.selectList(NAMESPACE + ".getReceivedWorkflowList",vo);
@@ -94,8 +77,44 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 	}
 
 	@Override
-	public List<WorkflowVO> checkWorkflow(String emp_id) {
-		return sqlSession.selectList(NAMESPACE + ".getReceiveWorkflowAlarm",emp_id);
+	public List<WorkflowVO> AlarmSentWorkflowList(String emp_id) {
+		List<WorkflowVO> resultList= sqlSession.selectList(NAMESPACE + ".realtimeAlarmSentWorkflow", emp_id);
+		for(WorkflowVO workflowVO : resultList) {
+			sqlSession.update(NAMESPACE + ".workflowSenderAlarmCheck", workflowVO.getWf_code());
+			logger.debug("wf_code : " + workflowVO.getWf_code()+ " : 발신자가 업데이트된 내용에 대한 알람을 받았습니다. 발신자 알람 토큰을 제거합니다. ");
+		}
+		return resultList;
 	}
+
+	@Override
+	public List<WorkflowVO> AlarmReceivedWorkflowList(String emp_id) {
+		List<WorkflowVO> resultList= sqlSession.selectList(NAMESPACE + ".realtimeAlarmReceivedWorkflow", emp_id);
+		for(WorkflowVO workflowVO : resultList) {
+			sqlSession.update(NAMESPACE + ".workflowReceiverAlarmCheck", workflowVO.getWf_code());
+			logger.debug("wf_code : " + workflowVO.getWf_code()+ " : 수신자가 워크플로우에 대한 알람을 받았습니다. 수신자 알람 토큰을 제거합니다. ");
+		}
+		return resultList;
+	}
+	
+	@Override
+	public List<WorkflowVO> loginAlarmSentWorkflowList(String emp_id) {
+		List<WorkflowVO> resultList= sqlSession.selectList(NAMESPACE + ".loginAlarmSentWorkflow", emp_id);
+			for(WorkflowVO workflowVO : resultList) {
+				sqlSession.update(NAMESPACE + ".workflowSenderAlarmCheck", workflowVO.getWf_code());
+				logger.debug("wf_code : " + workflowVO.getWf_code()+ " : 발신자가 업데이트 내용에 대한 알람을 받았습니다. 발신자 알람 토큰을 제거합니다. ");
+			}
+		return resultList;
+	}
+	
+	@Override
+	public List<WorkflowVO> loginAlarmReceivedWorkflowList(String emp_id) {
+		List<WorkflowVO> resultList= sqlSession.selectList(NAMESPACE + ".loginAlarmReceivedWorkflow", emp_id);
+			for(WorkflowVO workflowVO : resultList) {
+				sqlSession.update(NAMESPACE + ".workflowReceiverAlarmCheck", workflowVO.getWf_code());
+				logger.debug("wf_code : " + workflowVO.getWf_code()+ " : 수신자가 워크플로우에 대한 알람을 받았습니다. 수신자 알람 토큰을 제거합니다. ");
+			}
+		return resultList;
+	}
+
 	
 }

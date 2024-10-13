@@ -32,7 +32,7 @@
 	<!-- 보낸 워크플로우 목록 -->
 	<select id="getSentWorkflowList" parameterType="WorkflowVO" resultType="WorkflowVO">
 		select * , 
-		 emp.emp_name as receiver_name, emp.emp_bnum as receiver_bnum, emp.emp_dnum as receiver_dnum, emp.emp_position as receiver_position
+		 emp.emp_name as receiver_name, emp.emp_bnum as receiver_bnum, emp.emp_dnum as receiver_dnum, emp.emp_position as receiver_position, emp.emp_profile as receiver_profile
 		 from workflow wf
 		 join employee emp on wf.wf_receiver = emp.emp_id
 		 where wf_sender=#{wf_sender} and wf_status=#{wf_status}
@@ -41,7 +41,7 @@
 	<!-- 받은 워크플로우 목록 -->
 	<select id="getReceivedWorkflowList" parameterType="WorkflowVO" resultType="WorkflowVO">
 		select * ,
-		 emp.emp_name as sender_name, emp.emp_bnum as sender_bnum, emp.emp_dnum as sender_dnum, emp.emp_position as sender_position
+		 emp.emp_name as sender_name, emp.emp_bnum as sender_bnum, emp.emp_dnum as sender_dnum, emp.emp_position as sender_position, emp.emp_profile as sender_profile
 		 from workflow wf
 		 join employee emp on wf.wf_sender = emp.emp_id
 		 where wf_receiver=#{wf_receiver} and wf_status=#{wf_status}
@@ -60,25 +60,31 @@
 		            					wf_progress='2'
 					         		     ,wf_result_1st=#{wf_result}
 					          		     ,wf_comment_1st=#{wf_comment} 
+					         		     ,wf_last_result_date=now()
 					         		     ,wf_result_date_1st=now()
 										 ,wf_receiver=#{wf_receiver_2nd}
-										 ,wf_alarm_token = '1'
+										 ,wf_sender_alarm_token = '1'
+										 ,wf_receiver_alarm_token = '1'
 		            				</when>
 		            				<when test="wf_result = '0'">
 		            					wf_progress='0'
 				            			 ,wf_result=#{wf_result} 
 							             ,wf_result_1st=#{wf_result}
-							             ,wf_comment_1st=#{wf_comment} 
+							             ,wf_comment_1st=#{wf_comment}
+							             ,wf_last_result_date=now() 
 				               			 ,wf_result_date=now() 
 							             ,wf_result_date_1st=now()
 				                		 ,wf_status='0' 
-				                		 ,wf_alarm_token = '1'
+				                		 ,wf_sender_alarm_token = '1'
+										 ,wf_receiver_alarm_token = '1'
 		            				</when>
 		            				<when test="wf_result = '2'">
 					         		     wf_result_1st=#{wf_result}
 					          		     ,wf_comment_1st=#{wf_comment} 
+					          		     ,wf_last_result_date=now()
 					         		     ,wf_result_date_1st=now()
-					         		     ,wf_alarm_token = '1'
+					         		     ,wf_sender_alarm_token = '1'
+										 ,wf_receiver_alarm_token = '1'
 		            				</when>
 		            				<otherwise>
 		           					</otherwise>
@@ -91,16 +97,20 @@
 				            			 ,wf_result=#{wf_result} 
 							             ,wf_result_1st=#{wf_result}
 							             ,wf_comment_1st=#{wf_comment} 
+							             ,wf_last_result_date=now()
 				               			 ,wf_result_date=now() 
 							             ,wf_result_date_1st=now()
 				                		 ,wf_status='0'
-				                		 ,wf_alarm_token = '1'
+				                		 ,wf_sender_alarm_token = '1'
+										 ,wf_receiver_alarm_token = '1'
 									</when>
 		            				<when test="wf_result = '2'">
 					         		     wf_result_1st=#{wf_result}
 					          		     ,wf_comment_1st=#{wf_comment} 
+					          		     ,wf_last_result_date=now()
 					         		     ,wf_result_date_1st=now()
-					         		     ,wf_alarm_token = '1'
+					         		     ,wf_sender_alarm_token = '1'
+										 ,wf_receiver_alarm_token = '1'
 		            				</when>
 		            				<otherwise>
 		           					</otherwise>
@@ -119,25 +129,31 @@
 		            					wf_progress='3'
 					         		     ,wf_result_2nd=#{wf_result}
 					          		     ,wf_comment_2nd=#{wf_comment} 
+					          		     ,wf_last_result_date=now()
 					         		     ,wf_result_date_2nd=now()
 										 ,wf_receiver=#{wf_receiver_3rd}
-										 ,wf_alarm_token = '1'
+										 ,wf_sender_alarm_token = '1'
+										 ,wf_receiver_alarm_token = '1'
 		            				</when>
 		            				<when test="wf_result = '0'">
 		            					wf_progress='0'
 				            			 ,wf_result=#{wf_result} 
 							             ,wf_result_2nd=#{wf_result}
 							             ,wf_comment_2nd=#{wf_comment} 
+							             ,wf_last_result_date=now()
 				               			 ,wf_result_date=now() 
 							             ,wf_result_date_2nd=now()
 				                		 ,wf_status='0'
-				                		 ,wf_alarm_token = '1'
+				                		 ,wf_sender_alarm_token = '1'
+										 ,wf_receiver_alarm_token = '1'
 		            				</when>
 		            				<when test="wf_result = '2'">
 					         		     wf_result_2nd=#{wf_result}
 					          		     ,wf_comment_2nd=#{wf_comment} 
+					          		     ,wf_last_result_date=now()
 					         		     ,wf_result_date_2nd=now()
-					         		     ,wf_alarm_token = '1'
+					         		     ,wf_sender_alarm_token = '1'
+										 ,wf_receiver_alarm_token = '1'
 		            				</when>
 		            				<otherwise>
 		           					</otherwise>
@@ -150,16 +166,20 @@
 				            			 ,wf_result=#{wf_result} 
 							             ,wf_result_2nd=#{wf_result}
 							             ,wf_comment_2nd=#{wf_comment} 
+							             ,wf_last_result_date=now()
 				               			 ,wf_result_date=now() 
 							             ,wf_result_date_2nd=now()
 				                		 ,wf_status='0' 
-				                		 ,wf_alarm_token = '1'
+				                		 ,wf_sender_alarm_token = '1'
+										 ,wf_receiver_alarm_token = '1'
 									</when>
 		            				<when test="wf_result = '2'">
 					         		     wf_result_2nd=#{wf_result}
 					          		     ,wf_comment_2nd=#{wf_comment} 
+					          		     ,wf_last_result_date=now()
 					         		     ,wf_result_date_2nd=now()
-					         		     ,wf_alarm_token = '1'
+					         		     ,wf_sender_alarm_token = '1'
+										 ,wf_receiver_alarm_token = '1'
 		            				</when>
 		            				<otherwise>
 		           					</otherwise>
@@ -177,16 +197,18 @@
 		            			 ,wf_result=#{wf_result} 
 					             ,wf_result_3rd=#{wf_result}
 					             ,wf_comment_3rd=#{wf_comment} 
+					             ,wf_last_result_date=now()
 		               			 ,wf_result_date=now() 
 					             ,wf_result_date_3rd=now()
 		                		 ,wf_status='0' 
-		                		 ,wf_alarm_token = '1'
+		                		 ,wf_sender_alarm_token = '1'
 							</when>
             				<when test="wf_result = '2'">
 			         		     wf_result_3rd=#{wf_result}
 			          		     ,wf_comment_3rd=#{wf_comment} 
+			          		     ,wf_last_result_date=now()
 			         		     ,wf_result_date_3rd=now()
-			         		     ,wf_alarm_token = '1'
+			         		     ,wf_sender_alarm_token = '1'
             				</when>
             				<otherwise>
            					</otherwise>
@@ -201,25 +223,109 @@
 		  where wf_code=#{wf_code}
 	</update>
 	
-	<!-- 받은 워크플로우 알람 -->
-	<select id="getWorkflowAlarmList" parameterType="String" resultType="com.project.domain.WorkflowAlarmVO">
-		select wf.wf_code as wf_code, wf.wf_type as wf_type, wf.wf_title as wf_title, wf.wf_progress as wf_progress , wf.wf_sender as wf_sender,  
-	        case 
-	            when wf.wf_progress = '1' then wf.wf_create_date
-	            when wf.wf_progress = '2' then wf.wf_result_date_1st
-	            when wf.wf_progress = '3' then wf.wf_result_date_2nd
-	            else null
-	        end as wf_date,
-	        emp.emp_name as emp_name, 
-	        emp.emp_bnum as emp_bnum, 
-	        emp.emp_dnum as emp_dnum, 
-	        emp.emp_position as emp_position
-	    from workflow wf join employee emp on wf.wf_sender = emp.emp_id
-	    where wf.wf_receiver = #{emp_id} and wf.wf_status = '1' and wf.wf_alarm_token = '1'
+	<!-- 실시간 알람이 필요한 보낸 워크플로우 -->
+	<select id="realtimeAlarmSentWorkflow" parameterType="String" resultType="WorkflowVO">
+	  select 
+	    wf.*, 
+	    emp1.emp_name as sender_name, emp1.emp_dnum as sender_dnum, emp1.emp_profile as sender_profile,
+	    emp1.emp_bnum as sender_bnum, emp1.emp_position as sender_position, 
+	    emp2.emp_name as receiver_name, emp2.emp_dnum as receiver_dnum, emp2.emp_profile as receiver_profile,
+	    emp2.emp_bnum as receiver_bnum, emp2.emp_position as receiver_position, 
+	    emp3.emp_name as receiver_name_1st, emp3.emp_dnum as receiver_dnum_1st, emp3.emp_profile as receiver_profile_1st,
+	    emp3.emp_bnum as receiver_bnum_1st, emp3.emp_position as receiver_position_1st, 
+		emp4.emp_name as receiver_name_2nd, emp4.emp_dnum as receiver_dnum_2nd, emp4.emp_profile as receiver_profile_2nd,
+		emp4.emp_bnum as receiver_bnum_2nd, emp4.emp_position as receiver_position_2nd,
+		emp5.emp_name as receiver_name_3rd, emp5.emp_dnum as receiver_dnum_3rd, emp5.emp_profile as receiver_profile_3rd,
+		emp5.emp_bnum as receiver_bnum_3rd, emp5.emp_position as receiver_position_3rd
+	    from workflow wf
+	  
+	    join employee emp1 on wf.wf_sender = emp1.emp_id
+	    join employee emp2 on wf.wf_receiver = emp2.emp_id
+	    join employee emp3 on wf.wf_receiver_1st = emp3.emp_id
+	    left join employee emp4 on wf.wf_receiver_2nd = emp4.emp_id
+	    left join employee emp5 on wf.wf_receiver_3rd = emp5.emp_id
+	    where wf_sender=#{emp_id} and wf_sender_alarm_token='1'
 	</select>
 	
-	<update id="WorkflowAlarmCheck" parameterType="String">
-		update workflow set wf_alarm_token = '0' where wf_code=#{wf_code}
+	<!-- 실시간 알람이 필요한 받은 워크플로우 -->
+	<select id="realtimeAlarmReceivedWorkflow" parameterType="String" resultType="WorkflowVO">
+	  select 
+	    wf.*, 
+	    emp1.emp_name as sender_name, emp1.emp_dnum as sender_dnum, emp1.emp_profile as sender_profile,
+	    emp1.emp_bnum as sender_bnum, emp1.emp_position as sender_position, 
+	    emp2.emp_name as receiver_name, emp2.emp_dnum as receiver_dnum, emp2.emp_profile as receiver_profile,
+	    emp2.emp_bnum as receiver_bnum, emp2.emp_position as receiver_position, 
+	    emp3.emp_name as receiver_name_1st, emp3.emp_dnum as receiver_dnum_1st, emp3.emp_profile as receiver_profile_1st,
+	    emp3.emp_bnum as receiver_bnum_1st, emp3.emp_position as receiver_position_1st, 
+		emp4.emp_name as receiver_name_2nd, emp4.emp_dnum as receiver_dnum_2nd, emp4.emp_profile as receiver_profile_2nd,
+		emp4.emp_bnum as receiver_bnum_2nd, emp4.emp_position as receiver_position_2nd,
+		emp5.emp_name as receiver_name_3rd, emp5.emp_dnum as receiver_dnum_3rd, emp5.emp_profile as receiver_profile_3rd,
+		emp5.emp_bnum as receiver_bnum_3rd, emp5.emp_position as receiver_position_3rd
+	    from workflow wf
+	  
+	    join employee emp1 on wf.wf_sender = emp1.emp_id
+	    join employee emp2 on wf.wf_receiver = emp2.emp_id
+	    join employee emp3 on wf.wf_receiver_1st = emp3.emp_id
+	    left join employee emp4 on wf.wf_receiver_2nd = emp4.emp_id
+	    left join employee emp5 on wf.wf_receiver_3rd = emp5.emp_id
+	    where wf_receiver=#{emp_id} and wf_receiver_alarm_token='1' and wf_status='1'
+	</select>
+	
+	<!-- 보낸 워크플로우 로그인알람 -->
+	<select id="loginAlarmSentWorkflow" parameterType="String" resultType="WorkflowVO">
+	  select 
+	    wf.*, 
+	    emp1.emp_name as sender_name, emp1.emp_dnum as sender_dnum, emp1.emp_profile as sender_profile,
+	    emp1.emp_bnum as sender_bnum, emp1.emp_position as sender_position, 
+	    emp2.emp_name as receiver_name, emp2.emp_dnum as receiver_dnum, emp2.emp_profile as receiver_profile,
+	    emp2.emp_bnum as receiver_bnum, emp2.emp_position as receiver_position, 
+	    emp3.emp_name as receiver_name_1st, emp3.emp_dnum as receiver_dnum_1st, emp3.emp_profile as receiver_profile_1st,
+	    emp3.emp_bnum as receiver_bnum_1st, emp3.emp_position as receiver_position_1st, 
+		emp4.emp_name as receiver_name_2nd, emp4.emp_dnum as receiver_dnum_2nd, emp4.emp_profile as receiver_profile_2nd,
+		emp4.emp_bnum as receiver_bnum_2nd, emp4.emp_position as receiver_position_2nd,
+		emp5.emp_name as receiver_name_3rd, emp5.emp_dnum as receiver_dnum_3rd, emp5.emp_profile as receiver_profile_3rd,
+		emp5.emp_bnum as receiver_bnum_3rd, emp5.emp_position as receiver_position_3rd
+	    from workflow wf
+	  
+	    join employee emp1 on wf.wf_sender = emp1.emp_id
+	    join employee emp2 on wf.wf_receiver = emp2.emp_id
+	    join employee emp3 on wf.wf_receiver_1st = emp3.emp_id
+	    left join employee emp4 on wf.wf_receiver_2nd = emp4.emp_id
+	    left join employee emp5 on wf.wf_receiver_3rd = emp5.emp_id
+	    where wf_sender=#{emp_id} and wf_sender_alarm_token='1'
+	</select>
+	
+	<!-- 받은 워크플로우 로그인알람 -->
+	<select id="loginAlarmReceivedWorkflow" parameterType="String" resultType="WorkflowVO">
+	  select 
+	    wf.*, 
+	    emp1.emp_name as sender_name, emp1.emp_dnum as sender_dnum, emp1.emp_profile as sender_profile,
+	    emp1.emp_bnum as sender_bnum, emp1.emp_position as sender_position, 
+	    emp2.emp_name as receiver_name, emp2.emp_dnum as receiver_dnum, emp2.emp_profile as receiver_profile,
+	    emp2.emp_bnum as receiver_bnum, emp2.emp_position as receiver_position, 
+	    emp3.emp_name as receiver_name_1st, emp3.emp_dnum as receiver_dnum_1st, emp3.emp_profile as receiver_profile_1st,
+	    emp3.emp_bnum as receiver_bnum_1st, emp3.emp_position as receiver_position_1st, 
+		emp4.emp_name as receiver_name_2nd, emp4.emp_dnum as receiver_dnum_2nd, emp4.emp_profile as receiver_profile_2nd,
+		emp4.emp_bnum as receiver_bnum_2nd, emp4.emp_position as receiver_position_2nd,
+		emp5.emp_name as receiver_name_3rd, emp5.emp_dnum as receiver_dnum_3rd, emp5.emp_profile as receiver_profile_3rd,
+		emp5.emp_bnum as receiver_bnum_3rd, emp5.emp_position as receiver_position_3rd
+	    from workflow wf
+	  
+	    join employee emp1 on wf.wf_sender = emp1.emp_id
+	    join employee emp2 on wf.wf_receiver = emp2.emp_id
+	    join employee emp3 on wf.wf_receiver_1st = emp3.emp_id
+	    left join employee emp4 on wf.wf_receiver_2nd = emp4.emp_id
+	    left join employee emp5 on wf.wf_receiver_3rd = emp5.emp_id
+	    where wf_receiver=#{emp_id} and wf_status='1'
+	</select>
+	
+	<!-- 실시간 알람 발송시 체크 -->
+	<update id="workflowSenderAlarmCheck" parameterType="String">
+		update workflow set wf_sender_alarm_token = '0' where wf_code=#{wf_code}
+	</update>
+	
+	<update id="workflowReceiverAlarmCheck" parameterType="String">
+		update workflow set wf_receiver_alarm_token = '0' where wf_code=#{wf_code}
 	</update>
 	
 </mapper>

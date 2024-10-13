@@ -40,13 +40,16 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/plugins.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/kaiadmin.min.css" />
+    
+    <!--   Core JS Files   -->
+	<script src="${pageContext.request.contextPath }/resources/assets/js/core/jquery-3.7.1.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/assets/js/core/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/assets/js/core/bootstrap.min.js"></script>
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/demo.css" />
   </head>
   <body>
-  
-  	<!-- import madals -->
     <%@ include file="/resources/assets/inc/workflow_modal.jsp" %>
   
     <div class="wrapper">
@@ -227,7 +230,7 @@
 					            </td>
 					            <td style="text-align: center;">
 					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
-					           			<fmt:formatDate value="${workflow.wf_create_date}" pattern="yy.MM.dd HH:mm" />
+					           			<fmt:formatDate value="${workflow.wf_last_result_date}" pattern="yy.MM.dd HH:mm" />
 					           		</a>
 					           	</td>
 					        </tr>
@@ -251,11 +254,6 @@
     </div>
     <!-- main-wrapper -->
     
-    <!--   Core JS Files   -->
-    <script src="${pageContext.request.contextPath }/resources/assets/js/core/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/assets/js/core/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/assets/js/core/bootstrap.min.js"></script>
-
     <!-- jQuery Scrollbar -->
     <script src="${pageContext.request.contextPath }/resources/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
@@ -290,8 +288,6 @@
     
     <!-- import custom js -->
 	<script src="${pageContext.request.contextPath }/resources/assets/js/multi_filter_select_table.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/assets/js/workflow_infobox.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/assets/js/member_infobox.js"></script>
     
   </body>
 </html>

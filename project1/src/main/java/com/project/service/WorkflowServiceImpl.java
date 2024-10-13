@@ -1,6 +1,9 @@
 package com.project.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -44,14 +47,6 @@ public class WorkflowServiceImpl implements WorkflowService{
 	}
 	
 	@Override
-	public List<WorkflowVO> showSentWorkflowList(String userid,String status,String AlarmToken) {
-		logger.debug("WorkflowServiceImpl : showSentWorkflowList(String userid,String status) 실행");
-		List<WorkflowVO> workflowList = wdao.getSentWorkflowList(userid,status,AlarmToken);
-		
-		return workflowList;
-	}
-	
-	@Override
 	public List<WorkflowVO> showReceivedWorkflowList(String userid,String status) {
 		logger.debug("WorkflowServiceImpl : showReceivedWorkflowList(String userid,String status) 실행");
 		List<WorkflowVO> workflowList = wdao.getReceivedWorkflowList(userid,status);
@@ -72,6 +67,22 @@ public class WorkflowServiceImpl implements WorkflowService{
 		logger.debug("WorkflowServiceImpl : responseWorkflow(WorkflowVO vo) 실행");
 		
 		return wdao.updateWorkflow(vo);
+	}
+
+	@Override
+	public Map<String,Object> realtimeCheckWorkflow(String emp_id) {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("sentWorkflowList",wdao.AlarmSentWorkflowList(emp_id));
+		resultMap.put("receivedWorkflowList",wdao.AlarmReceivedWorkflowList(emp_id));
+		return resultMap;
+	}
+
+	@Override
+	public Map<String,Object> loginCheckWorkflow(String emp_id) {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("sentWorkflowList",wdao.loginAlarmSentWorkflowList(emp_id));
+		resultMap.put("receivedWorkflowList",wdao.loginAlarmReceivedWorkflowList(emp_id));
+		return resultMap;
 	}
 
 }
