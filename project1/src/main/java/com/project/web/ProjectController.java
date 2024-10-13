@@ -108,33 +108,22 @@ public class ProjectController {
 		// http://localhost:8088/project/readWorkflow
 		@RequestMapping(value = "/readWorkflow",method = RequestMethod.GET)
 		@ResponseBody
-		public Map<String, Object> readWorkflow(@RequestParam("wf_code") String wfCode, HttpSession session) {
+		public Map<String,Object> readWorkflow(@RequestParam("wf_code") String wfCode, HttpSession session) {
 			logger.debug(" /project/readWorkflow -> readWorkflow()실행 ");
 			
 			logger.debug(" 조회 대상 wf_code : "+wfCode);
 			
-			String emp_id = (String)session.getAttribute("emp_id");
 			WorkflowVO workflowVO = wService.showWorkflow(wfCode);
-			MemberVO senderVO = mService.memberInfo(workflowVO.getWf_sender());
-			MemberVO receiverVO = mService.memberInfo(workflowVO.getWf_receiver());
-			MemberVO receiver_1st_VO = mService.memberInfo(workflowVO.getWf_receiver_1st());
-			MemberVO receiver_2nd_VO = mService.memberInfo(workflowVO.getWf_receiver_2nd());
-			MemberVO receiver_3rd_VO = mService.memberInfo(workflowVO.getWf_receiver_3rd());
+			Map<String,Object> data = new HashMap<String,Object>();
 			
-			Map<String, Object> resultMap = new HashMap<String,Object>();
 			
-			resultMap.put("login_id",emp_id);
-			resultMap.put("workflowVO",workflowVO);
-			resultMap.put("senderVO",senderVO);
-			resultMap.put("receiverVO",receiverVO);
-			resultMap.put("receiver_1st_VO",receiver_1st_VO);
-			resultMap.put("receiver_2nd_VO",receiver_2nd_VO);
-			resultMap.put("receiver_3rd_VO",receiver_3rd_VO);
+			data.put("workflowVO", workflowVO);
+			data.put("logined_id", session.getAttribute("emp_id"));
 			
 			// 서비스에서 가져온 데이터를 연결된 뷰페이지에 전달해서 출력
 			// model.addAttribute(resultVO); 이렇게 이름없이 전달하면 MemberVO 타입이니까 memberVO 라는 이름으로 전달됨
-			logger.debug(" ajax로 보낼 리턴값 : "+resultMap);
-			return resultMap;
+			logger.debug(" ajax로 보낼 리턴값 : "+data);
+			return data;
 		}
 		
 		// workflow 응답하기 - POST
@@ -204,7 +193,7 @@ public class ProjectController {
 		}
 		
 		// http://localhost:8088/project/checkUnread
-		@RequestMapping(value = "/checkUnread",method = RequestMethod.POST)
+		@RequestMapping(value = "/checkUnread",method = RequestMethod.GET)
 		@ResponseBody
 		public Map<String, Object> checkUnread(HttpSession session) {
 			

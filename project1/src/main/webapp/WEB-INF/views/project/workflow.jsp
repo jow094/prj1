@@ -48,7 +48,6 @@
   
   	<!-- import madals -->
     <%@ include file="/resources/assets/inc/workflow_modal.jsp" %>
-  	<%@ include file="/resources/assets/inc/get_employee_info.jsp" %>
   
     <div class="wrapper">
       <%@ include file="/resources/assets/inc/sidebar.jsp" %> <!-- sidebar -->
@@ -145,7 +144,7 @@
 		                        </td>
 					            <td style="text-align: center;">
 						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
-						            	${workflow.wf_receiver}
+						            	${workflow.receiver_name}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">
@@ -218,7 +217,7 @@
 		                        </td>
 					            <td style="text-align: center;">
 						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
-						            	${workflow.wf_sender}
+						            	${workflow.sender_name}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">

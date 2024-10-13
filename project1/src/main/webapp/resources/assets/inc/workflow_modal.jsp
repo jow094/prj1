@@ -1,8 +1,7 @@
-<script src="${pageContext.request.contextPath }/resources/assets/js/core/jquery-3.7.1.min.js"></script>
-<script src="${pageContext.request.contextPath }/resources/assets/js/core/bootstrap.min.js"></script>
+<%@ include file="/resources/assets/inc/get_employee_info.jsp" %>
 
 <!-- workflow_modal modal start-->
-<div class="modal fade" id="workflow_modal" tabindex="1" aria-labelledby="wfDetail" aria-hidden="true">
+<div class="modal fade" id="workflow_modal" tabindex="0" aria-labelledby="wfDetail" aria-hidden="true" style="z-index: 1060;">
 	<div class="modal-dialog modal-xl">
 		<!-- modal content start -->
 		<div class="modal-content" style="background-color: rgba(0,0,0,0.3);">

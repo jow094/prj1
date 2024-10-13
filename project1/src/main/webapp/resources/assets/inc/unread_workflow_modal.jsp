@@ -1,6 +1,3 @@
-<script src="${pageContext.request.contextPath }/resources/assets/js/core/jquery-3.7.1.min.js"></script>
-<script src="${pageContext.request.contextPath }/resources/assets/js/core/bootstrap.min.js"></script>
-
 <div class="modal fade" id="unread_workflow_modal" tabindex="2" aria-labelledby="unread_workflow" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);">
 	<div class="modal-dialog modal-md" >
 		<!-- modal content start -->
@@ -13,9 +10,9 @@
 					</div>
 					<!-- card body start -->
 					<div class="card-body" style="background-color: rgba(0,0,0,0.1);">
-						<div id="welcome" style="display: flex; height: 30px; border-bottom:1px solid rgba(0,0,0,0.1);"></div>
-						<div class="form-group" id="received_workflows" style= "display: flex; flex-direction:column; align-items: center; justify-content: center; "></div>
-	                    <div class="form-group" id="sent_workflows" style= "display: flex; flex-direction:column; align-items: center; justify-content: center; "></div>
+						<div id="welcome" style="display: flex; width:100%; height: 30px; border-bottom:1px solid rgba(0,0,0,0.1);"></div>
+						<div class="form-group" id="received_workflows" style= "width:100%; display: flex; flex-direction:column; align-items: center; justify-content: center; "></div>
+	                    <div class="form-group" id="sent_workflows" style= "width:100%; display: flex; flex-direction:column; align-items: center; justify-content: center; "></div>
 			        </div>
 					<!-- card-body end -->
 			     </div>

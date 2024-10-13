@@ -44,8 +44,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/demo.css" />
   </head>
   <body>
-  	<%@ include file="/resources/assets/inc/unread_workflow_modal.jsp" %>
-  
     <div class="wrapper">
       <%@ include file="/resources/assets/inc/sidebar.jsp" %> <!-- sidebar -->
       <div class="main-panel">
@@ -106,8 +104,12 @@
 	<!-- Kaiadmin DEMO methods, don't include it in your project! -->
 	<script src="${pageContext.request.contextPath }/resources/assets/js/setting-demo.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/assets/js/demo.js"></script>
+	
+  	<%@ include file="/resources/assets/inc/unread_workflow_modal.jsp" %>
+  	
 	<c:if test="${logined == true}">
 		<script src="${pageContext.request.contextPath }/resources/assets/js/login_alarm.js"></script>
 	</c:if>
+	
 	</body>
 </html>
