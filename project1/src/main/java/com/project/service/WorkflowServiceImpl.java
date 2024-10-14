@@ -74,7 +74,6 @@ public class WorkflowServiceImpl implements WorkflowService{
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("sentWorkflowList",wdao.alarmSentWorkflowList(emp_id));
 		resultMap.put("receivedWorkflowList",wdao.alarmReceivedWorkflowList(emp_id));
-		resultMap.put("stackWorkflowList",wdao.stackAlarmWorkflowList(emp_id));
 		
 		return resultMap;
 	}

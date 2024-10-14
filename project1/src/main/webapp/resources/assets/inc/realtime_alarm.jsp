@@ -84,5 +84,3 @@
 	</div>
 </div>
 <!-- sent alarm end-->
-
-<div id="small_alarm_section">asdasdsad</div>

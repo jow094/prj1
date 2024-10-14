@@ -177,19 +177,6 @@ public class ProjectController {
 			logger.debug(" gotten Alarms : " + alarms);
 			}
 			
-			List<String> alarmStack = (List<String>) session.getAttribute("alarmStack");
-			List<WorkflowVO> stackWorkflowList = (List<WorkflowVO>)alarms.get("stackWorkflowList");
-			
-			for(WorkflowVO workflowVO : stackWorkflowList) {
-				없는거 정제하기
-			}
-			
-			if (stackWorkflowList.size()>0) {
-				logger.debug(" Stack Alarms : " + stackWorkflowList.size() + "개의 스택 알람이 있습니다.");
-				}
-			alarms.put("stackWorkflowList",stackWorkflowList);
-			alarms.put("alarmStack",alarmStack);
-			
 			return alarms;
 		}
 		

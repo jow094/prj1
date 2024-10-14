@@ -28,27 +28,9 @@ $(document).ready(function () {
 	            		showAlert(data,'sent_alarm');
 	            	}
 	            }
-	            if (data.stackWorkflowList.length !=0) {
-	            	console.log(data.stackWorkflowList);
-	            	stackAlarm(data.stackWorkflowList, data.alarmStack);
-	            }
 	        },
 	        error: function(err) {
 	            console.error('Error fetching data:', err);
-	        }
-	    });
-	}
-	
-	function updateAlarmStack(alarmStack) {
-	    return $.ajax({
-	        url: '/project/updateSession', // 세션에 alarmStack 업데이트하는 URL
-	        type: 'POST',
-	        data: JSON.stringify(alarmStack),
-	        success: function (response) {
-	            console.log("Updated alarmStack:", alarmStack);
-	        },
-	        error: function (err) {
-	            console.error("Failed to update alarmStack in session", err);
 	        }
 	    });
 	}
@@ -87,48 +69,5 @@ $(document).ready(function () {
 		}, 10000);
 	}
 	
-	function stackAlarm(stackWorkflowList, alarmStack) {
-		for (const workflowVO of stackWorkflowList) {
-			$('#small_alarm_section').append(
-		    		`
-						<div class="small_alarm_container">
-							<div class="small_alarm_inner_box">
-								${workflowVO}
-							</div>
-						</div>
-		    		`
-		    );
-		    
-		    setTimeout(() => {
-	            $('.small_alarm_container:last').addClass('show'); // show 클래스를 추가하여 애니메이션 시작
-	        }, 10);
-		    alarmStack.push(workflowVO.wf_code);
-		}
-		updateAlarmStack(alarmStack);
-	}
-	
 	setInterval(checkAlarm, 10000);
-    
-	document.getElementById('received').addEventListener('click', function() {
-	    showAlert('data','received_alarm');
-	});
-	
-	document.getElementById('sent').addEventListener('click', function() {
-	    showAlert('data','sent_alarm');
-	});
-	
-	document.getElementById('smallAlarmButton').addEventListener('click', function() {
-	    $('#small_alarm_section').append(
-	    		`
-					<div class="small_alarm_container">
-						<div class="small_alarm_inner_box">
-						</div>
-					</div>
-	    		`
-	    );
-	    
-	    setTimeout(() => {
-            $('.small_alarm_container:last').addClass('show'); // show 클래스를 추가하여 애니메이션 시작
-        }, 10);
-	});
 });
