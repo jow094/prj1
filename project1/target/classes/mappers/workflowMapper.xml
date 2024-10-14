@@ -328,15 +328,12 @@
 		update workflow set wf_receiver_alarm_token = '0' where wf_code=#{wf_code}
 	</update>
 	
-	<!-- 스택알람 -->
-	<select id="stackAlarmWorkflow" parameterType="String" resultType="WorkflowVO">
-	  select 
-	    wf.*, 
-	    emp.emp_name as sender_name, emp.emp_dnum as sender_dnum, emp.emp_profile as sender_profile,
-	    emp.emp_bnum as sender_bnum, emp.emp_position as sender_position
-	    from workflow wf
-	    join employee emp on wf.wf_sender = emp.emp_id
-	    where wf_receiver=#{emp_id} and wf_receiver_alarm_token = '0' and wf_refusal_alarm_token='0' and wf_status='1'
+	<!-- small alarm -->
+	<select id="smallAlarm" parameterType="String" resultType="WorkflowVO">
+	  	select count(*) 
+		 from workflow 
+		 where wf_receiver = #{emp_id} 
+		 and wf_status = '1'
 	</select>
 	
 </mapper>

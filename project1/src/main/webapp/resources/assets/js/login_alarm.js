@@ -20,6 +20,7 @@ $(document).ready(function () {
 			/* success start*/
 			console.log('loginAlarm :',data);
 			$('#welcome').text("welcome, dear "+ data.emp_id);
+			$('#smallAlarm').text(data.smallAlarm);
 			
 		    if(data.receiverWorkflowList == null && data.sentWorkflowList == null){
 		    	$('.card-body').append(`

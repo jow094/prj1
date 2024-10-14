@@ -28,6 +28,7 @@ $(document).ready(function () {
 	            		showAlert(data,'sent_alarm');
 	            	}
 	            }
+	            $('#smallAlarm').text(data.smallAlarm);
 	        },
 	        error: function(err) {
 	            console.error('Error fetching data:', err);

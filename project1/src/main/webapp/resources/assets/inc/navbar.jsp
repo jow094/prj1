@@ -150,7 +150,7 @@
                     aria-expanded="false"
                   >
                     <i class="fa fa-bell"></i>
-                    <span class="notification">4</span>
+                    <span id = "smallAlarm" class="notification"></span>
                   </a>
                   <ul
                     class="dropdown-menu notif-box animated fadeIn"

@@ -22,4 +22,5 @@ public interface WorkflowDAO {
 	public List<WorkflowVO> alarmReceivedWorkflowList(String emp_id);
 	public List<WorkflowVO> loginAlarmSentWorkflowList(String emp_id);
 	public List<WorkflowVO> loginAlarmReceivedWorkflowList(String emp_id);
+	public int getSmallAlarm(String emp_id);
 }

@@ -174,7 +174,6 @@ public class ProjectController {
 			
 			if (alarmCount>0) {
 			logger.debug(" gotten Alarms : " + (alarmCount + "개의 실시간 알람이 있습니다."));
-			logger.debug(" gotten Alarms : " + alarms);
 			}
 			
 			return alarms;
@@ -195,19 +194,11 @@ public class ProjectController {
 				
 				if (alarmCount>0) {
 				logger.debug(" gotten Alarms : " + (alarmCount + "개의 로그인 알람이 있습니다."));
-				logger.debug(" gotten Alarms : " + loginAlarms);
 				}
 			
 			logger.debug(" 세션의 로그인 토큰을 삭제합니다.");
 			session.removeAttribute("logined");
 			return loginAlarms;
-		}
-		
-		@RequestMapping(value = "/project/updateSession",method = RequestMethod.POST)
-		public void UpdateSession(HttpSession session, @RequestParam("alarmStack") List<String> newAlarmStack){
-
-	        session.setAttribute("alarmStack", newAlarmStack);
-
 		}
 
 }

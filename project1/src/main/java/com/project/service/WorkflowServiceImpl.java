@@ -74,6 +74,7 @@ public class WorkflowServiceImpl implements WorkflowService{
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("sentWorkflowList",wdao.alarmSentWorkflowList(emp_id));
 		resultMap.put("receivedWorkflowList",wdao.alarmReceivedWorkflowList(emp_id));
+		/* resultMap.put("smallAlarm",wdao.getSmallAlarm(emp_id)); */
 		
 		return resultMap;
 	}
@@ -83,6 +84,8 @@ public class WorkflowServiceImpl implements WorkflowService{
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("sentWorkflowList",wdao.loginAlarmSentWorkflowList(emp_id));
 		resultMap.put("receivedWorkflowList",wdao.loginAlarmReceivedWorkflowList(emp_id));
+		/* resultMap.put("smallAlarm",wdao.getSmallAlarm(emp_id)); */
+		
 		return resultMap;
 	}
 
