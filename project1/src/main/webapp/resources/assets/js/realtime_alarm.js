@@ -28,7 +28,7 @@ $(document).ready(function () {
 		const alarmBox = document.getElementById(which);
 		
 		// 알림 박스를 보이도록 설정
-		alarmBox.style.display = 'block';
+		alarmBox.style.display = 'flex';
 		alarmBox.style.animation = 'fadeIn 1s forwards'; // 페이드인 효과
 		
 		

@@ -1,6 +1,15 @@
 $(document).ready(function () {
+	
+	let preventClose = false;
+	
 	$('#get_employee_info').on('show.bs.modal', function (e) {
-	    var emp_id = $(this).data('emp_id');
+		
+		console.log('preventClose=true');
+		preventClose = true;
+		
+		
+	    var button = $(e.relatedTarget);
+	    var emp_id = button.data('emp_id');
 	    
 	    $.ajax({
 	        url: '/member/memberInfoModal',
@@ -23,5 +32,21 @@ $(document).ready(function () {
 	        }
 	    });
 	});
+	
+	$('.modal').on('hide.bs.modal', function (e) {
+		const modalId = $(this).attr('id'); // 현재 모달의 id를 가져옴
+	    console.log(modalId, 'modal prevent event');
+	    console.log('preventClose :',preventClose);
+	    
+	    if (preventClose && modalId !== 'get_employee_info') {
+	    	console.log(modalId, 'modal prevent event run');
+	        e.preventDefault(); // 현재 모달 닫기 방지
+	    }
+	});
+	
+	$('#get_employee_info').on('hidden.bs.modal', function () {
+	    preventClose = false;
+	});
+	
 
 });

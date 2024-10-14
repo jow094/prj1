@@ -12,9 +12,9 @@ $(document).ready(function () {
 	
 	var workflowVO;
 	
-	$('.workflow_table').on('click', 'a[data-wf_code]', function (e) {
+	$('#workflow_modal').on('show.bs.modal', function (e) {
 		
-	    var button = $(this);
+	    var button = $(e.relatedTarget);
 	    var wf_code = button.data('wf_code');
 	    
 	    console.trace();
@@ -33,6 +33,9 @@ $(document).ready(function () {
 		    	
 				/* value to next page start */
 				$('#wf_code_hidden').val(wf_code);
+				$('#a_sender').attr('data-emp_id', workflowVO.wf_sender);
+				$('#a_receiver').attr('data-emp_id', workflowVO.wf_receiver);
+				$('#a_receiver_1st').attr('data-emp_id', workflowVO.wf_receiver_1st);
 				/* value to next page end */
 				
 				/* set text in page start */
@@ -60,11 +63,11 @@ $(document).ready(function () {
 				/* set receivers start */
 				if (workflowVO.receiver_name_2nd != null) {
 					$('#receivers').append(`
-						<div class="form-group get_receiver_2nd" style="height:100px; display: flex; flex-direction:column; ">
+						<div id="receiver_2nd" class="form-group" style="height:100px; display: flex; flex-direction:column; ">
 		                	<div style="flex:0.2;">
 		                		SECOND RECEIVER
 		                	</div>
-		                	<a href="#">
+		                	<a data-emp_id="${workflowVO.wf_receiver_2nd}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
 		                   	<div style="flex:0.8; display: flex; color: rgba(0, 0, 0, 0.7);">
 		                   		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
 		                   			<img src=""
@@ -95,11 +98,11 @@ $(document).ready(function () {
 				
 				if (workflowVO.receiver_name_3rd != null) {
 					$('#receivers').append(`
-						<div class="form-group get_receiver_3rd" style="height:100px; display: flex; flex-direction:column; ">
+						<div id="receiver_3rd" class="form-group" style="height:100px; display: flex; flex-direction:column; ">
 		                	<div style="flex:0.2;">
 		                		THIRD RECEIVER
 		                	</div>
-		                	<a href="#">
+		                	<a data-emp_id="${workflowVO.wf_receiver_3rd}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
 		                   	<div style="flex:0.8; display: flex; color: rgba(0, 0, 0, 0.7);">
 		                   		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
 		                   			<img src=""
@@ -147,11 +150,11 @@ $(document).ready(function () {
 				/* set result end */
 				
 	            /* set comment start */
-	            function appendComment(receiver_name, receiver_file, comment, result_date, class_name) {
+	            function appendComment(receiver_name, receiver_file, comment, result_date, receiver_id) {
 	                if (comment != null) {
 	                    $('#commentSection').append(`
-	                        <a href="#">
-	                            <div class="${class_name}" style="width: 100%; height: auto; flex-grow: 1; display: flex;">
+	                        <a data-emp_id="${receiver_id}" data-bs-toggle="modal" data-bs-target="get_employee_info">
+	                            <div style="width: 100%; height: auto; flex-grow: 1; display: flex;">
 	                                <div style="width: 5%; display: flex; align-items: center; justify-content: center; padding-right:40px;">
 	                                    <img src="${receiver_file}" alt="img" style="width: 40px; height: 40px; border-radius: 50%;">
 	                                </div>
@@ -175,9 +178,9 @@ $(document).ready(function () {
 	                    console.log('No comment available');
 	                }
 	            }
-	            appendComment(workflowVO.receiver_name_1st, workflowVO.receiver_file_1st, workflowVO.wf_comment_1st, workflowVO.wf_result_date_1st, 'get_receiver_1st');
-		        appendComment(workflowVO.receiver_name_2nd, workflowVO.receiver_file_2nd, workflowVO.wf_comment_2nd, workflowVO.wf_result_date_2nd, 'get_receiver_2nd');
-		        appendComment(workflowVO.receiver_name_3nd, workflowVO.receiver_file_3nd, workflowVO.wf_comment_3rd, workflowVO.wf_result_date_3rd, 'get_receiver_3rd');
+	            appendComment(workflowVO.receiver_name_1st, workflowVO.receiver_file_1st, workflowVO.wf_comment_1st, workflowVO.wf_result_date_1st, workflowVO.wf_receiver_1st);
+		        appendComment(workflowVO.receiver_name_2nd, workflowVO.receiver_file_2nd, workflowVO.wf_comment_2nd, workflowVO.wf_result_date_2nd, workflowVO.wf_receiver_2nd);
+		        appendComment(workflowVO.receiver_name_3nd, workflowVO.receiver_file_3nd, workflowVO.wf_comment_3rd, workflowVO.wf_result_date_3rd, workflowVO.wf_receiver_3rd);
 		        /* set comment end */
 		        
 		        /* modify form as status start*/
@@ -237,26 +240,6 @@ $(document).ready(function () {
 		});
 	});
 	
-	$('#workflow_modal').on('click', '#get_sender', function() {
-	    $('#get_employee_info').data('emp_id', workflowVO.wf_sender).modal('show');
-	});
-
-	$('#workflow_modal').on('click', '#get_receiver', function() {
-		$('#get_employee_info').data('emp_id', workflowVO.wf_receiver).modal('show');
-	});
-
-	$('#workflow_modal').on('click', '.get_receiver_1st', function() {
-	    $('#get_employee_info').data('emp_id', workflowVO.wf_receiver_1st).modal('show');
-	});
-
-	$('#workflow_modal').on('click', '.get_receiver_2nd', function() {
-	    $('#get_employee_info').data('emp_id', workflowVO.wf_receiver_2nd).modal('show');
-	});
-
-	$('#workflow_modal').on('click', '.get_receiver_3rd', function() {
-	    $('#get_employee_info').data('emp_id', workflowVO.wf_receiver_3rd).modal('show');
-	});
-	
 	$('#submit_button .btn').off('click').on('click', function(e) {
         e.preventDefault();
         var result = $('input[name="wf_result"]:checked').val();
@@ -280,8 +263,8 @@ $(document).ready(function () {
 	$('#workflow_modal').off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
     	console.log('workflow_modal is closed.');
         $('#commentSection').empty();
-        $('.get_receiver_2nd').remove();
-        $('.get_receiver_3rd').remove();
+        $('#receiver_2nd').remove();
+        $('#receiver_3rd').remove();
 	});
 	
 });

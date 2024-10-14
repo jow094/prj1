@@ -48,8 +48,8 @@
 					                     <div class="col-md-6 col-lg-2" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
 											<div class="form-group" >
 								                <label class="control-label"> SENDER </label>
-								                <a href="#">
-									                <div class="form-group" id="get_sender" style="height:80px; display: flex;">
+								                <a id="a_sender" data-emp_id="" data-bs-toggle="modal" data-bs-target="get_employee_info">
+									                <div class="form-group" style="height:80px; display: flex;">
 								                    	<div style="display: flex; ">
 								                    		<div style="display: flex; flex:0.3; align-items: center; justify-content: center;">
 								                    			<img src=""
@@ -71,8 +71,8 @@
 					                    <div class="col-md-6 col-lg-2" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
 											<div class="form-group">
 								                <label class="control-label"> RECEIVER </label>
-								                <a href="#">
-								            		<div class="form-group" id="get_receiver" style="height:80px; display: flex;">
+								                <a id="a_receiver" data-emp_id="" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+								            		<div class="form-group" style="height:80px; display: flex;">
 								                    	<div style="display: flex; ">
 								                    		<div style="display: flex; flex:0.3; align-items: center; justify-content: center;">
 								                    			<img src=""
@@ -122,11 +122,11 @@
 					                    <div class="col-md-6 col-lg-4" style="display: flex; flex-direction:column;">
 					                    	<div id="receivers" style="display:flex; flex-direction:column; flex:0.5; justify-content: center;">
 						                    	 <!-- 1차승인자 start -->
-							                     <div class="form-group get_receiver_1st" style="height:100px; display: flex; flex-direction:column; ">
+							                     <div class="form-group" style="height:100px; display: flex; flex-direction:column; ">
 							                     	<div style="flex:0.2;">
 							                     		FIRST RECEIVER
 							                     	</div>
-							                     	<a href="#">
+							                     	<a id="a_receiver_1st" data-emp_id="" data-bs-toggle="modal" data-bs-target="#get_employee_info">
 								                    	<div style="flex:0.8; display: flex; color: rgba(0, 0, 0, 0.7);">
 								                    		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
 								                    			<img src=""

@@ -39,50 +39,54 @@ $(document).ready(function () {
 			        for (const workflowVO of data.receivedWorkflowList) {
 			        	 $('#received_workflows').append(`
 				            		<div style="display: flex; width:100%; height:100px; border-bottom:1px solid rgba(0,0,0,0.1);">
-			                    		<div style="display: flex; flex:0.4; align-items: center; justify-content: center; border-right: 1px solid rgba(0,0,0,0.1); margin:15px 0px 15px 0px; ">
-			                    			<div style="display: flex; flex-direction:column; flex:0.4; align-items: center; justify-content: center;">
-			                    				<div style="flex:0.2; font-weight: bold width:100%;" >sender</div>
-								        		<div style="flex:0.8; width:100%;">
-									        		<img src="${workflowVO.sender_profile}"
-									        		style=" width: 40px; height: 40px; border-radius: 50%;">
-								        		</div>
-								        	</div>
-			                    			<div style="display: flex; flex:0.6; flex-direction:column;">
-			                    				<div style="display: flex; width:100%; flex:0.4; font-weight: bold; align-items: center; justify-content: center;">
-			                    					${workflowVO.sender_name}
-			                    				</div>
-			                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;" >
-			                    					${workflowVO.sender_bnum}
-			                    				</div>
-			                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;">
-			                    					${workflowVO.sender_dnum}
-			                    				</div>
-			                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;" >
-			                    					${workflowVO.sender_position}
-			                    				</div>
-			                    			</div>
-			                    		</div>
-			                    		<div style="display: flex; flex:0.6; flex-direction:column;">
-				                    		<div style="display: flex; flex:0.5; width:100%;">
-				                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-				                    				<div style="flex:0.5; font-weight: bold">type</div>
-			                    					<div style="flex:0.5;">${workflowVO.wf_type}</div>
-				                    			</div>
-				                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-				                    				<div style="flex:0.5; font-weight: bold">progress</div>
-			                    					<div style="flex:0.5;">${workflowVO.wf_progress}</div>
-				                    			</div>
-				                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-				                    				<div style="flex:0.5; font-weight: bold">date</div>
-			                    					<div style="flex:0.5;">${getDate(workflowVO.wf_progress === '1' ? workflowVO.wf_create_date : workflowVO.wf_last_result_date)}</div>
+			                    		<a data-wf_code="${workflowVO.wf_sender}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+				                    		<div style="display: flex; flex:0.4; align-items: center; justify-content: center; border-right: 1px solid rgba(0,0,0,0.1); margin:15px 0px 15px 0px; ">
+				                    			<div style="display: flex; flex-direction:column; flex:0.4; align-items: center; justify-content: center;">
+				                    				<div style="flex:0.2; font-weight: bold width:100%;" >sender</div>
+									        		<div style="flex:0.8; width:100%;">
+										        		<img src="${workflowVO.sender_profile}"
+										        		style=" width: 40px; height: 40px; border-radius: 50%;">
+									        		</div>
+									        	</div>
+				                    			<div style="display: flex; flex:0.6; flex-direction:column;">
+				                    				<div style="display: flex; width:100%; flex:0.4; font-weight: bold; align-items: center; justify-content: center;">
+				                    					${workflowVO.sender_name}
+				                    				</div>
+				                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;" >
+				                    					${workflowVO.sender_bnum}
+				                    				</div>
+				                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;">
+				                    					${workflowVO.sender_dnum}
+				                    				</div>
+				                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;" >
+				                    					${workflowVO.sender_position}
+				                    				</div>
 				                    			</div>
 				                    		</div>
-				                    		<div 
-				                    		style="display: flex; flex:0.5; width:100%; align-items: center; justify-content: left; margin-left:30px; 
-				                    		white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width:245px;">
-				                    			${workflowVO.wf_title}
-				                    		</div>
-				                    	</div>
+			                    		</a>
+			                    		<a data-wf_code="${workflowVO.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+				                    		<div style="display: flex; flex:0.6; flex-direction:column;">
+					                    		<div style="display: flex; flex:0.5; width:100%;">
+					                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
+					                    				<div style="flex:0.5; font-weight: bold">type</div>
+				                    					<div style="flex:0.5;">${workflowVO.wf_type}</div>
+					                    			</div>
+					                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
+					                    				<div style="flex:0.5; font-weight: bold">progress</div>
+				                    					<div style="flex:0.5;">${workflowVO.wf_progress}</div>
+					                    			</div>
+					                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
+					                    				<div style="flex:0.5; font-weight: bold">date</div>
+				                    					<div style="flex:0.5;">${getDate(workflowVO.wf_progress === '1' ? workflowVO.wf_create_date : workflowVO.wf_last_result_date)}</div>
+					                    			</div>
+					                    		</div>
+					                    		<div 
+					                    		style="display: flex; flex:0.5; width:100%; align-items: center; justify-content: left; margin-left:30px; 
+					                    		white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width:245px;">
+					                    			${workflowVO.wf_title}
+					                    		</div>
+					                    	</div>
+				                    	</a>
 			                    	</div>
 				            		`); 
 			        	 receivedWorkflowCount ++;
@@ -110,43 +114,51 @@ $(document).ready(function () {
 			        for (const workflowVO of data.sentWorkflowList) {
 			        	$('#sent_workflows').append(`
 			            		<div style="display: flex; width:100%; height:100px; border-bottom:1px solid rgba(0,0,0,0.1);">
-		                    		<div style="display: flex; flex-direction:column; flex:0.5; align-items: center; justify-content: center; border-right: 1px solid rgba(0,0,0,0.1); margin:15px 0px 15px 0px; ">
-	                    				<div style="display: flex; flex:0.5; width:100%;">
-			                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-			                    				<div style="flex:0.5 width:100%; ; font-weight: bold">type</div>
-		                    					<div style="flex:0.5 width:100%; ;">${workflowVO.wf_type}</div>
-			                    			</div>
-			                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-			                    				<div style="flex:0.5 width:100%; ; font-weight: bold">progress</div>
-		                    					<div style="flex:0.5 width:100%; ;">${workflowVO.wf_progress}</div>
-			                    			</div>
-			                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-			                    				<div style="flex:0.5 width:100%; ; font-weight: bold">date</div>
-		                    					<div style="flex:0.5 width:100%; ;">${getDate(workflowVO.wf_progress === '1' ? workflowVO.wf_create_date : workflowVO.wf_last_result_date)}</div>
-			                    			</div>
+		                    		<a data-wf_code="${workflowVO.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+			                    		<div style="display: flex; flex-direction:column; flex:0.5; align-items: center; justify-content: center; border-right: 1px solid rgba(0,0,0,0.1); margin:15px 0px 15px 0px; ">
+		                    				<div style="display: flex; flex:0.5; width:100%;">
+				                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
+				                    				<div style="flex:0.5 width:100%; ; font-weight: bold">type</div>
+			                    					<div style="flex:0.5 width:100%; ;">${workflowVO.wf_type}</div>
+				                    			</div>
+				                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
+				                    				<div style="flex:0.5 width:100%; ; font-weight: bold">progress</div>
+			                    					<div style="flex:0.5 width:100%; ;">${workflowVO.wf_progress}</div>
+				                    			</div>
+				                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
+				                    				<div style="flex:0.5 width:100%; ; font-weight: bold">date</div>
+			                    					<div style="flex:0.5 width:100%; ;">${getDate(workflowVO.wf_progress === '1' ? workflowVO.wf_create_date : workflowVO.wf_last_result_date)}</div>
+				                    			</div>
+				                    		</div>
+				                    		<div 
+				                    		style="display: flex; flex:0.5; align-items: center; justify-content: left; margin-left:30px; 
+				                    		white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width:100%; ">
+				                    			${workflowVO.wf_title}
+				                    		</div>
 			                    		</div>
-			                    		<div 
-			                    		style="display: flex; flex:0.5; align-items: center; justify-content: left; margin-left:30px; 
-			                    		white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width:100%; ">
-			                    			${workflowVO.wf_title}
-			                    		</div>
-		                    		</div>
+		                    		</a>
 		                    		<div style="display: flex; flex:0.5;">
-		                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-		                    				<div style="flex:0.4 width:100%; ; font-weight: bold">1st_result</div>
-	                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_result_1st}</div>
-	                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_receiver_1st}</div>
-		                    			</div>
-		                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-		                    				<div style="flex:0.4 width:100%; ; font-weight: bold">2nd_result</div>
-	                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_result_2nd}</div>
-	                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_receiver_2nd}</div>
-		                    			</div>
-		                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-		                    				<div style="flex:0.4 width:100%; ; font-weight: bold">3rd_result</div>
-	                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_result_3rd}</div>
-	                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_receiver_3rd}</div>
-		                    			</div>
+		                    			<a data-wf_code="${workflowVO.wf_receiver_1st}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+			                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
+			                    				<div style="flex:0.4 width:100%; ; font-weight: bold">1st_result</div>
+		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_result_1st}</div>
+		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.receiver_name_1st}</div>
+			                    			</div>
+		                    			</a>
+		                    			<a data-wf_code="${workflowVO.wf_receiver_2nd}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+			                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
+			                    				<div style="flex:0.4 width:100%; ; font-weight: bold">2nd_result</div>
+		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_result_2nd}</div>
+		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.receiver_name_2nd}</div>
+			                    			</div>
+		                    			</a>
+		                    			<a data-wf_code="${workflowVO.wf_receiver_3rd}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+			                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
+			                    				<div style="flex:0.4 width:100%; ; font-weight: bold">3rd_result</div>
+		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_result_3rd}</div>
+		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.receiver_name_3rd}</div>
+			                    			</div>
+		                    			</a>
 			                    	</div>
 		                    	</div>
 			            		`); 

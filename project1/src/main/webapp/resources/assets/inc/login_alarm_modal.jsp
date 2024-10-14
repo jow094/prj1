@@ -1,4 +1,5 @@
 <script src="${pageContext.request.contextPath }/resources/assets/js/login_alarm.js"></script>
+<%@ include file="/resources/assets/inc/workflow_modal.jsp" %>
 
 <div class="modal fade" id="login_alarm_modal" tabindex="2" aria-labelledby="unread_workflow" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);">
 	<div class="modal-dialog modal-md" >
