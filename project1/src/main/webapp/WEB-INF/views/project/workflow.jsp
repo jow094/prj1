@@ -50,8 +50,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/demo.css" />
   </head>
   <body>
-    <%@ include file="/resources/assets/inc/workflow_modal.jsp" %>
-  
     <div class="wrapper">
       <%@ include file="/resources/assets/inc/sidebar.jsp" %> <!-- sidebar -->
       <div class="main-panel">
@@ -131,32 +129,32 @@
                           <c:forEach var="workflow" items="${sentWorkflowList}">
 					        <tr>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" id="workflow_info">
 					            		${workflow.wf_code}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" id="workflow_info">
 						            	${workflow.wf_type}
 						            </a>
 						        </td>
 					            <td>
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" id="workflow_info">
 			                        	${workflow.wf_title}
 			                        </a>
 		                        </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" id="workflow_info">
 						            	${workflow.receiver_name}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" id="workflow_info">
 					            		${workflow.wf_status}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" id="workflow_info">
 					           			<fmt:formatDate value="${workflow.wf_create_date}" pattern="yy.MM.dd HH:mm" />
 					           		</a>
 					           	</td>
@@ -200,36 +198,36 @@
                             <th>DATE</th>
                           </tr>
                         </tfoot>
-                        <tbody>
+                        <tbody class="workflow_modal">
                           <c:forEach var="workflow" items="${receivedWorkflowList}">
 					        <tr>
 					           <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" id="workflow_info">
 					            		${workflow.wf_code}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" id="workflow_info">
 						            	${workflow.wf_type}
 						            </a>
 						        </td>
 					            <td>
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" id="workflow_info">
 			                        	${workflow.wf_title}
 			                        </a>
 		                        </td>
 					            <td style="text-align: center;">
-						            <a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+						            <a data-wf_code="${workflow.wf_code}" id="workflow_info">
 						            	${workflow.sender_name}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" id="workflow_info">
 					            		${workflow.wf_status}
 					            	</a>
 					            </td>
 					            <td style="text-align: center;">
-					            	<a data-wf_code="${workflow.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+					            	<a data-wf_code="${workflow.wf_code}" id="workflow_info">
 					           			<fmt:formatDate value="${workflow.wf_last_result_date}" pattern="yy.MM.dd HH:mm" />
 					           		</a>
 					           	</td>

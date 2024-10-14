@@ -2,6 +2,7 @@ package com.project.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -100,12 +101,12 @@ public class ProjectController {
 		// http://localhost:8088/project/readWorkflow
 		@RequestMapping(value = "/readWorkflow",method = RequestMethod.GET)
 		@ResponseBody
-		public Map<String,Object> readWorkflow(@RequestParam("wf_code") String wfCode, HttpSession session) {
+		public Map<String,Object> readWorkflow(@RequestParam("wf_code") String wf_code, HttpSession session) {
 			logger.debug(" /project/readWorkflow -> readWorkflow()실행 ");
 			
-			logger.debug(" 조회 대상 wf_code : "+wfCode);
+			logger.debug(" 조회 대상 wf_code : "+wf_code);
 			
-			WorkflowVO workflowVO = wService.showWorkflow(wfCode);
+			WorkflowVO workflowVO = wService.showWorkflow(wf_code);
 			Map<String,Object> data = new HashMap<String,Object>();
 			
 			
@@ -155,6 +156,7 @@ public class ProjectController {
 			session.removeAttribute("emp_id");
 			session.setAttribute("emp_id", resultVO.getEmp_id());
 			session.setAttribute("logined", true);
+			session.setAttribute("alarmStack", new ArrayList<String>());
 			
 			return "redirect:/project/main";
 		}
@@ -174,6 +176,19 @@ public class ProjectController {
 			logger.debug(" gotten Alarms : " + (alarmCount + "개의 실시간 알람이 있습니다."));
 			logger.debug(" gotten Alarms : " + alarms);
 			}
+			
+			List<String> alarmStack = (List<String>) session.getAttribute("alarmStack");
+			List<WorkflowVO> stackWorkflowList = (List<WorkflowVO>)alarms.get("stackWorkflowList");
+			
+			for(WorkflowVO workflowVO : stackWorkflowList) {
+				없는거 정제하기
+			}
+			
+			if (stackWorkflowList.size()>0) {
+				logger.debug(" Stack Alarms : " + stackWorkflowList.size() + "개의 스택 알람이 있습니다.");
+				}
+			alarms.put("stackWorkflowList",stackWorkflowList);
+			alarms.put("alarmStack",alarmStack);
 			
 			return alarms;
 		}
@@ -199,6 +214,13 @@ public class ProjectController {
 			logger.debug(" 세션의 로그인 토큰을 삭제합니다.");
 			session.removeAttribute("logined");
 			return loginAlarms;
+		}
+		
+		@RequestMapping(value = "/project/updateSession",method = RequestMethod.POST)
+		public void UpdateSession(HttpSession session, @RequestParam("alarmStack") List<String> newAlarmStack){
+
+	        session.setAttribute("alarmStack", newAlarmStack);
+
 		}
 
 }

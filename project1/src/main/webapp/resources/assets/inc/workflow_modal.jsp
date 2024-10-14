@@ -48,7 +48,7 @@
 					                     <div class="col-md-6 col-lg-2" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
 											<div class="form-group" >
 								                <label class="control-label"> SENDER </label>
-								                <a id="a_sender" data-emp_id="" data-bs-toggle="modal" data-bs-target="get_employee_info">
+								                <a id="a_sender" class="member_info" data-emp_id="">
 									                <div class="form-group" style="height:80px; display: flex;">
 								                    	<div style="display: flex; ">
 								                    		<div style="display: flex; flex:0.3; align-items: center; justify-content: center;">
@@ -71,7 +71,7 @@
 					                    <div class="col-md-6 col-lg-2" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
 											<div class="form-group">
 								                <label class="control-label"> RECEIVER </label>
-								                <a id="a_receiver" data-emp_id="" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+								                <a id="a_receiver" class="member_info" data-emp_id="">
 								            		<div class="form-group" style="height:80px; display: flex;">
 								                    	<div style="display: flex; ">
 								                    		<div style="display: flex; flex:0.3; align-items: center; justify-content: center;">
@@ -126,7 +126,7 @@
 							                     	<div style="flex:0.2;">
 							                     		FIRST RECEIVER
 							                     	</div>
-							                     	<a id="a_receiver_1st" data-emp_id="" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+							                     	<a id="a_receiver_1st" class="member_info" data-emp_id="">
 								                    	<div style="flex:0.8; display: flex; color: rgba(0, 0, 0, 0.7);">
 								                    		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
 								                    			<img src=""

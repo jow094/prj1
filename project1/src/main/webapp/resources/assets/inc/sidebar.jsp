@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/resources/assets/inc/get_employee_info.jsp" %>
 <%@ include file="/resources/assets/inc/realtime_alarm.jsp" %>
-    
+<%@ include file="/resources/assets/inc/workflow_modal.jsp" %>
       <!-- Sidebar -->
       <div class="sidebar" data-background-color="dark">
         <!-- Start logo -->
@@ -84,8 +84,9 @@
               <!-- Menu start -->
             </ul>
           </div>
-          <button id="sent" class="showAlarmButton">보낸 요청 알람 보기</button>
-          <button id="received" class="showAlarmButton">받은 요청 알람 보기</button>
+	          <button id="sent" class="showAlarmButton">보낸 요청 알람 보기</button>
+	          <button id="received" class="showAlarmButton">받은 요청 알람 보기</button>
+	          <button id="smallAlarmButton">알림 스택 쌓기</button>
         </div>
       </div>
       <!-- End Sidebar -->

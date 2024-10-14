@@ -39,7 +39,7 @@ $(document).ready(function () {
 			        for (const workflowVO of data.receivedWorkflowList) {
 			        	 $('#received_workflows').append(`
 				            		<div style="display: flex; width:100%; height:100px; border-bottom:1px solid rgba(0,0,0,0.1);">
-			                    		<a data-wf_code="${workflowVO.wf_sender}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+			                    		<a data-emp_id="${workflowVO.wf_sender}"  class="member_info">
 				                    		<div style="display: flex; flex:0.4; align-items: center; justify-content: center; border-right: 1px solid rgba(0,0,0,0.1); margin:15px 0px 15px 0px; ">
 				                    			<div style="display: flex; flex-direction:column; flex:0.4; align-items: center; justify-content: center;">
 				                    				<div style="flex:0.2; font-weight: bold width:100%;" >sender</div>
@@ -64,7 +64,7 @@ $(document).ready(function () {
 				                    			</div>
 				                    		</div>
 			                    		</a>
-			                    		<a data-wf_code="${workflowVO.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+			                    		<a data-wf_code="${workflowVO.wf_code}" id="workflow_info">
 				                    		<div style="display: flex; flex:0.6; flex-direction:column;">
 					                    		<div style="display: flex; flex:0.5; width:100%;">
 					                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
@@ -96,13 +96,15 @@ $(document).ready(function () {
 		            }
 			        if(data.receivedWorkflowList.length > 3){
 			        	$('#received_workflows').append(`
-			        			<div 
-			        			id="notify" 
-			        			style="
-			        			display: flex; height:60px; border-bottom:1px solid rgba(0,0,0,0.1); align-items: center; justify-content: center;"
-			        			>
-			        			there is more `+(data.receivedWorkflowList.length-3)+` received workflow to notify for you.
-			        			</div>
+			        			<a href="/project/workflow">
+				        			<div 
+					        			id="notify" 
+					        			style="
+					        			display: flex; height:60px; border-bottom:1px solid rgba(0,0,0,0.1); align-items: center; justify-content: center;"
+				        			>
+				        				there is more `+(data.receivedWorkflowList.length-3)+` received workflow to notify for you.
+				        			</div>
+			        			</a>
 			        	`); 
 			        }
 		        } /* received workflow end */
@@ -114,7 +116,7 @@ $(document).ready(function () {
 			        for (const workflowVO of data.sentWorkflowList) {
 			        	$('#sent_workflows').append(`
 			            		<div style="display: flex; width:100%; height:100px; border-bottom:1px solid rgba(0,0,0,0.1);">
-		                    		<a data-wf_code="${workflowVO.wf_code}" data-bs-toggle="modal" data-bs-target="#workflow_modal">
+		                    		<a data-emp_id="${workflowVO.wf_code}" id="workflow_info">
 			                    		<div style="display: flex; flex-direction:column; flex:0.5; align-items: center; justify-content: center; border-right: 1px solid rgba(0,0,0,0.1); margin:15px 0px 15px 0px; ">
 		                    				<div style="display: flex; flex:0.5; width:100%;">
 				                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
@@ -138,21 +140,21 @@ $(document).ready(function () {
 			                    		</div>
 		                    		</a>
 		                    		<div style="display: flex; flex:0.5;">
-		                    			<a data-wf_code="${workflowVO.wf_receiver_1st}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+		                    			<a data-emp_id="${workflowVO.wf_receiver_1st}" class="member_info">
 			                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
 			                    				<div style="flex:0.4 width:100%; ; font-weight: bold">1st_result</div>
 		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_result_1st}</div>
 		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.receiver_name_1st}</div>
 			                    			</div>
 		                    			</a>
-		                    			<a data-wf_code="${workflowVO.wf_receiver_2nd}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+		                    			<a data-emp_id="${workflowVO.wf_receiver_2nd}" class="member_info">
 			                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
 			                    				<div style="flex:0.4 width:100%; ; font-weight: bold">2nd_result</div>
 		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_result_2nd}</div>
 		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.receiver_name_2nd}</div>
 			                    			</div>
 		                    			</a>
-		                    			<a data-wf_code="${workflowVO.wf_receiver_3rd}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+		                    			<a data-emp_id="${workflowVO.wf_receiver_3rd}" class="member_info">
 			                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
 			                    				<div style="flex:0.4 width:100%; ; font-weight: bold">3rd_result</div>
 		                    					<div style="flex:0.3 width:100%; ;">${workflowVO.wf_result_3rd}</div>
@@ -169,19 +171,25 @@ $(document).ready(function () {
 				    }
 			        if(data.sentWorkflowList.length > 3){
 			        	$('#sent_workflows').append(`
-			        			<div 
-			        			id="notify" 
-			        			style="
-			        			display: flex; height:60px; border-bottom:1px solid rgba(0,0,0,0.1); align-items: center; justify-content: center;"
-			        			>
-			        			there is more `+(data.sentWorkflowList.length-3)+` copleted workflow that you sent.
-			        			</div>
+			        			<a href="/project/workflow">
+				        			<div 
+					        			id="notify" 
+					        			style="
+					        			display: flex; height:60px; border-bottom:1px solid rgba(0,0,0,0.1); align-items: center; justify-content: center;"
+				        			>
+				        				there is more `+(data.sentWorkflowList.length-3)+` copleted workflow that you sent.
+				        			</div>
+			        			</a>
 			        	`); 
 			        }
 		        } /* sent workflow end */
 		    } /* workflows end */
 	    
         $('#login_alarm_modal').modal('show');
+        
+        $('#login_alarm_modal').on('shown.bs.modal', function () {
+            $(this).focus();
+        });
         
 		}, /* success end*/
 		error: function(xhr, status, error) {

@@ -1,15 +1,8 @@
 $(document).ready(function () {
 	
-	let preventClose = false;
-	
-	$('#get_employee_info').on('show.bs.modal', function (e) {
+	$(document).on('click', '.member_info', function (e) {
 		
-		console.log('preventClose=true');
-		preventClose = true;
-		
-		
-	    var button = $(e.relatedTarget);
-	    var emp_id = button.data('emp_id');
+		var emp_id = $(this).data('emp_id');
 	    
 	    $.ajax({
 	        url: '/member/memberInfoModal',
@@ -25,6 +18,12 @@ $(document).ready(function () {
 				$('#emp_position').text(emp.emp_position);
 				$('#emp_tel').text(emp.emp_tel);
 				$('#emp_email').text(emp.emp_email);
+				
+				$('#get_employee_info').modal('show');
+				
+				$('#get_employee_info').on('shown.bs.modal', function () {
+		            $(this).focus();
+		        });
 	        },
 	        error: function(xhr, status, error) {
 	            console.error('AJAX fail:', status, error);
@@ -33,20 +32,4 @@ $(document).ready(function () {
 	    });
 	});
 	
-	$('.modal').on('hide.bs.modal', function (e) {
-		const modalId = $(this).attr('id'); // 현재 모달의 id를 가져옴
-	    console.log(modalId, 'modal prevent event');
-	    console.log('preventClose :',preventClose);
-	    
-	    if (preventClose && modalId !== 'get_employee_info') {
-	    	console.log(modalId, 'modal prevent event run');
-	        e.preventDefault(); // 현재 모달 닫기 방지
-	    }
-	});
-	
-	$('#get_employee_info').on('hidden.bs.modal', function () {
-	    preventClose = false;
-	});
-	
-
 });

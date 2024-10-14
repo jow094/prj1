@@ -17,8 +17,9 @@ public interface WorkflowDAO {
 	public List<WorkflowVO> getSentWorkflowList(String userid,String status);
 	public List<WorkflowVO> getReceivedWorkflowList(String userid,String status);
 	public int updateWorkflow(WorkflowVO vo);
-	public List<WorkflowVO> AlarmSentWorkflowList(String emp_id);
-	public List<WorkflowVO> AlarmReceivedWorkflowList(String emp_id);
+	public List<WorkflowVO> stackAlarmWorkflowList(String emp_id);
+	public List<WorkflowVO> alarmSentWorkflowList(String emp_id);
+	public List<WorkflowVO> alarmReceivedWorkflowList(String emp_id);
 	public List<WorkflowVO> loginAlarmSentWorkflowList(String emp_id);
 	public List<WorkflowVO> loginAlarmReceivedWorkflowList(String emp_id);
 }

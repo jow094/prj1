@@ -12,10 +12,9 @@ $(document).ready(function () {
 	
 	var workflowVO;
 	
-	$('#workflow_modal').on('show.bs.modal', function (e) {
+	$(document).on('click', '#workflow_info', function (e) {
 		
-	    var button = $(e.relatedTarget);
-	    var wf_code = button.data('wf_code');
+		var wf_code = $(this).data('wf_code');
 	    
 	    console.trace();
 	    console.log('workflow_modal is opened.');
@@ -65,9 +64,9 @@ $(document).ready(function () {
 					$('#receivers').append(`
 						<div id="receiver_2nd" class="form-group" style="height:100px; display: flex; flex-direction:column; ">
 		                	<div style="flex:0.2;">
-		                		SECOND RECEIVER
+		                		SECOND RECEIVER   
 		                	</div>
-		                	<a data-emp_id="${workflowVO.wf_receiver_2nd}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+		                	<a data-emp_id="${workflowVO.wf_receiver_2nd}" class="member_info">
 		                   	<div style="flex:0.8; display: flex; color: rgba(0, 0, 0, 0.7);">
 		                   		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
 		                   			<img src=""
@@ -102,7 +101,7 @@ $(document).ready(function () {
 		                	<div style="flex:0.2;">
 		                		THIRD RECEIVER
 		                	</div>
-		                	<a data-emp_id="${workflowVO.wf_receiver_3rd}" data-bs-toggle="modal" data-bs-target="#get_employee_info">
+		                	<a data-emp_id="${workflowVO.wf_receiver_3rd}" class="member_info">
 		                   	<div style="flex:0.8; display: flex; color: rgba(0, 0, 0, 0.7);">
 		                   		<div style="display: flex; flex:0.2; align-items: center; justify-content: center;">
 		                   			<img src=""
@@ -153,7 +152,7 @@ $(document).ready(function () {
 	            function appendComment(receiver_name, receiver_file, comment, result_date, receiver_id) {
 	                if (comment != null) {
 	                    $('#commentSection').append(`
-	                        <a data-emp_id="${receiver_id}" data-bs-toggle="modal" data-bs-target="get_employee_info">
+	                        <a data-emp_id="${receiver_id}" class="member_info">
 	                            <div style="width: 100%; height: auto; flex-grow: 1; display: flex;">
 	                                <div style="width: 5%; display: flex; align-items: center; justify-content: center; padding-right:40px;">
 	                                    <img src="${receiver_file}" alt="img" style="width: 40px; height: 40px; border-radius: 50%;">
@@ -231,7 +230,10 @@ $(document).ready(function () {
 		    	}
 	    		/* modify form as status end*/
 	    		
-		        
+	    		$('#workflow_modal').modal('show');
+	    		$('#workflow_modal').on('shown.bs.modal', function () {
+	                $(this).focus();
+	            });
 			},
 			error: function(xhr, status, error) {
 				console.error('AJAX 요청 실패:', status, error);

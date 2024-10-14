@@ -72,8 +72,10 @@ public class WorkflowServiceImpl implements WorkflowService{
 	@Override
 	public Map<String,Object> realtimeCheckWorkflow(String emp_id) {
 		Map<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("sentWorkflowList",wdao.AlarmSentWorkflowList(emp_id));
-		resultMap.put("receivedWorkflowList",wdao.AlarmReceivedWorkflowList(emp_id));
+		resultMap.put("sentWorkflowList",wdao.alarmSentWorkflowList(emp_id));
+		resultMap.put("receivedWorkflowList",wdao.alarmReceivedWorkflowList(emp_id));
+		resultMap.put("stackWorkflowList",wdao.stackAlarmWorkflowList(emp_id));
+		
 		return resultMap;
 	}
 
