@@ -5,11 +5,11 @@
       <!-- Sidebar -->
       <div class="sidebar" data-background-color="dark">
         <!-- Start logo -->
-        <div class="sidebar-logo">
-          <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
+        <div class="sidebar-logo" >
+          <div class="logo-header" style="background-color: rgba(0,0,0,0.8)">
+            <a href="/project/main" class="logo">
               <img
-                src="${pageContext.request.contextPath }/resources/assets/img/kaiadmin/logo_light.svg"
+                src=""
                 alt="navbar brand"
                 class="navbar-brand"
                 height="20"
@@ -29,7 +29,7 @@
           </div>
         </div>
         <!-- End Logo -->
-        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-wrapper scrollbar scrollbar-inner" style="background-color: rgba(0,0,0,0.8)">
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
               <li class="nav-item active">

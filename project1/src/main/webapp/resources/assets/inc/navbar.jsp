@@ -1,31 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script src="${pageContext.request.contextPath }/resources/assets/js/alarm_extend.js"></script>
+<script src="${pageContext.request.contextPath }/resources/assets/js/search.js"></script>
+		
 		  <!-- Navbar Header -->
-          <nav
-            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
-          >
-            <div class="container-fluid">
-              <nav
-                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
-              >
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-search pe-1">
-                      <i class="fa fa-search search-icon"></i>
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search ..."
-                    class="form-control"
-                  />
-                </div>
+          <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" style="position: relative; background-color: rgba(0,0,0,0.8)">
+           	<!-- 알람 확장 -->
+           	<div id="extended_navbar">
+           	</div>
+           	<!-- 알람 확장 -->
+            <div class="container-fluid" >
+              <!-- 검색창 -->
+              <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+				<div id="search_form" class="input-group" style="position: relative; padding: 0px !importatn; margin:0px !important; width:600px !important;">
+					<div class="input-group-prepend">
+						<button type="submit" class="btn btn-search pe-1">
+							<i class="fa fa-search search-icon"></i>
+						</button>
+					</div>
+						<input
+						type="text"
+						placeholder="Search ..."
+						class="form-control"
+						id="searchInput"
+						oninput="search(this.value)"
+						/>
+					<div id="search_form_extended"> <!-- 기본적으로 숨김 -->
+						<ul id="search_history">
+							<li>과거 검색기록</li>
+							<li>과거 검색기록1</li>
+							<li>과거 검색기록2</li>
+						</ul>
+						<ul id="search_employees">
+						</ul>
+						<ul id="search_null" style="display:none;">
+							<li>There is nothing for your input.</li>
+						</ul>
+					</div>
+				</div>
               </nav>
-
+              
+             
+              <!-- 검색창 -->
+              
+			  <!-- 드롭다운 메뉴들 -->
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-                <li
-                  class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"
-                >
+              
+              	<!-- 
+                <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">   
                   <a
                     class="nav-link dropdown-toggle"
                     data-bs-toggle="dropdown"
@@ -48,6 +71,10 @@
                     </form>
                   </ul>
                 </li>
+				 -->
+                
+                 <!-- 아이콘1 -->
+                 <%-- 
                 <li class="nav-item topbar-icon dropdown hidden-caret">
                   <a
                     class="nav-link dropdown-toggle"
@@ -66,7 +93,7 @@
                   >
                     <li>
                       <div
-                        class="dropdown-title d-flex justify-content-between align-items-center"
+                        class="dropdown-title d-flex justify-content-between align-items-center""
                       >
                         Messages
                         <a href="#" class="small">Mark all as read</a>
@@ -138,16 +165,15 @@
                       </a>
                     </li>
                   </ul>
-                </li>
-                <li class="nav-item topbar-icon dropdown hidden-caret">
+                </li> 
+                --%>
+                <!-- 아이콘1 -->
+                
+                <!-- 아이콘2 -->
+                <li id="extend_workflowAlarm" class="nav-item topbar-icon dropdown hidden-caret">
                   <a
                     class="nav-link dropdown-toggle"
                     href="#"
-                    id="notifDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
                   >
                     <i class="fa fa-bell"></i>
                     <span id = "smallAlarm" class="notification"></span>
@@ -217,6 +243,12 @@
                     </li>
                   </ul>
                 </li>
+                <!-- 아이콘2 -->
+                
+                
+                
+                <!-- 아이콘3 -->
+                <!-- 
                 <li class="nav-item topbar-icon dropdown hidden-caret">
                   <a
                     class="nav-link"
@@ -294,8 +326,11 @@
                       </div>
                     </div>
                   </div>
-                </li>
-
+                </li> 
+                -->
+                <!-- 아이콘3 -->
+                
+				<!-- 개인프로필 -->
                 <li class="nav-item topbar-user dropdown hidden-caret">
                   <a
                     class="dropdown-toggle profile-pic"
@@ -310,8 +345,8 @@
                         class="avatar-img rounded-circle"
                       />
                     </div>
-                    <span class="profile-username">
-                      <span class="op-7">Hi,</span>
+                    <span class="profile-username" style="color:white;">
+                      <span class="op-7">Hi ! dear,</span>
                       <span class="fw-bold">${emp_id} </span>
                     </span>
                   </a>
@@ -350,7 +385,11 @@
                     </div>
                   </ul>
                 </li>
+                <!-- 개인프로필 -->
+                
               </ul>
+              <!-- 드롭다운 메뉴들 -->
+              	
             </div>
           </nav>
           <!-- End Navbar -->

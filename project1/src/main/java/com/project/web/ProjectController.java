@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.domain.MemberVO;
 import com.project.domain.WorkflowVO;
 import com.project.persistence.MemberDAO;
+import com.project.persistence.WorkflowDAO;
+import com.project.persistence.WorkflowDAOImpl;
 import com.project.service.MemberService;
 import com.project.service.WorkflowService;
 
@@ -167,8 +169,8 @@ public class ProjectController {
 		public Map<String, Object> checkAlarm(HttpSession session) {
 			
 			String emp_id = (String)session.getAttribute("emp_id");
-			logger.debug(" checkAlarm for "+ emp_id);
 			Map<String, Object> alarms = wService.realtimeCheckWorkflow(emp_id);
+			logger.debug(" checkAlarm for "+ emp_id + ", smallAlarm :" + alarms.get("smallAlarm"));
 			
 			int alarmCount = ((List<WorkflowVO>)alarms.get("sentWorkflowList")).size() + ((List<WorkflowVO>)alarms.get("receivedWorkflowList")).size();
 			
@@ -185,8 +187,8 @@ public class ProjectController {
 		public Map<String, Object> loginAlarm(HttpSession session) {
 			
 			String emp_id = (String)session.getAttribute("emp_id");
-			logger.debug(" loginAlarm for "+ emp_id);
 			Map<String, Object> loginAlarms = wService.loginCheckWorkflow(emp_id);
+			logger.debug(" loginAlarm for "+ emp_id + ", smallAlarm :" + loginAlarms.get("smallAlarm"));
 			
 			loginAlarms.put("emp_id", emp_id);
 			
@@ -200,5 +202,17 @@ public class ProjectController {
 			session.removeAttribute("logined");
 			return loginAlarms;
 		}
-
+		
+		// http://localhost:8088/project/smallAlarm_workflow
+		@RequestMapping(value = "/smallAlarm_workflow",method = RequestMethod.GET)
+		@ResponseBody
+		public List<WorkflowVO> smallAlarmWorkflow(HttpSession session) {
+			
+			String emp_id = (String)session.getAttribute("emp_id");
+			
+			return wService.showReceivedWorkflowList(emp_id,"1");
+		}
+		
+		
+		
 }

@@ -117,13 +117,7 @@ public class WorkflowDAOImpl implements WorkflowDAO {
 	}
 
 	@Override
-	public List<WorkflowVO> stackAlarmWorkflowList(String emp_id) {
-		return sqlSession.selectList(NAMESPACE + ".stackAlarmWorkflow", emp_id);
-	}
-
-	@Override
 	public int getSmallAlarm(String emp_id) {
-		logger.debug("getSmallAlarm : " + emp_id);
 		return sqlSession.selectOne(NAMESPACE + ".smallAlarm", emp_id);
 	}
 	

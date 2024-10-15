@@ -329,7 +329,7 @@
 	</update>
 	
 	<!-- small alarm -->
-	<select id="smallAlarm" parameterType="String" resultType="WorkflowVO">
+	<select id="smallAlarm" parameterType="String" resultType="int">
 	  	select count(*) 
 		 from workflow 
 		 where wf_receiver = #{emp_id} 

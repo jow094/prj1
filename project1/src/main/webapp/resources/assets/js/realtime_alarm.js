@@ -71,4 +71,5 @@ $(document).ready(function () {
 	}
 	
 	setInterval(checkAlarm, 10000);
+	
 });

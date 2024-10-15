@@ -4,19 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.project.mapper.MemberMapper">
-	<!-- namespace를 사용해서 mapper 파일을 찾아오는 주소 설정 -->
-	
-	<!-- 시간정보 조회 -->
-	<select id="getTime" resultType="string">
-		select now()
-	</select>
 	
 	<!-- 로그인 체크 -->
 	<select id="loginMember" resultType="com.project.domain.MemberVO">
 	   select * from employee
 	   where emp_id=#{emp_id} and emp_pw=#{emp_pw}	
 	</select>
-	
 	
 	<!-- 회원정보 조회 -->
 	<select id="getMember" resultType="MemberVO">
@@ -25,21 +18,19 @@
 	</select>
 	
 	<!-- 회원정보 목록(list) -->
-	<select id="getMemberList" resultType="MemberVO">
-		select * from employee
+	<select id="getSearchedMemberList" resultType="MemberVO">
+	    select * from employee
+	    where 
+	    replace(emp_name, ' ', '') like concat('%', #{keyword}, '%')
+	    or replace(emp_tel, ' ', '') like concat('%', #{keyword}, '%')
+	    or replace(emp_email, ' ', '') like concat('%', #{keyword}, '%')
+	    or replace(emp_dnum, ' ', '') like concat('%', #{keyword}, '%')
+	    or replace(emp_position, ' ', '') like concat('%', #{keyword}, '%')
+	    or replace(emp_job, ' ', '') like concat('%', #{keyword}, '%')
+	    or replace(emp_bnum, ' ', '') like concat('%', #{keyword}, '%')
+	    or replace(emp_work_type, ' ', '') like concat('%', #{keyword}, '%')
+	    or replace(emp_power, ' ', '') like concat('%', #{keyword}, '%')
 	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 </mapper>  
   

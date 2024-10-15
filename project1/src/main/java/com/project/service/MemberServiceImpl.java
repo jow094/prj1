@@ -31,18 +31,6 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDAO mdao;
 	
-	
-	@Override
-	public void memberJoin(MemberVO vo) {
-		logger.debug("컨트롤러 -> 서비스");
-		logger.debug("회원가입 메서드 memberJoin(MemberVO vo) 실행");
-		
-		logger.debug("서비스 -> DAO");
-		mdao.insertMember(vo);
-		logger.debug("DAO -> 서비스");
-		logger.debug("서비스 -> 컨트롤러");
-	}
-	
 	@Override
 	public MemberVO memberLogin(MemberVO vo) {
 		return mdao.checkMember(vo);
@@ -51,30 +39,14 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberVO memberInfo(String userid) {
 		logger.debug(" memberInfo(String userid) 실행)");
-		//DAO에 있는 회원정보 조회 메서드 호출 결과 리턴
 
 		return mdao.getMember(userid);
 	};
 	
 	@Override
-	public int memberUpdate(MemberVO uvo) {
-		logger.debug(" memberUpdate(MemberVO uvo) 실행)");
-		
-		return mdao.updateMember(uvo);
-	};
-	
-	@Override
-	public int memberDelete(MemberVO vo) {
-		logger.debug(" memberDelete(MemberVO vo) 실행)");
-		
-		return mdao.deleteMember(vo);
-	};
-	
-	@Override
-	public List<MemberVO> memberList() {
-		logger.debug(" memberList() 실행)");
-		
-		return mdao.getMemberList();
+	public List<MemberVO> memberSearch(String keyword) {
+		logger.debug(" memberSearch(String keyword) 실행)");
+		return mdao.getMemberList(keyword);
 	};
 	
 }
