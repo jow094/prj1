@@ -7,15 +7,27 @@ $(document).ready(function() {
 
     // 초기값 설정
     updateCalendar(currentYear, currentMonth);
+    
+ // 오늘 버튼 클릭 이벤트
+    $('.day').click(function() {
+        currentYear = today.getFullYear();
+        currentMonth = today.getMonth();
+        currentDay = today.getDate();
+        updateCalendar(currentYear, currentMonth);
+    });
 
     // 연도 및 월 업데이트 함수
     function updateCalendar(year, month) {
         // 년도와 월 표시
         $('#year').text(year);
         $('#month').text(month + 1); // 0부터 시작하므로 +1
+        $('#day').text(currentDay);
 
         // 날짜를 초기화
-        $('.day').text(''); // 모든 날짜 초기화
+        $('.days').text(''); // 모든 날짜 초기화
+        $('.days').removeClass('today');
+        $('.days').removeClass('null');
+        
 
         // 해당 월의 첫 날과 마지막 날
         const firstDay = new Date(year, month, 1);
@@ -32,9 +44,15 @@ $(document).ready(function() {
             const position = startDay + i - 1; 
             $(`#d_${position + 1}`).text(i); // 날짜 설정
         }
+        
+        $('.days').each(function() {
+            if ($(this).text().trim() === '') {  // 값이 없을 경우
+                $(this).addClass('null');
+            }
+        });
 
         // 현재 날짜 강조 표시
-        if (currentDay <= daysInMonth) {
+        if (year == today.getFullYear() && month == today.getMonth() && currentDay <= daysInMonth) {
             $(`#d_${currentDay + startDay}`).addClass('today'); // 오늘 날짜 강조
         }
     }
@@ -69,11 +87,5 @@ $(document).ready(function() {
         updateCalendar(currentYear, currentMonth);
     });
 
-    // 오늘 버튼 클릭 이벤트
-    $('#today').click(function() {
-        currentYear = today.getFullYear();
-        currentMonth = today.getMonth();
-        currentDay = today.getDate();
-        updateCalendar(currentYear, currentMonth);
-    });
+    
 });

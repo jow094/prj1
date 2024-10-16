@@ -1,6 +1,9 @@
 $(document).ready(function () {
 
 	$(document).on('click', '#search_form', function (e) {
+		if ($('#search_form_extended').css('display') === 'none') {
+	        $('#search_notify').css('display', 'block');
+	    }
 		extendSearchForm();
 	});
 	
@@ -41,9 +44,6 @@ function extendSearchForm() {
 	document.getElementById("search_form_extended").style.animation = 'dropDown 0.5s forwards'; // 페이드인 효과
 	document.getElementById("search_form_extended").style.display = 'block';
     $('#search_form').addClass('focus_border');
-    if ($('#search_form_extended').css('display') === 'none') {
-        $('#search_notify').css('display', 'block');
-    }
 }
 
 function closeSearchForm() {

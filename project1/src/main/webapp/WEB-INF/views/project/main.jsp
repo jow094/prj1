@@ -1,12 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
 
   
-  
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="UTF-8">
     <title>INIT - HOME</title>
@@ -204,72 +207,14 @@
 		</div>
 		
 		<div class="col-md-3">
-			<div class="card-box md">
-				<div class="card">
+			<div class="card-box" style="height:600px;">
+				<div class="card" style="width:96%; height:96%; margin:0px;">
 					<div class="card-header">
 					<h4 class="card-title">CALENDER</h4>
 					</div>	
-					<div style="display:flex; width: 100%; height:auto;">
 					<!-- calender start -->
-					
-<div id="calendar-container">
-    <div>
-        <button id="prevYear"><<</button>
-        <span id="year"></span> 년
-        <button id="nextYear">>></button>
-    </div>
-    <div>
-        <button id="prevMonth"><</button>
-        <span id="month"></span> 월
-        <button id="nextMonth">></button>
-    </div>
-    <button id="today">오늘</button>
-    <div id="calendar">
-        <!-- 날짜를 여기 표시 -->
-        <div class="day" id="d_1"></div>
-        <div class="day" id="d_2"></div>
-        <div class="day" id="d_3"></div>
-        <div class="day" id="d_4"></div>
-        <div class="day" id="d_5"></div>
-        <div class="day" id="d_6"></div>
-        <div class="day" id="d_7"></div>
-        <div class="day" id="d_8"></div>
-        <div class="day" id="d_9"></div>
-        <div class="day" id="d_10"></div>
-        <div class="day" id="d_11"></div>
-        <div class="day" id="d_12"></div>
-        <div class="day" id="d_13"></div>
-        <div class="day" id="d_14"></div>
-        <div class="day" id="d_15"></div>
-        <div class="day" id="d_16"></div>
-        <div class="day" id="d_17"></div>
-        <div class="day" id="d_18"></div>
-        <div class="day" id="d_19"></div>
-        <div class="day" id="d_20"></div>
-        <div class="day" id="d_21"></div>
-        <div class="day" id="d_22"></div>
-        <div class="day" id="d_23"></div>
-        <div class="day" id="d_24"></div>
-        <div class="day" id="d_25"></div>
-        <div class="day" id="d_26"></div>
-        <div class="day" id="d_27"></div>
-        <div class="day" id="d_28"></div>
-        <div class="day" id="d_29"></div>
-        <div class="day" id="d_30"></div>
-        <div class="day" id="d_31"></div>
-    </div>
-</div>
-					
-					
-					
-					
-					
-					
-					
-					
-					
+						<%@ include file="/resources/assets/inc/calendar.jsp" %>
 					<!-- calender end -->
-					</div>
 				</div>
 			</div>
 		</div>
