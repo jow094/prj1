@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/realtime_alarm.css" />
 <script src="${pageContext.request.contextPath }/resources/assets/js/realtime_alarm.js"></script>
 
 <!-- received alarm start -->

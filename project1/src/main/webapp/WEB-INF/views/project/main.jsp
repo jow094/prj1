@@ -1,17 +1,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <title>INIT - HOME</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
     />
     <link
       rel="icon"
-      href="${pageContext.request.contextPath }/resources/assets/img/kaiadmin/favicon.ico"
+      href="${pageContext.request.contextPath }/resources/assets/img/project/favicon_black.png"
+      style="border-radius: 50%;"
       type="image/x-icon"
     />
 
@@ -31,8 +33,7 @@
         },
         active: function () {
           sessionStorage.fonts = true;
-        },
-      });
+        },      });
     </script>
 
     <!-- CSS Files -->
@@ -57,11 +58,113 @@
           <%@ include file="/resources/assets/inc/navbar.jsp" %> <!-- Navbar -->
         </div>
         <div class="container">
-          <div class="page-inner">
+          <div class="page-inner" style="background-color : rgba(250,250,250,0.7);">
 <!------------------------------------------------------------------------------------------------------------------>
-	        ${emp_id}
-	        
-            ${logined}
+<!-- header start -->
+<div style="display:flex; flex-direction:column; width: 100%; height:auto;">
+	<div class="page-header">
+	  <h3 class="fw-bold mb-3">HOME</h3>
+	  <ul class="breadcrumbs mb-3">
+	    <li class="nav-home">
+	      <a href="#">
+	        <i class="icon-home"></i>
+	      </a>
+	    </li>
+	    <li class="separator">
+	      <i class="icon-arrow-right"></i>
+	    </li>
+	    <li class="nav-item">
+	      <a href="#">Something</a>
+	    </li>
+	    <li class="separator">
+	      <i class="icon-arrow-right"></i>
+	    </li>
+	    <li class="nav-item">
+	      <a href="#">something</a>
+	    </li>
+	  </ul>
+	</div>
+</div>
+<!-- header end -->
+<!-- contents start -->
+<div style="display:flex; flex-direction:column; width: 100%; height:auto; ">
+	<div style="display: flex; width:100%; justify-content: flex-end; padding-bottom:60px;">
+			<div class="card-box button">
+				<div class="card">
+					<div class="card-body">
+						<div><h3>즐겨찾기1</h3></div>
+					</div>
+				</div>
+			</div>
+			<div class="card-box button">
+				<div class="card">
+					<div class="card-body">
+						<div>favorite2</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-box button">
+				<div class="card">
+					<div class="card-body">
+						<div>favorite3</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-box button">
+				<div class="card">
+					<div class="card-body">
+						<div>favorite4</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	
+	<div style="display: flex; justify-content: space-between; margin-top: 10px;">
+		<div class="col-md-4">
+			<div class="card-box md">
+				<div class="card">
+					<div class="card-header">
+					<h4 class="card-title">WORKFLOWS</h4>
+					</div>	
+					<div style="display:flex; width: 100%; height:auto;">
+					contents
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-4">
+			<div class="card-box md">
+				<div class="card">
+					<div class="card-header">
+					<h4 class="card-title">TITLE</h4>
+					</div>	
+					<div style="display:flex; width: 100%; height:auto;">
+					contents
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-3">
+			<div class="card-box md">
+				<div class="card">
+					<div class="card-header">
+					<h4 class="card-title">TITLE</h4>
+					</div>	
+					<div style="display:flex; width: 100%; height:auto;">
+					contents
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		
+	</div>
+	
+	
+</div>
+<!-- contents end -->
 <!------------------------------------------------------------------------------------------------------------------>
           </div>
           <!-- page-inner -->
@@ -101,11 +204,6 @@
 	<!-- Kaiadmin JS -->
 	<script src="${pageContext.request.contextPath }/resources/assets/js/kaiadmin.min.js"></script>
 	
-	<!-- Kaiadmin DEMO methods, don't include it in your project! -->
-	<script src="${pageContext.request.contextPath }/resources/assets/js/setting-demo.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/assets/js/demo.js"></script>
-	
-  	
 	<c:if test="${logined == true}">
 	  	<%@ include file="/resources/assets/inc/login_alarm_modal.jsp" %>
 	</c:if>

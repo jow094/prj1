@@ -4,10 +4,10 @@
 		<footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
             <nav class="pull-left">
-              <ul class="nav">
+              <!-- <ul class="nav">
                 <li class="nav-item">
                   <a class="nav-link" href="http://www.themekita.com">
-                    ThemeKita
+                    project_2team
                   </a>
                 </li>
                 <li class="nav-item">
@@ -16,15 +16,15 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#"> Licenses </a>
                 </li>
-              </ul>
+              </ul> -->
             </nav>
-            <div class="copyright">
-              2024, made with <i class="fa fa-heart heart text-danger"></i> by
-              <a href="http://www.themekita.com">ThemeKita</a>
-            </div>
+            <!-- <div class="copyright">
+              made by
+              <a href="">project_2team</a>
+            </div> -->
             <div>
               Distributed by
-              <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
+              <a>project_2team</a>
             </div>
           </div>
         </footer>

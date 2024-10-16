@@ -1,4 +1,65 @@
 @charset "UTF-8";
+/* fonts start */
+@font-face {
+    font-family: 'Apple';
+    src: url('../fonts/AppleSDGothicNeoR.woff2') format('woff2'), 
+         url('../fonts/AppleSDGothicNeoR.woff') format('woff'),  
+         url('../fonts/AppleSDGothicNeoR.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'aptos';
+    src: url('../fonts/aptos.woff2') format('woff2'),
+         url('../fonts/aptos.woff') format('woff'), 
+         url('../fonts/aptos.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+/* bold */
+@font-face {
+    font-family: 'Apple';
+    src: url('../fonts/AppleSDGothicNeoB.woff2') format('woff2'),
+         url('../fonts/AppleSDGothicNeoB.woff') format('woff'),   
+         url('../fonts/AppleSDGothicNeoB.ttf') format('truetype'); 
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'aptos';
+    src: url('../fonts/aptosB.woff2') format('woff2'), 
+         url('../fonts/aptosB.woff') format('woff'),  
+         url('../fonts/aptosB.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* italic */
+@font-face {
+    font-family: 'aptos';
+    src: url('../fonts/aptosB_I.woff2') format('woff2'),
+         url('../fonts/aptosB_I.woff') format('woff'),   
+         url('../fonts/aptosB_I.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+/* bold italic */
+@font-face {
+    font-family: 'aptos';
+    src: url('../fonts/aptosB_I.woff2') format('woff2'), 
+         url('../fonts/aptosB_I.woff') format('woff'),   
+         url('../fonts/aptosB_I.ttf') format('truetype'); 
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+/* fonts end */
+
 .realtime_alarm{
 	position: fixed; /* 뷰포트에 고정 */
 	bottom: 20px;    /* 아래에서 20px 위로 위치 */
@@ -166,3 +227,51 @@
     opacity: 0; 
     padding : 20px;
 }
+/* ------------------------------------ */
+* {
+    font-family: 'Apple', sans-serif !important;
+}
+
+.card-box{
+	background-color: rgba(0,0,0,0.3);
+	display:flex; 
+	justify-content: center; 
+	align-items: center; 
+	border-radius:5px;
+}
+
+.card-box:hover{
+    background-color: rgba(0,0,0,0.7);
+    transform: scale(1.02);
+}
+
+.card-box .card{
+	width:98%; 
+	height:94%; 
+	margin:0px;
+}
+/* default end*/
+
+.card-box.button{
+	width:400px;
+	height:100px;
+	margin:20px;
+}
+
+.card-box.button .card{
+	width:95%; 
+	height:85%; 
+	margin:0px;
+}
+
+.card-box.md{
+	height:800px;
+}
+
+.card-box.md .card{
+	width:97%; 
+	height:97%; 
+	margin:0px;
+}
+
+

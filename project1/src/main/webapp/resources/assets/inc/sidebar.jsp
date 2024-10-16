@@ -2,17 +2,27 @@
 <%@ include file="/resources/assets/inc/get_employee_info.jsp" %>
 <%@ include file="/resources/assets/inc/realtime_alarm.jsp" %>
 <%@ include file="/resources/assets/inc/workflow_modal.jsp" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/custom.css" />
       <!-- Sidebar -->
       <div class="sidebar" data-background-color="dark">
         <!-- Start logo -->
         <div class="sidebar-logo" >
           <div class="logo-header" style="background-color: rgba(0,0,0,0.8)">
-            <a href="/project/main" class="logo">
+          	<a href="/project/main" class="logo" style="padding-top:20px;">
               <img
-                src=""
+                src="${pageContext.request.contextPath }/resources/assets/img/project/favicon_black.png"
                 alt="navbar brand"
                 class="navbar-brand"
-                height="20"
+                height="50px;"
+                style="padding-right:10px;"
+              />
+            </a>
+            <a href="/project/main" class="logo" style="padding-top:20px;">
+              <img
+                src="${pageContext.request.contextPath }/resources/assets/img/project/logo_black.png"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="60px;"
               />
             </a>
             <div class="nav-toggle">

@@ -26,11 +26,14 @@
 						id="searchInput"
 						oninput="search(this.value)"
 						/>
-					<div id="search_form_extended"> <!-- 기본적으로 숨김 -->
+					<div id="search_form_extended">
+						<ul id="search_notify">
+							<li>keywork must be with 2 character at least.</li>
+						</ul>
+						<ul id="search_incorrect" style="display:none;">
+							<li>please insert correct keyword.</li>
+						</ul>
 						<ul id="search_history">
-							<li>과거 검색기록</li>
-							<li>과거 검색기록1</li>
-							<li>과거 검색기록2</li>
 						</ul>
 						<ul id="search_employees">
 						</ul>

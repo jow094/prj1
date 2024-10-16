@@ -40,6 +40,7 @@ function extendSearchForm() {
 	console.log('search form extended!');
 	document.getElementById("search_form_extended").style.animation = 'dropDown 0.5s forwards'; // 페이드인 효과
 	document.getElementById("search_form_extended").style.display = 'block';
+    $('#search_notify').css('display', 'block');
 }
 
 function closeSearchForm() {
@@ -50,7 +51,9 @@ function closeSearchForm() {
     }, 500); // 애니메이션 시간과 동일하게 설정
     $('#searchInput').val('');
     $('#search_employees').empty();
+    $('#search_notify').css('display', 'none');
     $('#search_null').css('display', 'none');
+    $('#search_incorrect').css('display', 'none');
 }
 
 let prev;
@@ -71,13 +74,12 @@ function search(input) {
 					success: function (data) {
 						console.log('correct value input. start search for', data);
 						if (data.length === 0) {
+							$('#search_notify').css('display', 'none');
 							$('#search_null').css('display', 'block');
+							$('#search_incorrect').css('display', 'none');
 						}else{
-							$('#search_null').css('display', 'none');
-							showEmployees(data);
+							findSuccess(data);
 						}
-						
-						
 					},
 					error: function (xhr, status, error) {
 						if (status !== 'abort') {
@@ -87,8 +89,24 @@ function search(input) {
 					}
 				}); // ajax end
 	} else {
-		console.log('incorrect value input.');
+		if(keyword.length < 2){
+			$('#search_notify').css('display', 'block');
+			$('#search_null').css('display', 'none');
+			$('#search_incorrect').css('display', 'none');
+		}
+		if(keyword.length > 2){
+			$('#search_notify').css('display', 'none');
+			$('#search_null').css('display', 'none');
+			$('#search_incorrect').css('display', 'block');
+		}
 	}
+}
+
+function findSuccess(data) {
+	$('#search_null').css('display', 'none');
+    $('#search_notify').css('display', 'none');
+    $('#search_incorrect').css('display', 'none');
+	showEmployees(data);
 }
 
 function showEmployees(data) {
@@ -139,7 +157,7 @@ function showEmployees(data) {
 				</li>
 	    `);
 	    
-    	console.log('employees count : '+count);
+    	console.log('employees count : '+(count+1));
 		count ++;
 	    if (count >= 5) {
 	        $('#search_employees').append(`
