@@ -40,7 +40,10 @@ function extendSearchForm() {
 	console.log('search form extended!');
 	document.getElementById("search_form_extended").style.animation = 'dropDown 0.5s forwards'; // 페이드인 효과
 	document.getElementById("search_form_extended").style.display = 'block';
-    $('#search_notify').css('display', 'block');
+    $('#search_form').addClass('focus_border');
+    if ($('#search_form_extended').css('display') === 'none') {
+        $('#search_notify').css('display', 'block');
+    }
 }
 
 function closeSearchForm() {
@@ -54,6 +57,7 @@ function closeSearchForm() {
     $('#search_notify').css('display', 'none');
     $('#search_null').css('display', 'none');
     $('#search_incorrect').css('display', 'none');
+    $('#search_form').removeClass('focus_border');
 }
 
 let prev;
@@ -75,6 +79,7 @@ function search(input) {
 						console.log('correct value input. start search for', data);
 						if (data.length === 0) {
 							$('#search_notify').css('display', 'none');
+							$('#search_null li').text('"' + keyword + '" 로 검색한 결과값이 없습니다.');
 							$('#search_null').css('display', 'block');
 							$('#search_incorrect').css('display', 'none');
 						}else{

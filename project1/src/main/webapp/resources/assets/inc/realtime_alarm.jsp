@@ -38,7 +38,7 @@
 </div>
 <!-- received alarm end-->
 <!-- sent alarm start -->
-<div id="sent_alarm" class="realtime_alarm">
+<div id="sent_alarm" class="realtime_alarm" style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); animation: focus 0.5s infinite;">
 	<div class="alarm_inner_box">
 		<a data-wf_code="" id="workflow_info">
 			<div style="display:flex; flex-direction: column; width:100%; height:100%;">

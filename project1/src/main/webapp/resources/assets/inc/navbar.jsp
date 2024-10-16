@@ -3,11 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script src="${pageContext.request.contextPath }/resources/assets/js/alarm_extend.js"></script>
 <script src="${pageContext.request.contextPath }/resources/assets/js/search.js"></script>
-		
 		  <!-- Navbar Header -->
           <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" style="position: relative; background-color: rgba(0,0,0,0.8)">
            	<!-- 알람 확장 -->
            	<div id="extended_navbar">
+	           	<div id="extended_navbar_inner">
+	           	</div>
            	</div>
            	<!-- 알람 확장 -->
             <div class="container-fluid" >
@@ -27,18 +28,18 @@
 						oninput="search(this.value)"
 						/>
 					<div id="search_form_extended">
-						<ul id="search_notify">
-							<li>keywork must be with 2 character at least.</li>
+						<ul id="search_notify" style="font-size: 16px;">
+							<li>두글자 이상의 검색어를 입력 해주세요.</li>
 						</ul>
-						<ul id="search_incorrect" style="display:none;">
-							<li>please insert correct keyword.</li>
+						<ul id="search_incorrect" style="display:none; font-size: 16px;">
+							<li>올바른 검색어를 입력 해주세요.</li>
 						</ul>
-						<ul id="search_history">
+						<ul id="search_history" style="font-size: 16px;">
 						</ul>
 						<ul id="search_employees">
 						</ul>
-						<ul id="search_null" style="display:none;">
-							<li>There is nothing for your input.</li>
+						<ul id="search_null" style="font-size: 16px; display:none;">
+							<li></li>
 						</ul>
 					</div>
 				</div>
@@ -178,8 +179,8 @@
                     class="nav-link dropdown-toggle"
                     href="#"
                   >
-                    <i class="fa fa-bell"></i>
-                    <span id = "smallAlarm" class="notification"></span>
+                    <i class="bell"></i>
+                    <span id = "smallAlarm" class="badge"></span>
                   </a>
                   <ul
                     class="dropdown-menu notif-box animated fadeIn"

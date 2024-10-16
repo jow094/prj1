@@ -63,9 +63,14 @@ public class ProjectController {
 		// 메인페이지 - GET
 		// http://localhost:8088/project/main
 		@RequestMapping(value = "/main",method = RequestMethod.GET)
-		public void mainGET() {
-			logger.debug(" /project/main -> mainGET()실행 ");
-			logger.debug(" 연결된 뷰페이지 (views/project/main.jsp)로 이동 ");
+		public Map<String,Object> mainGET(HttpSession session) {
+			String emp_id = (String)session.getAttribute("emp_id");
+			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(emp_id,"1");
+			getCalendarEvents();
+			Map<String,Object> data = new HashMap<String,Object>();
+			data.put("receivedWorkflowList", receivedWorkflowList);
+			data.put("calender",getCalendarEvents());
+			return data;
 		}
 	
 		// http://localhost:8088/project/workflow
@@ -213,6 +218,19 @@ public class ProjectController {
 			return wService.showReceivedWorkflowList(emp_id,"1");
 		}
 		
+		@RequestMapping(value = "/calender",method = RequestMethod.GET)
+	    public List<Map<String, Object>> getCalendarEvents() {
+	        List<Map<String, Object>> events = new ArrayList<Map<String, Object>>();
+
+	        // 예시 이벤트 데이터
+	        Map<String, Object> event = new HashMap<String, Object>();
+	        event.put("title", "회의");
+	        event.put("start", "2024-10-18");
+	        event.put("end", "2024-10-20");
+
+	        events.add(event);
+	        return events;
+	    }
 		
 		
 }

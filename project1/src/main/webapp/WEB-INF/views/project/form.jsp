@@ -1,9 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
     <title>INIT - HOME</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
@@ -87,11 +88,11 @@
 <!-- header end -->
 <!-- contents start -->
 <div style="display:flex; flex-direction:column; width: 100%; height:auto; ">
-	<div style="display: flex; width:100%; justify-content: flex-end; padding-bottom:60px;">
+	<div style="display: flex; width:100%; justify-content: flex-end; padding-bottom:30px;">
 			<div class="card-box button">
 				<div class="card">
 					<div class="card-body">
-						<div>favorite1</div>
+						<div><h3>즐겨찾기1</h3></div>
 					</div>
 				</div>
 			</div>
@@ -118,7 +119,7 @@
 			</div>
 	</div>
 	
-	<div style="display: flex; justify-content: space-between; margin-top: 10px;">
+	<div style="display: flex; justify-content: center; gap: 30px; margin-top: 10px;">
 		<div class="col-md-4">
 			<div class="card-box md">
 				<div class="card">

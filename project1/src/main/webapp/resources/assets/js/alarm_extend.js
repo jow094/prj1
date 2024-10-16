@@ -9,7 +9,7 @@ $(document).ready(function () {
         if (!$(e.target).closest('#extended_navbar').length 
         		&& !$(e.target).closest('.modal').length
         		&& !$(e.target).closest('#extend_workflowAlarm').length
-        		&& $('#extended_navbar').css('display') === 'block') 
+        		&& $('#extended_navbar').css('display') === 'flex') 
         {
         	closeNavbar();
         }
@@ -18,7 +18,6 @@ $(document).ready(function () {
     $(document).on('keydown', function (e) {
         if (e.key === "Escape") {
         	closeNavbar();
-        	
         }
     });	
 });/* doc rdy end*/
@@ -26,7 +25,7 @@ $(document).ready(function () {
 function extendNavbar() {
 	console.log('Navbar extended!');
 	document.getElementById("extended_navbar").style.animation = 'dropDown 0.5s forwards';
-	document.getElementById("extended_navbar").style.display = 'block';
+	document.getElementById("extended_navbar").style.display = 'flex';
 	showAlarmedWorkflow();
 }
 
@@ -35,8 +34,9 @@ function closeNavbar() {
     document.getElementById("extended_navbar").style.animation = 'dropUp 0.5s forwards';
     setTimeout(function() {
         document.getElementById("extended_navbar").style.display = 'none';
-        $('#extended_navbar').empty();
+        $('#extended_navbar_inner').empty();
     }, 500);
+    $('#extended_navbar_inner').empty();
 }
 
 function showAlarmedWorkflow() {
@@ -46,7 +46,11 @@ function showAlarmedWorkflow() {
 		success: function (data) {
 			console.log(data);
 			if (data.length === 0) {
-				$('#extended_navbar').append(`<p>Here is no alarm for workflow.</p>`); 
+				$('#extended_navbar_inner').append(`
+					<div style="display: flex; align-items: center; justify-content: center; border-bottom:1px solid rgba(0,0,0,0.1); width:90%; height:50px; padding-top:10px; font-size:15px;">
+						확인하지 않은 알림이 없습니다.
+					</div>
+				`); 
 			}else{
 				appendWorkflow(data);
 			}
@@ -71,55 +75,64 @@ const getDate = (stringDate) => {
 };
 
 function appendWorkflow(workflowList) {
-	$('#extended_navbar').append(`<p>Here are ${workflowList.length} unverified workflows.</p>`); 
+	$('#extended_navbar_inner').append(`
+			<div style="display: flex; align-items: center; justify-content: center; border-bottom:1px solid rgba(0,0,0,0.1); width:90%; height:50px; padding-top:10px; font-size:15px;">
+				${workflowList.length} 개의 읽지 않은 알림이 있습니다!
+			</div>
+		`); 
 	
 	let count = 0;
     for (const workflowVO of workflowList) {
-    	 $('#extended_navbar').append(`
-            		<div style="display: flex; width:100%; height:100px; border-bottom:1px solid rgba(0,0,0,0.1);">
-                		<a data-emp_id="${workflowVO.wf_sender}"  class="member_info">
-                    		<div style="display: flex; flex:0.4; align-items: center; justify-content: center; border-right: 1px solid rgba(0,0,0,0.1); margin:15px 0px 15px 0px; ">
+    	 $('#extended_navbar_inner').append(`
+            		<div style="display: flex; border-bottom:1px solid rgba(0,0,0,0.1); width:90%; align-items: center; justify-content: center;">
+                		<a href="#" data-emp_id="${workflowVO.wf_sender}" class="member_info" style="flex:0.4;">
+                    		<div style="display: flex; align-items: center; justify-content: center; border-right: 1px solid rgba(0,0,0,0.1); margin:15px 0px 15px 0px; ">
                     			<div style="display: flex; flex-direction:column; flex:0.4; align-items: center; justify-content: center;">
-                    				<div style="flex:0.2; font-weight: bold width:100%;" >sender</div>
-					        		<div style="flex:0.8; width:100%;">
+                    				<div style="flex:0.2; font-weight: bold; text-align:center; width:100%;" >발신자</div>
+					        		<div style="flex:0.8; width:100%; display:flex; align-items: center; justify-content: center;">
 						        		<img src="${workflowVO.sender_profile}"
 						        		style=" width: 40px; height: 40px; border-radius: 50%;">
 					        		</div>
 					        	</div>
-                    			<div style="display: flex; flex:0.6; flex-direction:column;">
-                    				<div style="display: flex; width:100%; flex:0.4; font-weight: bold; align-items: center; justify-content: center;">
+                    			<div style="display: flex; flex:0.3; flex-direction:column;">
+                    				<div style="display: flex; width:100%; flex:0.4; align-items: center; justify-content: center;">
+                    					${workflowVO.sender_position}
+                    				</div>
+                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;" >
                     					${workflowVO.sender_name}
                     				</div>
-                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;" >
+                    			</div>
+                    			<div style="display: flex; flex:0.3; flex-direction:column;">
+                    				<div style="display: flex; width:100%; flex:0.4; align-items: center; justify-content: center;">
                     					${workflowVO.sender_bnum}
                     				</div>
-                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;">
+                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;" >
                     					${workflowVO.sender_dnum}
                     				</div>
-                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;" >
-                    					${workflowVO.sender_position}
+                    				<div style="display: flex; width:100%; flex:0.2; align-items: center; justify-content: center;">
+                    					${workflowVO.sender_job}
                     				</div>
                     			</div>
                     		</div>
                 		</a>
-                		<a data-wf_code="${workflowVO.wf_code}" id="workflow_info">
-                    		<div style="display: flex; flex:0.6; flex-direction:column;">
+                		<a href="#" data-wf_code="${workflowVO.wf_code}" id="workflow_info" style="flex:0.6;">
+                    		<div style="display: flex; flex-direction:column;">
 	                    		<div style="display: flex; flex:0.5; width:100%;">
 	                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-	                    				<div style="flex:0.5; font-weight: bold">type</div>
+	                    				<div style="flex:0.5; font-weight: bold">유형</div>
                     					<div style="flex:0.5;">${workflowVO.wf_type}</div>
 	                    			</div>
 	                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-	                    				<div style="flex:0.5; font-weight: bold">progress</div>
+	                    				<div style="flex:0.5; font-weight: bold">상태</div>
                     					<div style="flex:0.5;">${workflowVO.wf_progress}</div>
 	                    			</div>
 	                    			<div style="flex:1; display: flex; flex-direction:column; align-items: center; justify-content: center;">
-	                    				<div style="flex:0.5; font-weight: bold">date</div>
+	                    				<div style="flex:0.5; font-weight: bold">수신일</div>
                     					<div style="flex:0.5;">${getDate(workflowVO.wf_progress === '1' ? workflowVO.wf_create_date : workflowVO.wf_last_result_date)}</div>
 	                    			</div>
 	                    		</div>
 	                    		<div 
-	                    		style="display: flex; flex:0.5; width:100%; align-items: center; justify-content: left; margin-left:30px; 
+	                    		style="border-top:1px solid rgba(0,0,0,0.1); display: flex; flex:0.5; width:100%; align-items: center; justify-content: center; margin-left:30px; 
 	                    		white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width:245px;">
 	                    			${workflowVO.wf_title}
 	                    		</div>
@@ -128,20 +141,16 @@ function appendWorkflow(workflowList) {
                 	</div>
             		`); 
     	 count ++;
-    	 if (count >= 5) {
+    	 if (count >= 10) {
     	     break;
     	 }
     }
-    if(workflowList.length > 5){
-    	$('#extended_navbar').append(`
-    			<a href="/project/workflow">
-        			<div 
-	        			id="notify" 
-	        			style="
-	        			display: flex; height:60px; border-bottom:1px solid rgba(0,0,0,0.1); align-items: center; justify-content: center;"
-        			>
-        				there is more `+(workflowList.length-5)+` received workflow to notify for you.
-        			</div>
+    if(workflowList.length > 10){
+    	$('#extended_navbar_inner').append(`
+    			<a href="/project/workflow" style="width:100%;">
+	    			<div style="display: flex; align-items: center; justify-content: center; width:90%; height:50px; padding-top:10px; font-size:15px;">
+						${workflowList.length-5} 개의 요청이 더 존재합니다!
+	        		</div>
     			</a>
     	`); 
     }

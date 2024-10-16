@@ -1,8 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+  
+  
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="UTF-8">
     <title>INIT - HOME</title>
@@ -48,6 +52,10 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/demo.css" />
+    
+   	<script src="${pageContext.request.contextPath }/resources/assets/js/calender.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -88,46 +96,95 @@
 <!-- header end -->
 <!-- contents start -->
 <div style="display:flex; flex-direction:column; width: 100%; height:auto; ">
-	<div style="display: flex; width:100%; justify-content: flex-end; padding-bottom:60px;">
+	<div style="display: flex; width:100%; justify-content: flex-end; padding-bottom:30px;">
 			<div class="card-box button">
 				<div class="card">
 					<div class="card-body">
-						<div><h3>즐겨찾기1</h3></div>
+						<div>+</div>
 					</div>
 				</div>
 			</div>
 			<div class="card-box button">
 				<div class="card">
 					<div class="card-body">
-						<div>favorite2</div>
+						<div>+</div>
 					</div>
 				</div>
 			</div>
 			<div class="card-box button">
 				<div class="card">
 					<div class="card-body">
-						<div>favorite3</div>
+						<div>+</div>
 					</div>
 				</div>
 			</div>
 			<div class="card-box button">
 				<div class="card">
 					<div class="card-body">
-						<div>favorite4</div>
+						<div>+</div>
 					</div>
 				</div>
 			</div>
 	</div>
 	
-	<div style="display: flex; justify-content: space-between; margin-top: 10px;">
+	<div style="display: flex; justify-content: center; gap: 30px; margin-top: 10px;">
 		<div class="col-md-4">
 			<div class="card-box md">
 				<div class="card">
 					<div class="card-header">
 					<h4 class="card-title">WORKFLOWS</h4>
 					</div>	
-					<div style="display:flex; width: 100%; height:auto;">
-					contents
+					<div style="display:flex; width: 100%; height:auto; overflow-y: auto;">
+						<table class="display table table-striped table-hover multi-filter-select">
+                        <thead style="position: sticky; z-index: 1; top: 0;">
+                          <tr>
+                            <th style="width: 3%;">NUM</th>
+                            <th style="width: 3%;">TYPE</th>
+                            <th style="width: 50%;">TITLE</th>
+                            <th style="width: 18%;">SENDER</th>
+                            <th style="width: 3%;">STATUS</th>
+                            <th style="width: 23%;">DATE</th>
+                          </tr>
+                        </thead>
+                        <tbody class="workflow_modal">
+                          <c:forEach var="workflow" items="${receivedWorkflowList}">
+					        <tr>
+					           <td style="text-align: center;">
+					            	<a data-wf_code="${workflow.wf_code}" id="workflow_info">
+					            		${workflow.wf_code}
+					            	</a>
+					            </td>
+					            <td style="text-align: center;">
+						            <a data-wf_code="${workflow.wf_code}" id="workflow_info">
+						            	${workflow.wf_type}
+						            </a>
+						        </td>
+					            <td>
+						            <a data-wf_code="${workflow.wf_code}" id="workflow_info">
+			                        	${workflow.wf_title}
+			                        </a>
+		                        </td>
+					            <td style="text-align: center;">
+						            <a data-wf_code="${workflow.wf_code}" id="workflow_info">
+						            	${workflow.sender_name}
+						            </a>
+					            </td>
+					            <td style="text-align: center;">
+					            	<a data-wf_code="${workflow.wf_code}" id="workflow_info">
+					            		${workflow.wf_status}
+					            	</a>
+					            </td>
+					            <td style="text-align: center;">
+					            	<a data-wf_code="${workflow.wf_code}" id="workflow_info">
+					           			<fmt:formatDate value="${workflow.wf_last_result_date}" pattern="yy.MM.dd HH:mm" />
+					           		</a>
+					           	</td>
+					        </tr>
+					      </c:forEach>
+                        </tbody>
+                      </table>
+                      
+                      
 					</div>
 				</div>
 			</div>
@@ -150,10 +207,68 @@
 			<div class="card-box md">
 				<div class="card">
 					<div class="card-header">
-					<h4 class="card-title">TITLE</h4>
+					<h4 class="card-title">CALENDER</h4>
 					</div>	
 					<div style="display:flex; width: 100%; height:auto;">
-					contents
+					<!-- calender start -->
+					
+<div id="calendar-container">
+    <div>
+        <button id="prevYear"><<</button>
+        <span id="year"></span> 년
+        <button id="nextYear">>></button>
+    </div>
+    <div>
+        <button id="prevMonth"><</button>
+        <span id="month"></span> 월
+        <button id="nextMonth">></button>
+    </div>
+    <button id="today">오늘</button>
+    <div id="calendar">
+        <!-- 날짜를 여기 표시 -->
+        <div class="day" id="d_1"></div>
+        <div class="day" id="d_2"></div>
+        <div class="day" id="d_3"></div>
+        <div class="day" id="d_4"></div>
+        <div class="day" id="d_5"></div>
+        <div class="day" id="d_6"></div>
+        <div class="day" id="d_7"></div>
+        <div class="day" id="d_8"></div>
+        <div class="day" id="d_9"></div>
+        <div class="day" id="d_10"></div>
+        <div class="day" id="d_11"></div>
+        <div class="day" id="d_12"></div>
+        <div class="day" id="d_13"></div>
+        <div class="day" id="d_14"></div>
+        <div class="day" id="d_15"></div>
+        <div class="day" id="d_16"></div>
+        <div class="day" id="d_17"></div>
+        <div class="day" id="d_18"></div>
+        <div class="day" id="d_19"></div>
+        <div class="day" id="d_20"></div>
+        <div class="day" id="d_21"></div>
+        <div class="day" id="d_22"></div>
+        <div class="day" id="d_23"></div>
+        <div class="day" id="d_24"></div>
+        <div class="day" id="d_25"></div>
+        <div class="day" id="d_26"></div>
+        <div class="day" id="d_27"></div>
+        <div class="day" id="d_28"></div>
+        <div class="day" id="d_29"></div>
+        <div class="day" id="d_30"></div>
+        <div class="day" id="d_31"></div>
+    </div>
+</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- calender end -->
 					</div>
 				</div>
 			</div>

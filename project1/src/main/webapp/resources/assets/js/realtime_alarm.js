@@ -15,9 +15,16 @@ $(document).ready(function () {
 	        url: '/project/checkAlarm',
 			type: 'GET',
 	        success: function(data) {
-	        	if(data.receivedWorkflowList.length>0 || data.sentWorkflowList.length>0){
-	        		console.log('checked Alarm : ', data);
-	        	}
+	        	console.log('checked Alarm : ', data);
+	        	
+	        	if(data.smallAlarm>0){
+	        		$('#smallAlarm').text(data.smallAlarm);
+	        		$('.bell').addClass('shake');
+	        		$('.badge').addClass('twinkle');
+	        	}else{
+	        		$('.bell').removeClass('highlight');
+	        		$('.badge').removeClass('twinkle');
+	        	} 
 	            if (data.receivedWorkflowList.length != 0) {
 	            	for (const workflowVO of data.receivedWorkflowList) {
 	            		showAlert(workflowVO,'received_alarm');
@@ -28,7 +35,6 @@ $(document).ready(function () {
 	            		showAlert(data,'sent_alarm');
 	            	}
 	            }
-	            $('#smallAlarm').text(data.smallAlarm);
 	        },
 	        error: function(err) {
 	            console.error('Error fetching data:', err);
@@ -57,8 +63,7 @@ $(document).ready(function () {
 		
 		// 알림 박스를 보이도록 설정
 		alarmBox.style.display = 'flex';
-		alarmBox.style.animation = 'fadeIn 1s forwards'; // 페이드인 효과
-		
+		alarmBox.style.animation = 'fadeIn 1s forwards, focus 0.5s infinite'; // 페이드인 효과
 		
 		setTimeout(() => {
 			alarmBox.style.animation = 'fadeOut 1s forwards'; // 페이드아웃 효과
@@ -69,7 +74,7 @@ $(document).ready(function () {
 			
 		}, 10000);
 	}
-	
+	checkAlarm();
 	setInterval(checkAlarm, 10000);
 	
 });
