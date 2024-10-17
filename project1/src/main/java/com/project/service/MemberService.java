@@ -11,5 +11,6 @@ public interface MemberService {
 	public MemberVO memberInfo(String userid);
 	
 	public List<MemberVO> memberSearch(String keyword);
-
+	
+	public List<MemberVO> getTeammate(String emp_id);
 }

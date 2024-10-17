@@ -1,5 +1,7 @@
 package com.project.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,7 +25,7 @@ public class MessageDAOImpl implements MessageDAO {
 	private static final Logger logger = LoggerFactory.getLogger(WorkflowServiceImpl.class);
 
 	@Override
-	public int validate_room(MessageVO vo) {
+	public int check_msg_room(MessageVO vo) {
 		int result = sqlSession.selectOne(NAMESPACE + ".findRoom",vo);
 			
 			if(result>0) {
@@ -31,7 +33,7 @@ public class MessageDAOImpl implements MessageDAO {
 				return result;
 			}
 			
-			if(sqlSession.insert(NAMESPACE + ".insertRoom",vo)==1) {
+			if(sqlSession.insert(NAMESPACE + ".createRoom",vo)==1) {
 				result = sqlSession.selectOne(NAMESPACE + ".selectLastRoomId");
 				logger.debug("msDAO : 두 이용자의 기존 채팅방이 없어 새롭게 생성하였습니다. room_id:" +result);
 			}
@@ -40,15 +42,23 @@ public class MessageDAOImpl implements MessageDAO {
 	}
 
 	@Override
-	public int insert_participant_1on1(MessageVO vo) {
-		logger.debug("msDAO : 1대1 채팅방이 생성되었습니다." + vo.getSender().getEmp_id() + "," + vo.getReceiver().getEmp_id());
-		return sqlSession.insert(NAMESPACE + ".intoRoom_1for1",vo);
+	public int insert_participant(MessageVO vo) {
+		logger.debug("msDAO :" + vo.getReceiver().getEmp_id() + "회원이 " + vo.getRoom_id() + "채팅방에 입장하였습니다.");
+		return sqlSession.insert(NAMESPACE + ".insertRoom_participant_1for1",vo);
 	}
 
 	@Override
 	public int insert_message(MessageVO vo) {
 		logger.debug("msDAO : "+ vo.getRoom_id()+" 채팅방에 새로운 메세지가 입력되었습니다." + vo.getSender().getEmp_id());
 		return sqlSession.insert(NAMESPACE + ".sendMessage",vo);
+	}
+
+	@Override
+	public List<MessageVO> join_messages(MessageVO vo) {
+		List<MessageVO> result = sqlSession.selectList(NAMESPACE + ".getMessages");
+		
+		logger.debug("msDAO : "+ vo.getRoom_id()+" 채팅방에  "+ result.size() +"개의 메세지가 있습니다.");
+		return result;
 	}
 	
 	

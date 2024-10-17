@@ -18,25 +18,33 @@
 	     LIMIT 1  <!-- 방이 여러 개가 있을 수 있으므로 하나만 선택 -->
 	</select>
 	
-	<insert id="insertRoom" parameterType="MessageVO">
+	<insert id="createRoom" parameterType="MessageVO">
 	INSERT INTO msg_room (room_name)
-     VALUES (CONCAT(#{sender.emp_name}, ', ', #{receiver.emp_name});
+     VALUES (CONCAT(#{sender.emp_name}, ', ', #{receiver.emp_name})
     </insert>
      
     <select id="selectLastRoomId" resultType="int">
-	SELECT LAST_INSERT_ID();
+	SELECT LAST_INSERT_ID()
 	</select>
 	
-	<insert id="intoRoom_1for1" parameterType="MessageVO">
+	<insert id="insertRoom_participant" parameterType="MessageVO">
 	INSERT INTO msg_room_participant (room_id, receiver)
-            VALUES (#{room_id}, #{sender.emp_id}),
-                   (#{room_id}, #{receiver.emp_id});
+            VALUES (#{room_id}, #{receiver.emp_id})
 	</insert>	
 	
 	<insert id="sendMessage" parameterType="MessageVO">
 	INSERT INTO messages (room_id, sender, msg_content) 
-	 VALUES (#{room_id}, #{sender.emp_id}, #{msg_content});
+	 VALUES (#{room_id}, #{sender.emp_id}, #{msg_content})
 	</insert>
+	
+	<select id="getMessages" parameterType="MessageVO" resultType="MessageVO">
+	    select m.*,r.room_name, rp.role
+	     from messages m
+	     join msg_room r on m.room_id = r.room_id
+	     join msg_room_participant rp on r.room_id = rp.room_id
+	     where r.room_id = #{room_id} 
+	     and m.msg_date > rp.join_date;
+	</select>
 	
 </mapper>  
   

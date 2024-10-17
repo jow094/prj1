@@ -47,6 +47,11 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberVO> memberSearch(String keyword) {
 		logger.debug(" memberSearch(String keyword) 실행)");
 		return mdao.getMemberList(keyword);
+	}
+
+	@Override
+	public List<MemberVO> getTeammate(String emp_id) {
+		return mdao.getTeamList(emp_id);
 	};
 	
 }

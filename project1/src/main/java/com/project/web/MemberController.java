@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.MemberVO;
+import com.project.domain.MessageVO;
 import com.project.persistence.MemberDAO;
 import com.project.service.MemberService;
+import com.project.service.MessageService;
 
 //@RequestMapping(value = "/member/*")
 // => 특정 동작의 형태를 구분 (~.me, ~.bo,~.do)
@@ -31,6 +33,9 @@ public class MemberController {
 	
 	@Inject
 	private MemberService mService;
+	
+	@Inject
+	private MessageService msgService;
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -104,6 +109,38 @@ public class MemberController {
 			
 			List<MemberVO> memberList = mService.memberSearch(keyword);
 			return memberList;
+		}
+		
+		
+		
+		@RequestMapping(value = "/getTeam",method = RequestMethod.GET)
+		@ResponseBody
+		public List<MemberVO> getTeam(HttpSession session) {
+			String emp_id = (String)session.getAttribute("emp_id");
+			logger.debug("/member/getTeam -> getTeam() 실행");
+			logger.debug(" 조회 대상 아이디 : "+emp_id);
+			
+			List<MemberVO> memberList = mService.getTeammate(emp_id);
+			logger.debug(" 조회 결과 : "+memberList);
+			
+			return memberList;
+		}
+		
+		@RequestMapping(value = "/getMessage",method = RequestMethod.GET)
+		@ResponseBody
+		public List<MessageVO> getMessage(HttpSession session, String msg_emp_id) {
+			logger.debug("/member/getMessage -> getMessage() 실행");
+			String emp_id = (String)session.getAttribute("emp_id");
+			MessageVO msgVO = new MessageVO();
+			MemberVO sender = new MemberVO();
+			MemberVO receiver = new MemberVO();
+			sender.setEmp_id(msg_emp_id);
+			receiver.setEmp_id(emp_id);
+			msgVO.setSender(sender);
+			msgVO.setReceiver(receiver);
+			
+			
+			return msgService.openChatRoom(msgVO);
 		}
 		
 		

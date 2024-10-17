@@ -53,6 +53,7 @@
 	<script src="${pageContext.request.contextPath }/resources/assets/js/core/popper.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/assets/js/core/bootstrap.min.js"></script>
 
+
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/demo.css" />
     
@@ -183,74 +184,47 @@
 						<div class="messenger_body">
 							<!-- 메뉴 -->
 							<div class="messenger_body_menu">
-								<!-- persons -->
-								<div style="display:flex;">
-									<div style="flex:0.3; display:flex; justify-content: center;  align-items: center;">
-									이미지
-									</div>
-									<div style="flex:0.5; display:flex; flex-direction: column;">
-										<div style="display:flex; flex:0.4;">
-											<div style="flex:0.4; height:auto; display:flex; justify-content: center;  align-items: center;">
-											사원
-											</div>
-											<div style="flex:0.6; height:auto; display:flex; justify-content: center;  align-items: center;">
-											조우영
-											</div>
-										</div>
-										<div style="flex:0.3; display:flex; padding-left:20px; justify-content: flex-start;  align-items: center;">
-										부산지사
-										</div>
-										<div style="display:flex; flex:0.3;">
-											<div style="flex:0.5; height:auto; display:flex; justify-content: center;  align-items: center;">
-											개발부
-											</div>
-											<div style="flex:0.5; height:auto; display:flex; justify-content: center;  align-items: center;">
-											ㅇㅇㅇ
-											</div>
-										</div>
-									</div>
-									<div style="flex:0.2; display:flex; flex-direction:column; justify-content: center;  align-items: center;">
-										<div>상태</div>
-										<div>메세지</div>
-									</div>
-								</div>
-								<!-- persons -->
 							</div>
 							<!-- 메뉴 -->
 							
+							<!-- 채팅목록 -->
+							<div class="messenger_body_chat list">
 							
-							<!-- <div class="messenger_body_chat list">
-								<div style="display:flex; justify-content: center; align-items: center;">
-									<div style="flex:2; display:flex; justify-content: center; align-items: center;">
-									이미지
-									</div>
-									<div style="flex:6; display:flex; flex-direction:column; justify-content: center; align-items: center;">
-										<div style="flex:3; display:flex; width:100%; justify-content: flex-start; align-items: center; padding-left:10px;">
-											<div style="flex:0.1; height:100%; display:flex; justify-content: center; align-items: center;">
-											사원
+								<a data-room_id="" id="to_chat_room">
+									<div style="display:flex; justify-content: center; align-items: center;">
+										<div style="flex:2; display:flex; justify-content: center; align-items: center;">
+										이미지
+										</div>
+										<div style="flex:6; display:flex; flex-direction:column; justify-content: center; align-items: center;">
+											<div style="flex:3; display:flex; width:100%; justify-content: flex-start; align-items: center; padding-left:10px;">
+												<div style="flex:0.1; height:100%; display:flex; justify-content: center; align-items: center;">
+												사원
+												</div>
+												<div style="flex:0.3; height:100%; display:flex; justify-content: center; align-items: center;">
+												조우영
+												</div>
+												<div style="flex:0.6; height:100%; display:flex; justify-content: flex-end; align-items: center;">
+												수신시각
+												</div>
 											</div>
-											<div style="flex:0.3; height:100%; display:flex; justify-content: center; align-items: center;">
-											조우영
-											</div>
-											<div style="flex:0.6; height:100%; display:flex; justify-content: flex-end; align-items: center;">
-											수신시각
+											<div style="flex:7; display:flex; width:100%; justify-content: center; align-items: center;">
+											내용
 											</div>
 										</div>
-										<div style="flex:7; display:flex; width:100%; justify-content: center; align-items: center;">
-										내용
+										<div style="flex:1; display:flex; justify-content: center; align-items: center;">
+										갯수
 										</div>
 									</div>
-									<div style="flex:1; display:flex; justify-content: center; align-items: center;">
-									갯수
-									</div>
-								</div>
-							</div> -->
+								</a>
+								
+							</div>
+							<!-- 채팅목록 -->
 							
 							<!-- 채팅방-->
-							<div class="messenger_body_chat onchat">
+							<div class="messenger_body_chat room" style="display:none">
 								<!-- 채팅방 상단 -->
 								<div style="display:flex; flex:0.1; width:100%; border:1px solid;">
-									<div style="display:flex; flex:0.1; border:1px solid; justify-content: center; align-items: center;">
+									<div id ="to_chat_list" style="display:flex; flex:0.1; border:1px solid; justify-content: center; align-items: center;">
 									뒤로가기
 									</div>
 									<div style="display:flex; flex:0.9; flex-direction:column">
@@ -268,9 +242,11 @@
 								<div style="display:flex; flex-direction:column; flex:0.7; width:100%; border:1px solid; padding:0 10px; overflow-y: auto;"> 
 									<!-- 받은 메세지 -->
 									<div class="r_msg_box" style="display:flex; width:370px; border:1px solid; padding-bottom: 3px;">
-										<div id="r_msg_sender_img" style="border:1px solid; width:50px; height:50px; margin-top:10px;">
-										이미지
-										</div>
+										<a data-emp_code="" class="member_info">
+											<div id="r_msg_sender_img" style="border:1px solid; width:50px; height:50px; margin-top:10px;">
+											이미지
+											</div>
+										</a>
 										<div style="width:400px; border:1px solid; display:flex; flex-direction:column;">
 											<div style="display:flex; height:30px; border:1px solid;">
 												<div id="r_msg_sender_position" style="border:1px solid; padiing:0 5px;">
@@ -466,6 +442,7 @@
 	  	<%@ include file="/resources/assets/inc/login_alarm_modal.jsp" %>
 	</c:if>
 		
-	
+	<script src="${pageContext.request.contextPath }/resources/assets/js/chat.js"></script>
+	    
 	</body>
 </html>

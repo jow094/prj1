@@ -60,6 +60,11 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println(" DAO :  getMemberList(String keyword) ");
 		return sqlSession.selectList(NAMESPACE + ".getSearchedMemberList",keyword);
 	}
+
+	@Override
+	public List<MemberVO> getTeamList(String emp_id) {
+		return sqlSession.selectList(NAMESPACE + ".getTeamList",emp_id);
+	}
 	
 	
 	

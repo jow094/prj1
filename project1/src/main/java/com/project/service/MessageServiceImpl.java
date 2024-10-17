@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.domain.MemberVO;
+import com.project.domain.MessageVO;
 import com.project.persistence.MemberDAO;
 import com.project.persistence.MessageDAO;
 
@@ -30,6 +31,19 @@ public class MessageServiceImpl implements MessageService{
 	
 	// MemberDAO 객체 주입
 	@Autowired
-	private MessageDAO msdao;
+	private MessageDAO msgdao;
+
+	@Override
+	public List<MessageVO> openChatRoom(MessageVO vo) {
+		vo.setRoom_id(msgdao.check_msg_room(vo));
+		try {
+			msgdao.insert_participant(vo);
+		    // 추가 동작
+		} catch (Exception e) {
+			logger.debug("기존의 참가자입니다.");
+		}
+		
+		return msgdao.join_messages(vo);
+	}
 	
 }

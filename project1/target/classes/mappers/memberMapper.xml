@@ -31,6 +31,21 @@
 	    or replace(emp_work_type, ' ', '') like concat('%', #{keyword}, '%')
 	    or replace(emp_power, ' ', '') like concat('%', #{keyword}, '%')
 	</select>
+	
+	<!-- 팀원 조회 -->
+	<select id="getTeamList" resultType="MemberVO">
+		select *
+	     from employee
+	     where emp_dnum = (
+	         select emp_dnum
+	         from employee
+	         where emp_id = #{emp_id}
+	     ) and emp_bnum = (
+	         select emp_bnum
+	         from employee
+	         where emp_id = #{emp_id}
+	     );
+	</select>
 
 </mapper>  
   
