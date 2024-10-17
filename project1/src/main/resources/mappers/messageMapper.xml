@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.project.mapper.MessageMapper">
+
+	<update id="sendMessage" parameterType="MessageVO">
+		insert into message(
+		 m_content,
+		 sender_emp_id,
+		 sender_emp_name,
+		 sender_emp_dnum,
+		 sender_emp_bnum,
+		 sender_emp_position,
+		 sender_emp_job,
+		 receiver_emp_id,
+		 receiver_emp_name,
+		 receiver_emp_dnum,
+		 receiver_emp_bnum,
+		 receiver_emp_position,
+		 receiver_emp_job
+		 ) values (
+		 #{m_content},
+		 #{sender_emp_id},
+		 #{sender_emp_name},
+		 #{sender_emp_dnum},
+		 #{sender_emp_bnum},
+		 #{sender_emp_position},
+		 #{sender_emp_job},
+		 #{receiver_emp_id},
+		 #{receiver_emp_name},
+		 #{receiver_emp_dnum},
+		 #{receiver_emp_bnum},
+		 #{receiver_emp_position},
+		 #{receiver_emp_job}
+		 )
+	 </update>
+
+</mapper>  
+  
