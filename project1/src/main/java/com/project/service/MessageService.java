@@ -6,6 +6,5 @@ import com.project.domain.MemberVO;
 
 public interface MessageService {
 	
-	public MemberVO memberLogin(MemberVO vo);
 
 }

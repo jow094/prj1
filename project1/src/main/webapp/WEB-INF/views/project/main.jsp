@@ -209,8 +209,9 @@
 											</div>
 										</div>
 									</div>
-									<div style="flex:0.2; display:flex; justify-content: center;  align-items: center;">
-									상태
+									<div style="flex:0.2; display:flex; flex-direction:column; justify-content: center;  align-items: center;">
+										<div>상태</div>
+										<div>메세지</div>
 									</div>
 								</div>
 								<!-- persons -->

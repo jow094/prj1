@@ -5,37 +5,38 @@
   
 <mapper namespace="com.project.mapper.MessageMapper">
 
-	<update id="sendMessage" parameterType="MessageVO">
-		insert into message(
-		 m_content,
-		 sender_emp_id,
-		 sender_emp_name,
-		 sender_emp_dnum,
-		 sender_emp_bnum,
-		 sender_emp_position,
-		 sender_emp_job,
-		 receiver_emp_id,
-		 receiver_emp_name,
-		 receiver_emp_dnum,
-		 receiver_emp_bnum,
-		 receiver_emp_position,
-		 receiver_emp_job
-		 ) values (
-		 #{m_content},
-		 #{sender_emp_id},
-		 #{sender_emp_name},
-		 #{sender_emp_dnum},
-		 #{sender_emp_bnum},
-		 #{sender_emp_position},
-		 #{sender_emp_job},
-		 #{receiver_emp_id},
-		 #{receiver_emp_name},
-		 #{receiver_emp_dnum},
-		 #{receiver_emp_bnum},
-		 #{receiver_emp_position},
-		 #{receiver_emp_job}
-		 )
-	 </update>
-
+	<select id="findRoom" resultType="int" parameterType="MessageVO">
+	    SELECT room_id
+	     FROM msg_room_participant
+	     WHERE room_id IN ( 
+         					SELECT room_id 
+        					FROM msg_room_participant 
+        					WHERE receiver = #{sender.emp_id} OR receiver = #{receiver.emp_id} 
+        					GROUP BY room_id 
+        					HAVING COUNT(DISTINCT receiver) = 2 
+	    					) 
+	     LIMIT 1  <!-- 방이 여러 개가 있을 수 있으므로 하나만 선택 -->
+	</select>
+	
+	<insert id="insertRoom" parameterType="MessageVO">
+	INSERT INTO msg_room (room_name)
+     VALUES (CONCAT(#{sender.emp_name}, ', ', #{receiver.emp_name});
+    </insert>
+     
+    <select id="selectLastRoomId" resultType="int">
+	SELECT LAST_INSERT_ID();
+	</select>
+	
+	<insert id="intoRoom_1for1" parameterType="MessageVO">
+	INSERT INTO msg_room_participant (room_id, receiver)
+            VALUES (#{room_id}, #{sender.emp_id}),
+                   (#{room_id}, #{receiver.emp_id});
+	</insert>	
+	
+	<insert id="sendMessage" parameterType="MessageVO">
+	INSERT INTO messages (room_id, sender, msg_content) 
+	 VALUES (#{room_id}, #{sender.emp_id}, #{msg_content});
+	</insert>
+	
 </mapper>  
   

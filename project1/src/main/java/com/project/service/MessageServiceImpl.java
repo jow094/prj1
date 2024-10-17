@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.domain.MemberVO;
 import com.project.persistence.MemberDAO;
+import com.project.persistence.MessageDAO;
 
 // @Service : 서비스영역 (비지니스 로직 영역)에서의 동작을 구현하도록 설정
 // 			  root-context.xml에 빈(MemberService)으로 등록
@@ -31,8 +32,4 @@ public class MessageServiceImpl implements MessageService{
 	@Autowired
 	private MessageDAO msdao;
 	
-	@Override
-	public MessageVO memberLogin(MessageVO vo) {
-		return msdao.checkMember(vo);
-	}
 }

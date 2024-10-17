@@ -1,23 +1,25 @@
 package com.project.domain;
 
+import java.sql.Timestamp;
+import java.util.List;
+
+import lombok.Data;
+
+@Data
 public class MessageVO {
-	private int m_main_code;
-	private int m_sub_code;
-	private String m_create_date;
-	private String m_read_date;
-	private String m_alarm_token;
-	private String sender_emp_id;
-	private String sender_emp_name;
-	private String sender_emp_dnum;
-	private String sender_emp_bnum;
-	private String sender_emp_position;
-	private String sender_emp_job;
-	private String receiver_emp_id;
-	private String receiver_emp_name;
-	private String receiver_emp_dnum;
-	private String receiver_emp_bnum;
-	private String receiver_emp_position;
-	private String receiver_emp_job;
-	private String m_content;
+	private int msg_id;
+	private Timestamp msg_date;
+	private String msg_reader;
+	private String msg_content;
 	
+	private int room_id;
+	private String room_name;
+	private String room_role;
+	private Timestamp room_created_date;
+	private Timestamp room_last_message_date;
+	private Timestamp room_join_date;
+	
+	private MemberVO sender;
+	private MemberVO receiver;
+	private List<MemberVO> receivers;
 }
