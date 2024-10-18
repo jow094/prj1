@@ -190,56 +190,27 @@
 							<!-- 채팅목록 -->
 							<div class="messenger_body_chat list">
 							
-								<a data-room_id="" id="to_chat_room">
-									<div style="display:flex; justify-content: center; align-items: center;">
-										<div style="flex:2; display:flex; justify-content: center; align-items: center;">
-										이미지
-										</div>
-										<div style="flex:6; display:flex; flex-direction:column; justify-content: center; align-items: center;">
-											<div style="flex:3; display:flex; width:100%; justify-content: flex-start; align-items: center; padding-left:10px;">
-												<div style="flex:0.1; height:100%; display:flex; justify-content: center; align-items: center;">
-												사원
-												</div>
-												<div style="flex:0.3; height:100%; display:flex; justify-content: center; align-items: center;">
-												조우영
-												</div>
-												<div style="flex:0.6; height:100%; display:flex; justify-content: flex-end; align-items: center;">
-												수신시각
-												</div>
-											</div>
-											<div style="flex:7; display:flex; width:100%; justify-content: center; align-items: center;">
-											내용
-											</div>
-										</div>
-										<div style="flex:1; display:flex; justify-content: center; align-items: center;">
-										갯수
-										</div>
-									</div>
-								</a>
-								
 							</div>
 							<!-- 채팅목록 -->
 							
 							<!-- 채팅방-->
 							<div class="messenger_body_chat room" style="display:none">
 								<!-- 채팅방 상단 -->
-								<!-- <div style="display:flex; flex:0.1; width:100%; border:1px solid;">
+								<div class="head_chat" style="display:flex; flex:0.1; width:100%; border:1px solid;">
 									<div id ="to_chat_list" style="display:flex; flex:0.1; border:1px solid; justify-content: center; align-items: center;">
-									뒤로가기
+										<button>
+											<i class="fa-solid fa-arrow-left"></i>
+										</button>
 									</div>
-									<div style="display:flex; flex:0.9; flex-direction:column">
-										<div id="msg_target_position" style="display:flex; flex:0.4; width:100%; border:1px solid; padding-left:10px; justify-content: flex-start; align-items: center;">
-										사원
-										</div>
-										<div id="msg_target_name" style="display:flex; flex:0.6; width:100%; border:1px solid; padding-left:10px; justify-content: flex-start; align-items: center;">
-										조우영
+									<div style="display:flex; flex:0.9;">
+										<div class="chat_room_name" style="display:flex;width:100%; border:1px solid; padding-left:10px; justify-content: flex-start; align-items: center;">
 										</div>
 									</div>
-								</div> -->
+								</div>
 								<!-- 채팅방 상단 -->
 								
 								<!-- 채팅방 안쪽 -->
-								<div style="display:flex; flex-direction:column; flex:0.7; width:100%; border:1px solid; padding:0 10px; overflow-y: auto;"> 
+								<div class="chat_content" style="display:flex; flex-direction:column; flex:0.7; width:100%; border:1px solid; padding:0 10px; overflow-y: auto;"> 
 									<!-- 받은 메세지 -->
 									<!-- <div class="r_msg_box" style="display:flex; width:370px; border:1px solid; padding-bottom: 3px;">
 										<a data-emp_code="" class="member_info">
@@ -292,11 +263,13 @@
 								<!-- 채팅방 안쪽 -->
 								
 								<!-- 채팅방 입력란 -->
-								<div class="input_chat" style="display:flex; flex:0.2; width:100%; border:1px solid;"> 
-									<form action="/member/sendMessage" method="POST" style="display:flex; width:100%; height:100%;">
+								<div class="chat_input" style="display:flex; flex:0.2; width:100%; border:1px solid;"> 
+									<form id="message_send_form" action="/member/sendMessage" method="POST" style="display:flex; width:100%; height:100%;">
 										<div id="msg_textarea" style="flex:0.9; height:100%;">
 											<input id="hidden_room_id" type="hidden" name="room_id"></input>
-											<textarea name="msg_content" style="width:100%; height:100%; resize: none;"></textarea>
+											<input id="hidden_personal_receiver_emp_id" type="hidden" name="personal_receiver_emp_id"></input>
+											<input id="hidden_personal_receiver_emp_name" type="hidden" name="personal_receiver_emp_name"></input>
+											<textarea id="msg_content" name="msg_content" style="width:100%; height:100%; resize: none;"></textarea>
 										</div>
 										<div id="msg_submit" style="display:flex; flex:0.1; height:100%; justify-content: center; align-items: center;">
 											<button type="submit" style="width:100%; height:100%; background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">

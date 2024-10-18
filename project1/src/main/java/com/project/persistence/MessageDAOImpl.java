@@ -1,6 +1,8 @@
 package com.project.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -25,49 +27,60 @@ public class MessageDAOImpl implements MessageDAO {
 	private static final Logger logger = LoggerFactory.getLogger(WorkflowServiceImpl.class);
 
 	@Override
-	public int check_msg_room(MessageVO vo) {
-		logger.debug("msgDAO : "+ vo.getSender().getEmp_id() + " 회원과 " + vo.getReceiver().getEmp_id() + " 회원 간 기존 1대1 채팅방 존재여부를 확인합니다.");
+	public int check_personal_chat(String sender_emp_id, String receiver_emp_id) {
+		/*
+		 * logger.debug("msgDAO : "+ vo.getSender().getEmp_id() + " 회원과 " +
+		 * vo.getReceiver().getEmp_id() + " 회원 간 기존 1대1 채팅방 존재여부를 확인합니다.");
+		 */
 		
-		Integer result = sqlSession.selectOne(NAMESPACE + ".findRoom", vo);
+		Map<String, String> people = new HashMap<String, String>();
+	    people.put("sender_emp_id", sender_emp_id);
+	    people.put("receiver_emp_id", receiver_emp_id);
+
+	    Integer result = sqlSession.selectOne(NAMESPACE + ".findRoom", people);
+	    
 		if (result == null) {
-		    result = 0;  //
+			result = 0;
+			logger.debug("msgDAO : "+sender_emp_id+" 와  "+receiver_emp_id+ " 두 이용자의 기존 채팅방이 없습니다. "+ result +"를 반환합니다.");
 		}
 		
 		logger.debug("msgDAO : 검증 결과 room_id = " +result);
 			
-			if(result>0) {
-				logger.debug("msgDAO : 두 이용자의 기존 채팅방이 있습니다. 해당 방 id를 반환합니다.");
-				return result;
-			}
-			
-			if(sqlSession.insert(NAMESPACE + ".createRoom",vo)==1) {
-				result = sqlSession.selectOne(NAMESPACE + ".selectLastRoomId");
-				logger.debug("msgDAO : 두 이용자의 기존 채팅방이 없어 새롭게 생성하였습니다. room_id:" +result);
-			}
+		if(result>0) {
+			logger.debug("msgDAO : "+sender_emp_id+" 와 "+receiver_emp_id+ "두 이용자의 기존 채팅방이 있습니다. 해당 방 id를 반환합니다.");
+		}
 			
 		return result;
 	}
 
 	@Override
-	public int insert_participant(MessageVO vo) {
-		logger.debug("msgDAO :" + vo.getReceiver().getEmp_id() + "회원이 " + vo.getRoom_id() + "채팅방에 입장하였습니다.");
-		return sqlSession.insert(NAMESPACE + ".insertRoom_participant_1for1",vo);
+	public void insert_participant(MessageVO vo) {
+		sqlSession.insert(NAMESPACE + ".insertParticipant",vo);
 	}
 
 	@Override
 	public int insert_message(MessageVO vo) {
-		logger.debug("msgDAO : "+ vo.getRoom_id()+" 채팅방에 새로운 메세지가 입력되었습니다." + vo.getSender().getEmp_id());
 		return sqlSession.insert(NAMESPACE + ".sendMessage",vo);
 	}
 
 	@Override
-	public List<MessageVO> join_messages(MessageVO vo) {
-		List<MessageVO> result = sqlSession.selectList(NAMESPACE + ".getMessages");
-		
-		logger.debug("msgDAO : "+ vo.getRoom_id()+" 채팅방에  "+ result.size() +"개의 메세지가 있습니다.");
+	public List<MessageVO> join_messages(Integer room_id) {
+		logger.debug("msgDAO : "+ room_id +" 번 채팅방의 메세지를 가져옵니다.");
+		List<MessageVO> result = sqlSession.selectList(NAMESPACE + ".getMessages",room_id);
+		logger.debug("msgDAO : "+ room_id +" 번 채팅방에  "+ result.size() +"개의 메세지가 있습니다.");
 		return result;
 	}
-	
-	
 
+	@Override
+	public int insert_msg_room(MessageVO vo) {
+		sqlSession.selectList(NAMESPACE + ".insertMsgRoom",vo);
+		logger.debug("msgDAO : 채팅방을 생성했습니다. 참가자 id :"+vo.getPersonal_sender_emp_id()+", "+vo.getPersonal_receiver_emp_id());
+		return sqlSession.selectOne(NAMESPACE + ".selectLastRoomId");
+	}
+
+	@Override
+	public List<MessageVO> select_rooms(String emp_id) {
+		return sqlSession.selectList(NAMESPACE + ".selectChatList",emp_id);
+	}
+	
 }

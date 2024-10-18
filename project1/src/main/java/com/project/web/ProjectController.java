@@ -162,8 +162,8 @@ public class ProjectController {
 			
 			session.removeAttribute("emp_id");
 			session.setAttribute("emp_id", resultVO.getEmp_id());
+			session.setAttribute("emp_name", resultVO.getEmp_name());
 			session.setAttribute("logined", true);
-			session.setAttribute("alarmStack", new ArrayList<String>());
 			
 			return "redirect:/project/main";
 		}

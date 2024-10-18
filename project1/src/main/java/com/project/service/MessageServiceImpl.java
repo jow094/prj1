@@ -15,14 +15,12 @@ import com.project.persistence.MessageDAO;
 // @Service : 서비스영역 (비지니스 로직 영역)에서의 동작을 구현하도록 설정
 // 			  root-context.xml에 빈(MemberService)으로 등록
 
-
 /*
  * 비지니스 영역, Action 페이지, pro.jsp 동작을 처리하는 공간
  *   => 컨트롤러와 DAO를 연결하는 다리 역할을 함  / 완충영역
  *   => 고객사마다 유연한 대처가 가능
  * 
  */
-
 
 @Service
 public class MessageServiceImpl implements MessageService{
@@ -32,21 +30,53 @@ public class MessageServiceImpl implements MessageService{
 	// MemberDAO 객체 주입
 	@Autowired
 	private MessageDAO msgdao;
+	
+	@Override
+	public List<MessageVO> openPersonalChat(String sender_emp_id, String receiver_emp_id) {
+		logger.debug("msgServiceImpl : openPersnalChat ("+sender_emp_id+", "+receiver_emp_id+") 실행");
+		
+		return msgdao.join_messages(msgdao.check_personal_chat(sender_emp_id, receiver_emp_id));
+	}
 
 	@Override
-	public List<MessageVO> openChatRoom(MessageVO vo) {
-		logger.debug("msgDAO : "+msgdao);
-		logger.debug("msgServiceImpl : openChatRoom ("+vo+"실행");
+	public List<MessageVO> openChatRoom(Integer room_id) {
+		logger.debug("msgServiceImpl : openChatRoom ("+room_id+"실행");
 		
-		vo.setRoom_id(msgdao.check_msg_room(vo));
-		try {
-			msgdao.insert_participant(vo);
-		    // 추가 동작
-		} catch (Exception e) {
-			logger.debug("기존의 참가자입니다.");
-		}
+		/*
+		 * vo.setRoom_id(msgdao.check_msg_room(vo)); try {
+		 * msgdao.insert_participant(vo); // 추가 동작 } catch (Exception e) {
+		 * logger.debug("기존의 참가자입니다."); }
+		 */
 		
-		return msgdao.join_messages(vo);
+		return msgdao.join_messages(room_id);
 	}
+	
+	@Override
+	public int createChatRoom(MessageVO vo) {
+		logger.debug("msgServiceImpl : createChatRoom 실행");
+		return msgdao.insert_msg_room(vo);
+	}
+	
+	@Override
+	public void enterRoom(MessageVO vo) {
+		logger.debug("msgServiceImpl : enterRoom 실행");
+		msgdao.insert_participant(vo);
+		logger.debug("msgServiceImpl : "+vo.getRoom_id()+"번 채팅방에 "+vo.getEnter_emp_id()+"사용자가 입장하였습니다.");
+	}
+	
+	@Override
+	public void sendMessage(MessageVO vo) {
+		logger.debug("msgServiceImpl : sendMessage 실행");
+		msgdao.insert_message(vo);
+		
+	}
+
+	@Override
+	public List<MessageVO> getChatRoomList(String emp_id) {
+		return msgdao.select_rooms(emp_id);
+	}
+	
+	
+	
 	
 }

@@ -1,5 +1,6 @@
 package com.project.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.MemberVO;
@@ -70,7 +72,8 @@ public class MemberController {
 			}
 			
 			//사용자의 아이디 정보를 세션 영역에 저장
-			session.setAttribute("userid", resultVO.getEmp_id());
+			session.setAttribute("user_id", resultVO.getEmp_id());
+			session.setAttribute("user_name", resultVO.getEmp_name());
 	
 			logger.debug(" 로그인 성공, 메인페이지로 이동 ");
 			
@@ -118,44 +121,73 @@ public class MemberController {
 		public List<MemberVO> getTeam(HttpSession session) {
 			String emp_id = (String)session.getAttribute("emp_id");
 			logger.debug("/member/getTeam -> getTeam() 실행");
-			logger.debug(" 조회 대상 아이디 : "+emp_id);
+			logger.debug(" getTeam : 조회 대상 아이디 : "+emp_id);
 			
 			List<MemberVO> memberList = mService.getTeammate(emp_id);
-			logger.debug(" 조회 결과 : "+memberList);
+			logger.debug(" getTeam : 조회 결과 : "+memberList);
 			
 			return memberList;
 		}
 		
 		@RequestMapping(value = "/getMessages",method = RequestMethod.GET)
 		@ResponseBody
-		public List<MessageVO> getMessages(HttpSession session, String msg_emp_id) {
-			logger.debug("/member/getMessages -> getMessages() 실행");
-			String emp_id = (String)session.getAttribute("emp_id");
-			MessageVO msgVO = new MessageVO();
-			MemberVO sender = new MemberVO();
-			MemberVO receiver = new MemberVO();
-			sender.setEmp_id(msg_emp_id);
-			receiver.setEmp_id(emp_id);
-			msgVO.setSender(sender);
-			msgVO.setReceiver(receiver);
-			logger.debug("openChatRoom 실행 대상 회원 : " + msgVO.getSender().getEmp_id() + ", " + msgVO.getReceiver().getEmp_id() );
+		public Map<String,Object> getMessages(HttpSession session, @RequestParam(required = false) Integer room_id, @RequestParam(required = false) String receiver_emp_id ) {
+			logger.debug("/member/getMessages -> getMessages("+room_id+","+receiver_emp_id+") 실행");
+			String sender_emp_id = (String)session.getAttribute("emp_id");
 			
+			Map<String,Object> data = new HashMap<String,Object>();
+			data.put("emp_id", session.getAttribute("emp_id"));	
 			
-			return msgService.openChatRoom(msgVO);
+			/* 개인톡으로 접근 */
+			if(room_id == null) {
+				logger.debug(sender_emp_id + " 사용자가 " + receiver_emp_id +" 사용자와의 개인 채팅방에 접속하였습니다.");
+				data.put("personal_receiver_memberVO", mService.memberInfo(receiver_emp_id));
+				data.put("messageList", msgService.openPersonalChat(sender_emp_id, receiver_emp_id));
+			}else {
+				logger.debug(sender_emp_id + " 사용자가 " + room_id +" 번 채팅방에 접속하였습니다.");
+				data.put("messageList", msgService.openChatRoom(room_id));
+			}
+			
+			return data;
 		}
 		
 		
 		@RequestMapping(value = "/sendMessage",method = RequestMethod.POST)
 		@ResponseBody
-		public List<MessageVO> sendMessage(HttpSession session, MessageVO vo) {
-			logger.debug("/member/sendMessage -> sendMessage() 실행");
+		public Integer sendMessage(HttpSession session, MessageVO vo) {
+			logger.debug("/member/sendMessage -> sendMessage() 실행 :"+vo);
 			String emp_id = (String)session.getAttribute("emp_id");
+			vo.setPersonal_sender_emp_id(emp_id);
+			vo.setPersonal_sender_emp_name((String)session.getAttribute("emp_name"));
+			int room_id = vo.getRoom_id();
 			
+			if(room_id==0) {
+				room_id = msgService.createChatRoom(vo);
+				logger.debug("새로운 채팅방을 생성합니다."+ room_id +" 번 채팅방이 생성되었습니다.");
+				logger.debug("생성된 채팅방은 다음 데이터를 기반으로 합니다. :"+ vo);
+				vo.setRoom_id(room_id);
+				vo.setEnter_emp_id(vo.getPersonal_receiver_emp_id());
+				msgService.enterRoom(vo);
+				vo.setEnter_emp_id(vo.getPersonal_sender_emp_id());
+				msgService.enterRoom(vo);
+			}
 			
+			logger.debug(room_id+"번 채팅방에 "+emp_id+" 사용자가 채팅을 입력하였습니다.");
+			logger.debug("채팅 입력값 :"+vo);
+			msgService.sendMessage(vo);
 			
-			
-			return null;
+			return vo.getRoom_id();
 		}
+		
+		@RequestMapping(value = "/getChatRoomList",method = RequestMethod.GET)
+		@ResponseBody
+		public List<MessageVO> showChatRoomList(HttpSession session) {
+			String emp_id = (String)session.getAttribute("emp_id");
+			List<MessageVO> result = msgService.getChatRoomList(emp_id);
+			logger.debug("showChatRoomList :" + result);
+			return result;
+		}
+		
 		
 		
 }

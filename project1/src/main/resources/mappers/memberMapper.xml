@@ -44,7 +44,7 @@
 	         select emp_bnum
 	         from employee
 	         where emp_id = #{emp_id}
-	     );
+	     ) and emp_id != #{emp_id}
 	</select>
 
 </mapper>  
