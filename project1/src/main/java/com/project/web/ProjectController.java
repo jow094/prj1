@@ -232,18 +232,4 @@ public class ProjectController {
 	        return events;
 	    }
 		
-		@RequestMapping(value = "/sendMessage",method = RequestMethod.POST)
-	    public void sendMessage() {
-	        List<Map<String, Object>> events = new ArrayList<Map<String, Object>>();
-
-	        // 예시 이벤트 데이터
-	        Map<String, Object> event = new HashMap<String, Object>();
-	        event.put("title", "회의");
-	        event.put("start", "2024-10-18");
-	        event.put("end", "2024-10-20");
-
-	        events.add(event);
-	    }
-		
-		
 }

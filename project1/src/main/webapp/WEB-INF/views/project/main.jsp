@@ -223,7 +223,7 @@
 							<!-- 채팅방-->
 							<div class="messenger_body_chat room" style="display:none">
 								<!-- 채팅방 상단 -->
-								<div style="display:flex; flex:0.1; width:100%; border:1px solid;">
+								<!-- <div style="display:flex; flex:0.1; width:100%; border:1px solid;">
 									<div id ="to_chat_list" style="display:flex; flex:0.1; border:1px solid; justify-content: center; align-items: center;">
 									뒤로가기
 									</div>
@@ -235,13 +235,13 @@
 										조우영
 										</div>
 									</div>
-								</div>
+								</div> -->
 								<!-- 채팅방 상단 -->
 								
 								<!-- 채팅방 안쪽 -->
 								<div style="display:flex; flex-direction:column; flex:0.7; width:100%; border:1px solid; padding:0 10px; overflow-y: auto;"> 
 									<!-- 받은 메세지 -->
-									<div class="r_msg_box" style="display:flex; width:370px; border:1px solid; padding-bottom: 3px;">
+									<!-- <div class="r_msg_box" style="display:flex; width:370px; border:1px solid; padding-bottom: 3px;">
 										<a data-emp_code="" class="member_info">
 											<div id="r_msg_sender_img" style="border:1px solid; width:50px; height:50px; margin-top:10px;">
 											이미지
@@ -270,11 +270,11 @@
 											    </div>
 											</div>
 										</div>
-									</div>
+									</div> -->
 									<!-- 받은 메세지 -->
 									
 									<!-- 보낸 메세지 -->
-									<div class="msg_box" style="display:flex; width:370px; border:1px solid; padding-bottom: 3px; margin-left:auto;">
+									<!-- <div class="msg_box" style="display:flex; width:370px; border:1px solid; padding-bottom: 3px; margin-left:auto;">
 										<div style="height:100%; width:10px; border:1px solid; display:flex; justify-content: flex-end; align-items: flex-end; margin-left:auto;">
 										<span id="s_msg_unread_count">1</span>
 									    </div>
@@ -286,16 +286,17 @@
 											10.17 18:00
 											</div>	  
 									    </div>
-									</div>
+									</div> -->
 									<!-- 보낸 메세지 -->
 								</div>
 								<!-- 채팅방 안쪽 -->
 								
 								<!-- 채팅방 입력란 -->
 								<div class="input_chat" style="display:flex; flex:0.2; width:100%; border:1px solid;"> 
-									<form action="/project/sendMessage" method="POST" style="display:flex; width:100%; height:100%;">
+									<form action="/member/sendMessage" method="POST" style="display:flex; width:100%; height:100%;">
 										<div id="msg_textarea" style="flex:0.9; height:100%;">
-											<textarea style="width:100%; height:100%; resize: none;"></textarea>
+											<input id="hidden_room_id" type="hidden" name="room_id"></input>
+											<textarea name="msg_content" style="width:100%; height:100%; resize: none;"></textarea>
 										</div>
 										<div id="msg_submit" style="display:flex; flex:0.1; height:100%; justify-content: center; align-items: center;">
 											<button type="submit" style="width:100%; height:100%; background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">

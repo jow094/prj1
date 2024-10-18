@@ -5,23 +5,19 @@
   
 <mapper namespace="com.project.mapper.MessageMapper">
 
-	<select id="findRoom" resultType="int" parameterType="MessageVO">
-	    SELECT room_id
-	     FROM msg_room_participant
-	     WHERE room_id IN ( 
-         					SELECT room_id 
-        					FROM msg_room_participant 
-        					WHERE receiver = #{sender.emp_id} OR receiver = #{receiver.emp_id} 
-        					GROUP BY room_id 
-        					HAVING COUNT(DISTINCT receiver) = 2 
-	    					) 
-	     LIMIT 1  <!-- 방이 여러 개가 있을 수 있으므로 하나만 선택 -->
+	<select id="findRoom" resultType="int" parameterType="com.project.domain.MessageVO">
+	    select room_id
+	     from msg_room_participant
+	     where receiver in (#{sender.emp_id}, #{receiver.emp_id})
+	     group by room_id
+	     having count(distinct receiver) = 2
+	     and (select count(*) from msg_room_participant where room_id = msg_room_participant.room_id) = 2
 	</select>
-	
+
 	<insert id="createRoom" parameterType="MessageVO">
-	INSERT INTO msg_room (room_name)
-     VALUES (CONCAT(#{sender.emp_name}, ', ', #{receiver.emp_name})
-    </insert>
+	    INSERT INTO msg_room (room_name)
+	    VALUES (CONCAT(#{sender.emp_name}, ', ', #{receiver.emp_name}))
+	</insert>
      
     <select id="selectLastRoomId" resultType="int">
 	SELECT LAST_INSERT_ID()

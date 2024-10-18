@@ -35,6 +35,9 @@ public class MessageServiceImpl implements MessageService{
 
 	@Override
 	public List<MessageVO> openChatRoom(MessageVO vo) {
+		logger.debug("msgDAO : "+msgdao);
+		logger.debug("msgServiceImpl : openChatRoom ("+vo+"실행");
+		
 		vo.setRoom_id(msgdao.check_msg_room(vo));
 		try {
 			msgdao.insert_participant(vo);

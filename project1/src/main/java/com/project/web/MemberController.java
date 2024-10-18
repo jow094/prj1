@@ -126,10 +126,10 @@ public class MemberController {
 			return memberList;
 		}
 		
-		@RequestMapping(value = "/getMessage",method = RequestMethod.GET)
+		@RequestMapping(value = "/getMessages",method = RequestMethod.GET)
 		@ResponseBody
-		public List<MessageVO> getMessage(HttpSession session, String msg_emp_id) {
-			logger.debug("/member/getMessage -> getMessage() 실행");
+		public List<MessageVO> getMessages(HttpSession session, String msg_emp_id) {
+			logger.debug("/member/getMessages -> getMessages() 실행");
 			String emp_id = (String)session.getAttribute("emp_id");
 			MessageVO msgVO = new MessageVO();
 			MemberVO sender = new MemberVO();
@@ -138,9 +138,23 @@ public class MemberController {
 			receiver.setEmp_id(emp_id);
 			msgVO.setSender(sender);
 			msgVO.setReceiver(receiver);
+			logger.debug("openChatRoom 실행 대상 회원 : " + msgVO.getSender().getEmp_id() + ", " + msgVO.getReceiver().getEmp_id() );
 			
 			
 			return msgService.openChatRoom(msgVO);
+		}
+		
+		
+		@RequestMapping(value = "/sendMessage",method = RequestMethod.POST)
+		@ResponseBody
+		public List<MessageVO> sendMessage(HttpSession session, MessageVO vo) {
+			logger.debug("/member/sendMessage -> sendMessage() 실행");
+			String emp_id = (String)session.getAttribute("emp_id");
+			
+			
+			
+			
+			return null;
 		}
 		
 		
