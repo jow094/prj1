@@ -9,7 +9,8 @@ public interface MessageDAO {
 	public int check_personal_chat(String sender_emp_id, String receiver_emp_id);
 	public void insert_participant(MessageVO vo);
 	public int insert_message(MessageVO vo);
-	public List<MessageVO> join_messages(Integer room_id);
+	public List<MessageVO> join_messages(String reader, Integer room_id);
 	public int insert_msg_room(MessageVO vo);
 	public List<MessageVO> select_rooms(String emp_id);
+	public int update_unread_count(MessageVO vo);
 }

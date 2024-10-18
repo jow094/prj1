@@ -27,6 +27,7 @@
 	        <result property="emp_bnum" column="msg_sender_emp_bnum"/>
 	        <result property="emp_position" column="msg_sender_emp_position"/>
 	        <result property="emp_job" column="msg_sender_emp_job"/>
+	        <result property="emp_profile" column="msg_sender_emp_profile"/>
 	    </association>
 	</resultMap>
 
@@ -54,6 +55,7 @@
 	        r.room_admin, 
 	        e.emp_id AS msg_sender_emp_id, 
 	        e.emp_name AS msg_sender_emp_name, 
+	        e.emp_profile AS msg_sender_emp_profile, 
 	        e.emp_dnum AS msg_sender_emp_dnum, 
 	        e.emp_bnum AS msg_sender_emp_bnum, 
 	        e.emp_position AS msg_sender_emp_position, 
@@ -84,15 +86,16 @@
 	</insert>
 	
 	<insert id="sendMessage" parameterType="MessageVO">
-	    INSERT INTO messages (room_id, msg_sender, msg_content, msg_unread_count)
+	    INSERT INTO messages (room_id, msg_sender, msg_content,  msg_reader, msg_unread_count)
 	    VALUES (
 	        #{room_id},
 	        #{personal_sender_emp_id},
 	        #{msg_content},
+	        #{personal_sender_emp_id},
 	        (
 	            SELECT COUNT(*) - 1
 	            FROM msg_room_participant
-	            WHERE room_id = #{room_id} AND room_people_status = 1
+	            WHERE room_id = #{room_id}
 	        )
 	    )
 	</insert>
@@ -106,6 +109,30 @@
 	        WHERE p.room_people = #{emp_id}
 	    )
 	</select>
+	
+	<select id="checkReadOrNot" resultType="Integer" parameterType="MessageVO">
+	    SELECT msg_id 
+	    FROM messages 
+	    WHERE room_id = #{room_id} 
+	      AND msg_reader NOT LIKE CONCAT('%', #{msg_reader}, '%');
+	</select>
+	
+	<update id="updateMessageReader" parameterType="MessageVO">
+	    UPDATE messages
+	    SET 
+	        msg_reader = CONCAT(IFNULL(msg_reader, ''), 
+	                            CASE 
+	                                WHEN msg_reader IS NULL OR msg_reader = '' THEN ''
+	                                ELSE ',' 
+	                            END, 
+	                            #{msg_reader}),
+	        msg_unread_count = msg_unread_count - 1
+	   		 WHERE room_id = #{room_id}
+	      AND msg_id IN 
+	      <foreach item="msg_id" collection="msg_id" open="(" separator="," close=")">
+	          #{msg_id}
+	      </foreach>;
+	</update>
 	
 </mapper>  
   

@@ -11,17 +11,31 @@
 	<!-- 프로젝트 관련 스프링 설정의 정보(객체)를 가지고있는 파일 -->
 	<!--  웹 정보를 제외한 모든 정보를 가지고 있다 -->
 	
-	<!-- HikariCP 설정정보 객체 -->
+	<!-- HikariCP 설정정보 객체 (로컬디비) -->
 	<bean id="hikariConfig" 
+	      class="com.zaxxer.hikari.HikariConfig">
+	      <property name="driverClassName" 
+	                value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+	      <property name="jdbcUrl"
+	                value="jdbc:log4jdbc:mysql://localhost:3306/local_temp" />
+	      <property name="username" value="root" />
+	      <property name="password" value="1234" />    
+	</bean>
+	<!-- HikariCP 설정정보 객체 (로컬디비) -->
+	
+	
+	<!-- HikariCP 설정정보 객체 -->
+	<!-- <bean id="hikariConfig" 
 	      class="com.zaxxer.hikari.HikariConfig">
 	      <property name="driverClassName" 
 	                value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 	      <property name="jdbcUrl"
 	                value="jdbc:log4jdbc:mysql://itwillbs.com:3306/c6d2406t2" />
 	      <property name="username" value="c6d2406t2" />
-	      <property name="password" value="1234" />    
-	</bean>
+	      <property name="password" value="1234" />        
+	</bean> -->
 	<!-- HikariCP 설정정보 객체 -->
+	
 	
 	
 	

@@ -35,20 +35,14 @@ public class MessageServiceImpl implements MessageService{
 	public List<MessageVO> openPersonalChat(String sender_emp_id, String receiver_emp_id) {
 		logger.debug("msgServiceImpl : openPersnalChat ("+sender_emp_id+", "+receiver_emp_id+") 실행");
 		
-		return msgdao.join_messages(msgdao.check_personal_chat(sender_emp_id, receiver_emp_id));
+		return msgdao.join_messages(sender_emp_id,msgdao.check_personal_chat(sender_emp_id, receiver_emp_id));
 	}
 
 	@Override
-	public List<MessageVO> openChatRoom(Integer room_id) {
-		logger.debug("msgServiceImpl : openChatRoom ("+room_id+"실행");
+	public List<MessageVO> openChatRoom(String msg_reader,Integer room_id) {
+		logger.debug("msgServiceImpl : openChatRoom ("+msg_reader+","+room_id+")실행");
 		
-		/*
-		 * vo.setRoom_id(msgdao.check_msg_room(vo)); try {
-		 * msgdao.insert_participant(vo); // 추가 동작 } catch (Exception e) {
-		 * logger.debug("기존의 참가자입니다."); }
-		 */
-		
-		return msgdao.join_messages(room_id);
+		return msgdao.join_messages(msg_reader, room_id);
 	}
 	
 	@Override
@@ -76,7 +70,11 @@ public class MessageServiceImpl implements MessageService{
 		return msgdao.select_rooms(emp_id);
 	}
 	
+	@Override
+	public int countUnread(MessageVO vo) {
 	
+		return 0;
+	}
 	
 	
 }

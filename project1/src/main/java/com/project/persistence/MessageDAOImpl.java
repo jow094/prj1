@@ -64,10 +64,29 @@ public class MessageDAOImpl implements MessageDAO {
 	}
 
 	@Override
-	public List<MessageVO> join_messages(Integer room_id) {
-		logger.debug("msgDAO : "+ room_id +" 번 채팅방의 메세지를 가져옵니다.");
+	public List<MessageVO> join_messages(String msg_reader, Integer room_id) {
+		MessageVO vo = new MessageVO();
+		vo.setMsg_reader(msg_reader);
+		vo.setRoom_id(room_id);
+		
+		List<Integer> msg_id = sqlSession.selectList(NAMESPACE + ".checkReadOrNot",vo);
+		if(msg_id.size()!=0) {
+			logger.debug("msgDAO : "+ room_id +" 번 채팅방에 "+msg_reader+"사용자가 처음 읽는 메세지가 "+msg_id.size()+"개 있습니다.");
+			Map<String,Object> params = new HashMap<String,Object>();
+			params.put("msg_reader", msg_reader);
+			params.put("room_id", room_id);
+			params.put("msg_id", msg_id);
+			sqlSession.update(NAMESPACE + ".updateMessageReader",params);
+			logger.debug("msgDAO : "+ room_id +" 번 채팅방의 메세지의 reader에 "+msg_reader+"사용자가 업데이트되었습니다.");
+		}else {
+			logger.debug("msgDAO : "+ room_id +" 번 채팅방의 메세지 중 "+msg_reader+"사용자가 처음 열람하는 메세지가 없습니다.");
+		}
+		
+		logger.debug("msgDAO : "+msg_reader+" 사용자가 "+ room_id +" 번 채팅방의 메세지를 열람합니다.");
 		List<MessageVO> result = sqlSession.selectList(NAMESPACE + ".getMessages",room_id);
 		logger.debug("msgDAO : "+ room_id +" 번 채팅방에  "+ result.size() +"개의 메세지가 있습니다.");
+		
+		
 		return result;
 	}
 
@@ -81,6 +100,13 @@ public class MessageDAOImpl implements MessageDAO {
 	@Override
 	public List<MessageVO> select_rooms(String emp_id) {
 		return sqlSession.selectList(NAMESPACE + ".selectChatList",emp_id);
+	}
+
+	@Override
+	public int update_unread_count(MessageVO vo) {
+		
+		
+		return 0;
 	}
 	
 }

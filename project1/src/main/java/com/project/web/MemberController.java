@@ -133,19 +133,20 @@ public class MemberController {
 		@ResponseBody
 		public Map<String,Object> getMessages(HttpSession session, @RequestParam(required = false) Integer room_id, @RequestParam(required = false) String receiver_emp_id ) {
 			logger.debug("/member/getMessages -> getMessages("+room_id+","+receiver_emp_id+") 실행");
-			String sender_emp_id = (String)session.getAttribute("emp_id");
+			String emp_id = (String)session.getAttribute("emp_id");
 			
 			Map<String,Object> data = new HashMap<String,Object>();
 			data.put("emp_id", session.getAttribute("emp_id"));	
 			
 			/* 개인톡으로 접근 */
 			if(room_id == null) {
-				logger.debug(sender_emp_id + " 사용자가 " + receiver_emp_id +" 사용자와의 개인 채팅방에 접속하였습니다.");
+				logger.debug(emp_id + " 사용자가 " + receiver_emp_id +" 사용자와의 개인 채팅방에 접속하였습니다.");
 				data.put("personal_receiver_memberVO", mService.memberInfo(receiver_emp_id));
-				data.put("messageList", msgService.openPersonalChat(sender_emp_id, receiver_emp_id));
+				data.put("messageList", msgService.openPersonalChat(emp_id, receiver_emp_id));
 			}else {
-				logger.debug(sender_emp_id + " 사용자가 " + room_id +" 번 채팅방에 접속하였습니다.");
-				data.put("messageList", msgService.openChatRoom(room_id));
+				logger.debug(emp_id + " 사용자가 " + room_id +" 번 채팅방에 접속하였습니다.");
+				
+				data.put("messageList", msgService.openChatRoom(emp_id, room_id));
 			}
 			
 			return data;

@@ -331,7 +331,7 @@
 		                        </td>
 					            <td style="text-align: center;">
 						            <a data-wf_code="${workflow.wf_code}" id="workflow_info">
-						            	${workflow.receiver_name}
+						            	${workflow.sender_name}
 						            </a>
 					            </td>
 					            <td style="text-align: center;">
