@@ -100,17 +100,13 @@
 	    )
 	</insert>
 	
-	<select id="selectChatList" resultType="MessageVO">
+	<select id="selectRoomList" resultType="MessageVO">
 	    SELECT r.room_id, 
            r.room_name, 
            r.room_last_message, 
            r.room_last_message_date, 
            r.room_last_sender_name, 
            r.room_last_sender_position, 
-           r.room_thumbnail, 
-           r.room_thumbnail_2, 
-           r.room_thumbnail_3, 
-           r.room_thumbnail_4,
            (SELECT COUNT(m.msg_id)
             FROM messages m
             WHERE m.room_id = r.room_id
@@ -183,10 +179,6 @@
            r.room_last_message_date, 
            r.room_last_sender_name, 
            r.room_last_sender_position, 
-           r.room_thumbnail, 
-           r.room_thumbnail_2, 
-           r.room_thumbnail_3, 
-           r.room_thumbnail_4,
            (SELECT COUNT(m.msg_id)
             FROM messages m
             WHERE m.room_id = r.room_id
@@ -198,6 +190,42 @@
 	          #{room_id}
 	      </foreach>
 	</select>
+	
+	<update id="updateRoomName" parameterType="MessageVO">
+		update msg_room
+		set room_name = CONCAT (room_name, ', ' ,#{enter_emp_name})
+		where room_id = #{room_id}
+	</update>
+	
+	
+	<delete id="deleteParticipant" parameterType="MessageVO">
+	    DELETE FROM msg_room_participant
+	     WHERE room_id = #{room_id}
+	       AND room_people = #{enter_emp_id}
+	</delete>
+	
+	<update id="deleteRoomName" parameterType="MessageVO">
+	    UPDATE msg_room
+	    SET room_name = TRIM(BOTH ', ' FROM REPLACE(CONCAT(', ', room_name, ', '), CONCAT(', ', #{enter_emp_name}, ', '), ', '))
+	    WHERE room_id = #{room_id}
+	</update>
+	
+	<select id="getPersonalInfo" parameterType="int" resultType="com.project.domain.MemberVO">
+	    SELECT e.emp_id, 
+	           e.emp_profile
+	    FROM msg_room_participant p
+	    JOIN employee e ON p.room_people = e.emp_id
+	    WHERE p.room_id = #{room_id}
+	</select>
+	
+	<insert id="systemMessage" parameterType="MessageVO">
+	    INSERT INTO messages (room_id, msg_sender, msg_content)
+	    VALUES (
+	        #{room_id},
+	        'system',
+	        #{msg_content}
+	    )
+	</insert>
 	
 </mapper>  
   

@@ -137,7 +137,7 @@
 <div class="contents-box" style="display:flex; flex-direction:column; justify-content: space-between; width: 100%; box-sizing: border-box; flex:0.9;">
 	
 	<!-- 중단 -->
-	<div style="flex:0.3; display: flex; justify-content: space-between; align-content: center; margin-top: 10px;">
+	<div style="flex:0.2; display: flex; justify-content: space-between; align-content: center; margin-top: 10px;">
 		<div style="flex:0.3;">
 			<div id="main-notify-box" style="width:100%; height:100%; display:flex; flex-direction:column;">
 				<div class="main-box-title">
@@ -172,7 +172,7 @@
 	</div>
 	<!-- 중단 -->
 	<!-- 최하단 -->
-	<div style="flex:0.7; display: flex; justify-content: space-between; margin-top: 10px;">
+	<div style="flex:0.8; display: flex; justify-content: space-between; margin-top: 10px;">
 		
 		<div class="col-md-4" style="display:flex; flex-direction:column; justify-content: flex-end;  align-content: flex-end;">
 			<div class="card-box md">
@@ -185,7 +185,7 @@
 							<!-- 메뉴 -->
 							<div class="messenger_body_menu">
 								<div class="messenger_search" style="width:100%; height:40px;">
-									<i class="fa-solid fa-magnifying-glass" style="width:15%; border:1px solid; line-height:30px; justify-content: center; text-align: center; font-size:15px;"></i>
+									<i class="fa-solid fa-magnifying-glass" style="width:15%; line-height:30px; justify-content: center; text-align: center; font-size:15px;"></i>
 									<input id="messenger_search" oninput="messenger_search(this.value)" type="text" style="width:80%; line-height:30px;" placeholder="두글자 이상의 검색어를 입력하세요."/>
 								</div>
 							</div>
@@ -194,8 +194,8 @@
 							<!-- 채팅목록 -->
 							<div class="messenger_body_chat list">
 								<div class="messenger_room_search" style="width:100%; height:40px;">
-									<i class="fa-solid fa-magnifying-glass" style="width:10%; border:1px solid; line-height:30px;  justify-content: center; text-align: center; font-size:15px;"></i>
-									<input id="room_search" oninput="room_search(this.value)" type="text" style="width:85%; line-height:30px;"/>
+									<i class="fa-solid fa-magnifying-glass" style="width:10%; line-height:30px;  justify-content: center; text-align: center; font-size:15px;"></i>
+									<input id="room_search" oninput="room_search(this.value)" type="text" style="width:85%; line-height:30px;" placeholder="두글자 이상의 검색어를 입력하세요."/>
 								</div>
 							</div>
 							<!-- 채팅목록 -->
@@ -203,23 +203,20 @@
 							<!-- 채팅방-->
 							<div class="messenger_body_chat room" style="display:none">
 								<!-- 채팅방 상단 -->
-								<div class="head_chat" style="display:flex; flex:0.1; width:100%; border:1px solid; ">
-									<div id ="to_chat_list" style="display:flex; flex:0.1; border:1px solid; justify-content: center; align-items: center;">
-										<button>
-											<i class="fa-solid fa-arrow-left"></i>
+								<div class="head_chat" style="display:flex; flex:0.1; width:100%; box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4); background-color: rgba(0,0,0,0.7); color: rgb(250,250,250); font-size:18px; padding:0 10px;">
+									<div id ="to_chat_list" style="display:flex; flex:0.1; justify-content: center; align-items: center;">
+										<button style="border: none;">
+											<i style="color: rgb(250,250,250);  font-size:22px;" class="fa-solid fa-arrow-left"></i>
 										</button>
 									</div>
 									<div style="display:flex; flex:0.8;">
-										<div class="chat_room_name" style="display:flex;width:100%; border:1px solid; padding-left:10px; justify-content: flex-start; align-items: center;">
+										<div class="chat_room_name" style="display:flex; width:100%; padding-left:10px; justify-content: flex-start; align-items: center;">
 										</div>
 									</div>
-									<div id ="to_room_setting" style="display:flex; flex:0.1; border:1px solid; justify-content: center; align-items: center; position: relative;">
-										<button>
-											<i class="fa-solid fa-bars"></i>
+									<div class ="messenger_exit_room" style="display:flex; flex:0.1; justify-content: center; align-items: center; position: relative;">
+										<button style="border: none;">
+											<i style="color: rgb(250,250,250); font-size:22px;" class="fa-solid fa-arrow-right-from-bracket"></i>
 										</button>
-										<div class ="room_setting">
-												asdasdaasdasdasdasdads
-										</div>
 									</div>
 								</div>
 								<!-- 채팅방 상단 -->
@@ -227,12 +224,12 @@
 								
 								
 								<!-- 채팅방 안쪽 -->
-								<div class="chat_content" style="display:flex; flex-direction:column; flex:0.7; width:100%; border:1px solid; padding:0 10px; overflow-y: auto;"> 
+								<div class="chat_content" style="display:flex; flex-direction:column; flex:0.7; width:100%; padding:0 10px; overflow-y: auto; background-color: rgba(100,100,100,0.1); overflow-x: hidden;"> 
 								</div>
 								<!-- 채팅방 안쪽 -->
 								
 								<!-- 채팅방 입력란 -->
-								<div class="chat_input" style="display:flex; flex:0.2; width:100%; border:1px solid;"> 
+								<div class="chat_input" style="display:flex; flex:0.2; width:100%; border-top:1px solid rgba(0,0,0,0.5); box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.7);"> 
 									<form id="message_send_form" action="/member/sendMessage" method="POST" style="display:flex; width:100%; height:100%;">
 										<div id="msg_textarea" style="flex:0.9; height:100%;">
 											<input id="hidden_room_id" type="hidden" name="room_id"></input>
@@ -241,7 +238,7 @@
 											<textarea id="msg_content" name="msg_content" style="width:100%; height:100%; resize: none;"></textarea>
 										</div>
 										<div id="msg_submit" style="display:flex; flex:0.1; height:100%; justify-content: center; align-items: center;">
-											<button type="submit" style="width:100%; height:100%; background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
+											<button type="submit" style="width:100%; height:100%; cursor: pointer;" >
 												<i style="background:transparent;" class="fa-solid fa-paper-plane"></i>
 											</button>
 										</div>
@@ -266,7 +263,7 @@
 					<h4 class="card-title">WORKFLOWS</h4>
 					</div>	
 					<div class="card-body">
-                    <div class="workflow_table" style="height:600px; overflow-y: auto;">
+                    <div class="workflow_table" style="height:500px; overflow-y: auto;">
                       <table class="display table table-striped table-hover multi-filter-select">
                         <thead style="position: sticky; top: 0; z-index: 10;">
                           <tr>

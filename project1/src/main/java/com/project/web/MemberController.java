@@ -1,5 +1,6 @@
 package com.project.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,6 +135,7 @@ public class MemberController {
 		public Map<String,Object> getMessages(HttpSession session, @RequestParam(required = false) Integer room_id, @RequestParam(required = false) String receiver_emp_id ) {
 			logger.debug("/member/getMessages -> getMessages("+room_id+","+receiver_emp_id+") 실행");
 			String emp_id = (String)session.getAttribute("emp_id");
+			String emp_name = (String)session.getAttribute("emp_name");
 			
 			Map<String,Object> data = new HashMap<String,Object>();
 			data.put("emp_id", session.getAttribute("emp_id"));	
@@ -142,13 +144,30 @@ public class MemberController {
 			if(room_id == null) {
 				logger.debug(emp_id + " 사용자가 " + receiver_emp_id +" 사용자와의 개인 채팅방에 접속하였습니다.");
 				data.put("personal_receiver_memberVO", mService.memberInfo(receiver_emp_id));
-				data.put("messageList", msgService.openPersonalChat(emp_id, receiver_emp_id));
+				
+				List<MessageVO> messageList = msgService.openPersonalChat(emp_id, receiver_emp_id);
+				if (!messageList.isEmpty() && messageList.get(0) != null) {
+					messageList.get(0).setRoom_name(
+					messageList.get(0).getRoom_name().replaceAll("(^|,)"+ emp_name + "(,|$)", "$1$2")
+		            .replaceAll(",,", ",") 
+		            .replaceAll("^,|,$", "")
+		            );
+				}
+				data.put("messageList", messageList);
 			}else {
 				logger.debug(emp_id + " 사용자가 " + room_id +" 번 채팅방에 접속하였습니다.");
 				
-				data.put("messageList", msgService.openChatRoom(emp_id, room_id));
+				
+				List<MessageVO> messageList = msgService.openChatRoom(emp_id, room_id);
+				if (!messageList.isEmpty() && messageList.get(0) != null) {
+					messageList.get(0).setRoom_name(
+					messageList.get(0).getRoom_name().replaceAll("(^|,)"+ emp_name + "(,|$)", "$1$2")
+		            .replaceAll(",,", ",") 
+		            .replaceAll("^,|,$", "")
+		            );
+				}
+				data.put("messageList", messageList);
 			}
-			
 			return data;
 		}
 		
@@ -185,7 +204,8 @@ public class MemberController {
 		@ResponseBody
 		public List<MessageVO> showChatRoomList(HttpSession session) {
 			String emp_id = (String)session.getAttribute("emp_id");
-			List<MessageVO> result = msgService.getChatRoomList(emp_id);
+			String emp_name = (String)session.getAttribute("emp_name");
+			List<MessageVO> result = msgService.getChatRoomList(emp_id,emp_name);
 			logger.debug("showChatRoomList :" + result.size());
 			logger.debug("showChatRoomList :" + result);
 			return result;
@@ -200,5 +220,39 @@ public class MemberController {
 			List<MessageVO> roomList = msgService.searchRoom(emp_id,keyword);
 			return roomList;
 		}
+		
+		@RequestMapping(value = "/invite",method = RequestMethod.GET)
+		@ResponseBody
+		public void inviteToRoom(HttpSession session,String emp_id, int room_id) {
+			logger.debug(" /member/invite -> invite("+emp_id+","+room_id+"); 실행");
+			String inviter_emp_id = (String)session.getAttribute("emp_id");
+			String inviter_emp_name = (String)session.getAttribute("emp_name");
+			MessageVO vo = new MessageVO();
+			vo.setInviter_emp_id(inviter_emp_id);
+			vo.setInviter_emp_name(inviter_emp_name);
+			vo.setRoom_id(room_id);
+			vo.setEnter_emp_id(emp_id);
+			vo.setEnter_emp_name(mService.memberInfo(emp_id).getEmp_name());
+			vo.setMsg_content(inviter_emp_name+"님이 "+vo.getEnter_emp_name()+"님을 초대하였습니다.");
+			msgService.systemMessage(vo);
+			vo.setMsg_content(vo.getEnter_emp_name()+"님이 대화방에 입장하셨습니다.");
+			msgService.systemMessage(vo);
+			msgService.enterRoom(vo);
+			msgService.changeRoomName(vo);
+		}
+		
+		@RequestMapping(value = "/getOutRoom",method = RequestMethod.GET)
+		@ResponseBody
+		public void getOutRoom(HttpSession session, int room_id) {
+			String emp_id = (String)session.getAttribute("emp_id");
+			logger.debug(" /member/getOutRoom -> getOutRoom("+emp_id+","+room_id+"); 실행");
+			MessageVO vo = new MessageVO();
+			vo.setRoom_id(room_id);
+			vo.setEnter_emp_id(emp_id);
+			vo.setEnter_emp_name(mService.memberInfo(emp_id).getEmp_name());
+			msgService.exitRoom(vo);
+			msgService.cutRoomName(vo);
+		}
+		
 		
 }

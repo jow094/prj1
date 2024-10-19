@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.project.domain.MemberVO;
 import com.project.domain.MessageVO;
 import com.project.domain.WorkflowVO;
 import com.project.service.WorkflowServiceImpl;
@@ -99,7 +100,7 @@ public class MessageDAOImpl implements MessageDAO {
 
 	@Override
 	public List<MessageVO> select_rooms(String emp_id) {
-		return sqlSession.selectList(NAMESPACE + ".selectChatList",emp_id);
+		return sqlSession.selectList(NAMESPACE + ".selectRoomList",emp_id);
 	}
 
 	@Override
@@ -119,6 +120,32 @@ public class MessageDAOImpl implements MessageDAO {
 			return sqlSession.selectList(NAMESPACE + ".getSearchedRoom",param);
 		}
 		return null;
+	}
+
+	@Override
+	public void update_room_name(MessageVO vo) {
+		sqlSession.update(NAMESPACE + ".updateRoomName",vo);
+	}
+
+	@Override
+	public void delete_participant(MessageVO vo) {
+		sqlSession.delete(NAMESPACE + ".deleteParticipant",vo);
+	}
+
+	@Override
+	public void delete_room_name(MessageVO vo) {
+		sqlSession.update(NAMESPACE + ".deleteRoomName",vo);
+	}
+
+	@Override
+	public List<MemberVO> get_person(int room_id) {
+			
+		return sqlSession.selectList(NAMESPACE + ".getPersonalInfo",room_id);
+	}
+
+	@Override
+	public void insert_system_message(MessageVO vo) {
+		sqlSession.insert(NAMESPACE + ".sendMessage",vo);
 	}
 	
 }

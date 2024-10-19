@@ -71,8 +71,24 @@ public class MessageServiceImpl implements MessageService{
 	}
 
 	@Override
-	public List<MessageVO> getChatRoomList(String emp_id) {
-		return msgdao.select_rooms(emp_id);
+	public List<MessageVO> getChatRoomList(String emp_id,String emp_name) {
+		List<MessageVO> result = msgdao.select_rooms(emp_id);
+		for(MessageVO vo : result) {			
+			vo.setRoom_name(
+			vo.getRoom_name().replaceAll("(^|,)"+ emp_name + "(,|$)", "$1$2")
+            .replaceAll(",,", ",") // 중복 쉼표 제거
+            .replaceAll("^,|,$", ""));
+			
+	        if((vo.getRoom_name().split(",")).length<2) {	
+	        	List<MemberVO> people = msgdao.get_person(vo.getRoom_id());		
+		        for(MemberVO person : people) {									
+		        	if(!person.getEmp_id().equals(emp_id)){						
+		        		vo.setRoom_thumbnail(person.getEmp_profile());			
+		        	}
+		        }
+		    }
+		}
+		return result;
 	}
 
 	@Override
@@ -80,4 +96,26 @@ public class MessageServiceImpl implements MessageService{
 			
 		return msgdao.search_into_rooms(emp_id,keyword);
 	}
+
+	@Override
+	public void changeRoomName(MessageVO vo) {
+		 msgdao.update_room_name(vo);
+	}
+
+	@Override
+	public void exitRoom(MessageVO vo) {
+		msgdao.delete_participant(vo);
+	}
+
+	@Override
+	public void cutRoomName(MessageVO vo) {
+		msgdao.delete_room_name(vo);
+	}
+	
+	@Override
+	public void systemMessage(MessageVO vo) {
+		msgdao.insert_system_message(vo);
+	}
+	
+	
 }

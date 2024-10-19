@@ -22,13 +22,13 @@ public class MessageVO {
 	private String room_last_sender_name;
 	private String room_last_sender_position;
 	private Timestamp room_join_date;
-	private String room_thumbnail;
-	private String room_thumbnail_2;
-	private String room_thumbnail_3;
-	private String room_thumbnail_4;
 	private int room_alarm_count;
+	private String room_thumbnail;
 	
+	private String inviter_emp_id;
+	private String inviter_emp_name;
 	private String enter_emp_id;
+	private String enter_emp_name;
 	private String personal_sender_emp_id;
 	private String personal_sender_emp_name;
 	private String personal_sender_emp_position;

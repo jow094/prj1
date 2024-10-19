@@ -254,6 +254,9 @@
     }
 }
 /* ------------------------------------ */
+a{
+	cursor: pointer;
+}
 #search_form_extended {
     position: absolute; /* 부모 요소에 대해 절대 위치 설정 */
     top: calc(100% + 5px); /* 검색 입력창 바로 아래 위치 */
@@ -576,7 +579,7 @@ a:active {
 .main-box-body{
 	background-color: rgba(200,200,200,0.1);
 	overflow-y: auto;
-	height:280px;
+	height:180px;
 	border-radius: 5px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
@@ -600,50 +603,57 @@ td a{
 }
 
 .messenger_body{
-	border:1px solid; 
+	background-color:rgba(200,200,200,0.1);
 	display:flex; 
 	width:100%;
 	height: 600px;
 }
+.messenger_body input,textarea,button{
+	background-color: transparent; /* 배경을 투명하게 설정 */
+    border: none; /* 기본 테두리 제거 */
+    border-bottom:2px solid rgba(0,0,0,0.1);
+    outline: none; /* 포커스 시 테두리 제거 */
+}
+
 .messenger_body_menu{
+	background-color:rgba(0,0,0,0.1);
 	height:100%;
 	flex:0.4; 
-	border:1px solid;
+	border-right:3px solid rgba(0,0,0,0.4);
 	overflow-y: auto;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 .messenger_body_menu div.person{
+	background-color:rgba(160,160,200,0.2);
+	height:60px;	
+	margin-bottom:5px;
+	padding-left:10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+.messenger_body_menu div.messenger_search_person{
+	background-color:rgba(250,220,220,0.2);
 	height:80px;	
-	border:1px solid;
+	margin-bottom:5px;
+	padding-left:10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 .messenger_body_chat.list{
 	height:100%;
 	flex:0.6;
-	border:1px solid;
 	overflow-y: auto;
 }
 .messenger_body_chat.list div.room{
-	height:100px;
-	border:1px solid;"
+	padding-left:10px;
+	height:80px;
+	background-color:rgb(250,250,250);
+	border-bottom:1px solid rgba(0,0,0,0.1);
+	box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.7);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+	margin-bottom:5px;
 }
 .messenger_body_chat.room{
 	height:100%;
 	flex:0.6;
-	border:1px solid;
 	display:flex; 
 	flex-direction:column; 
-	border:1px solid;"
-}
-
-.room_setting {
-    position: absolute; /* 부모 요소에 대해 절대 위치 설정 */
-    right: 0;
-    top: calc(100% + 5px); /* 검색 입력창 바로 아래 위치 */
-    width: 600%; /* 검색 입력창과 동일한 너비 */
-    height:400px;
-    background-color: rgb(250,250,250); /* 배경색 설정 */
-    border: 1px solid #ccc; /* 테두리 추가 */
-    z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    border-radius: 6px;
-    opacity: 1; /* 초기 불투명도 설정 */
 }
