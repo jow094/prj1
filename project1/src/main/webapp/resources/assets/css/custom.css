@@ -349,8 +349,21 @@ a:active {
 	display:flex;
 	align-items: center; 
     justify-content: center;
-	
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
 }
+
+.card-header{
+	flex:0.1;
+	padding:0px;
+	width:100%;
+	display:flex;
+	align-items: center; 
+    justify-content: center;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    z-index:5;
+}
+
+
 .card-box .card .card-body{
 	flex:0.9;
 	padding:0px;
@@ -369,6 +382,7 @@ a:active {
 	flex-direction: column;
     align-items: center;
     justify-content: center;
+   	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 /* default end*/
 
@@ -622,6 +636,7 @@ td a{
 	border-right:3px solid rgba(0,0,0,0.4);
 	overflow-y: auto;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+	z-index: 2;
 }
 .messenger_body_menu div.person{
 	background-color:rgba(160,160,200,0.2);
@@ -632,7 +647,7 @@ td a{
 }
 .messenger_body_menu div.messenger_search_person{
 	background-color:rgba(250,220,220,0.2);
-	height:80px;	
+	height:60px;	
 	margin-bottom:5px;
 	padding-left:10px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -641,6 +656,7 @@ td a{
 	height:100%;
 	flex:0.6;
 	overflow-y: auto;
+	z-index: 1;
 }
 .messenger_body_chat.list div.room{
 	padding-left:10px;
@@ -652,8 +668,35 @@ td a{
 	margin-bottom:5px;
 }
 .messenger_body_chat.room{
+	z-index: 1;
 	height:100%;
 	flex:0.6;
 	display:flex; 
 	flex-direction:column; 
+}
+
+.messenger_system{
+	width:100%;
+	height:22px;
+	display:flex;
+	justify-content: center; 
+	align-items: center; 
+	margin: 5px;
+}
+
+.messenger_system div{
+	width:auto;
+	height:22px;
+	border-radius:6px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+	background-color:rgb(250,250,250);
+	font-size:14px;
+	text-align:center;
+	line-height:22px;
+	padding: 0px 15px;
+
+}
+
+table tr{
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }

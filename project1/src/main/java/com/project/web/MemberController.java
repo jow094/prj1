@@ -234,7 +234,9 @@ public class MemberController {
 			vo.setEnter_emp_id(emp_id);
 			vo.setEnter_emp_name(mService.memberInfo(emp_id).getEmp_name());
 			vo.setMsg_content(inviter_emp_name+"님이 "+vo.getEnter_emp_name()+"님을 초대하였습니다.");
+			logger.debug("System Message : "+inviter_emp_name+"님이 "+vo.getEnter_emp_name()+"님을 초대하였습니다.");
 			msgService.systemMessage(vo);
+			logger.debug("System Message : "+vo.getEnter_emp_name()+"님이 대화방에 입장하셨습니다.");
 			vo.setMsg_content(vo.getEnter_emp_name()+"님이 대화방에 입장하셨습니다.");
 			msgService.systemMessage(vo);
 			msgService.enterRoom(vo);

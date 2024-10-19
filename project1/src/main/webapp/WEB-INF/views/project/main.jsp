@@ -263,9 +263,9 @@
 					<h4 class="card-title">WORKFLOWS</h4>
 					</div>	
 					<div class="card-body">
-                    <div class="workflow_table" style="height:500px; overflow-y: auto;">
+                    <div class="workflow_table" style="height:500px; overflow-y: auto; overflow-x: hidden;">
                       <table class="display table table-striped table-hover multi-filter-select">
-                        <thead style="position: sticky; top: 0; z-index: 10;">
+                        <thead style="position: sticky; top: 0; z-index: 3 ; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);">
                           <tr>
                             <th style="width: 3%;">NUM</th>
                             <th style="width: 3%;">TYPE</th>

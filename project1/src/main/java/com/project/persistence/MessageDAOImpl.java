@@ -145,7 +145,7 @@ public class MessageDAOImpl implements MessageDAO {
 
 	@Override
 	public void insert_system_message(MessageVO vo) {
-		sqlSession.insert(NAMESPACE + ".sendMessage",vo);
+		sqlSession.insert(NAMESPACE + ".systemMessage",vo);
 	}
 	
 }
