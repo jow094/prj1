@@ -2,6 +2,8 @@ package com.project.service;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class MessageServiceImpl implements MessageService{
 	// MemberDAO 객체 주입
 	@Autowired
 	private MessageDAO msgdao;
+	
+	@Inject
+	private MemberDAO mdao;
 	
 	@Override
 	public List<MessageVO> openPersonalChat(String sender_emp_id, String receiver_emp_id) {
@@ -62,19 +67,17 @@ public class MessageServiceImpl implements MessageService{
 	public void sendMessage(MessageVO vo) {
 		logger.debug("msgServiceImpl : sendMessage 실행");
 		msgdao.insert_message(vo);
-		
+		msgdao.update_room_info(vo);
 	}
 
 	@Override
 	public List<MessageVO> getChatRoomList(String emp_id) {
 		return msgdao.select_rooms(emp_id);
 	}
-	
+
 	@Override
-	public int countUnread(MessageVO vo) {
-	
-		return 0;
+	public List<MessageVO> searchRoom(String emp_id, String keyword) {
+			
+		return msgdao.search_into_rooms(emp_id,keyword);
 	}
-	
-	
 }

@@ -184,81 +184,50 @@
 						<div class="messenger_body">
 							<!-- 메뉴 -->
 							<div class="messenger_body_menu">
+								<div class="messenger_search" style="width:100%; height:40px;">
+									<i class="fa-solid fa-magnifying-glass" style="width:15%; border:1px solid; line-height:30px; justify-content: center; text-align: center; font-size:15px;"></i>
+									<input id="messenger_search" oninput="messenger_search(this.value)" type="text" style="width:80%; line-height:30px;" placeholder="두글자 이상의 검색어를 입력하세요."/>
+								</div>
 							</div>
 							<!-- 메뉴 -->
 							
 							<!-- 채팅목록 -->
 							<div class="messenger_body_chat list">
-							
+								<div class="messenger_room_search" style="width:100%; height:40px;">
+									<i class="fa-solid fa-magnifying-glass" style="width:10%; border:1px solid; line-height:30px;  justify-content: center; text-align: center; font-size:15px;"></i>
+									<input id="room_search" oninput="room_search(this.value)" type="text" style="width:85%; line-height:30px;"/>
+								</div>
 							</div>
 							<!-- 채팅목록 -->
 							
 							<!-- 채팅방-->
 							<div class="messenger_body_chat room" style="display:none">
 								<!-- 채팅방 상단 -->
-								<div class="head_chat" style="display:flex; flex:0.1; width:100%; border:1px solid;">
+								<div class="head_chat" style="display:flex; flex:0.1; width:100%; border:1px solid; ">
 									<div id ="to_chat_list" style="display:flex; flex:0.1; border:1px solid; justify-content: center; align-items: center;">
 										<button>
 											<i class="fa-solid fa-arrow-left"></i>
 										</button>
 									</div>
-									<div style="display:flex; flex:0.9;">
+									<div style="display:flex; flex:0.8;">
 										<div class="chat_room_name" style="display:flex;width:100%; border:1px solid; padding-left:10px; justify-content: flex-start; align-items: center;">
+										</div>
+									</div>
+									<div id ="to_room_setting" style="display:flex; flex:0.1; border:1px solid; justify-content: center; align-items: center; position: relative;">
+										<button>
+											<i class="fa-solid fa-bars"></i>
+										</button>
+										<div class ="room_setting">
+												asdasdaasdasdasdasdads
 										</div>
 									</div>
 								</div>
 								<!-- 채팅방 상단 -->
 								
+								
+								
 								<!-- 채팅방 안쪽 -->
 								<div class="chat_content" style="display:flex; flex-direction:column; flex:0.7; width:100%; border:1px solid; padding:0 10px; overflow-y: auto;"> 
-									<!-- 받은 메세지 -->
-									<!-- <div class="r_msg_box" style="display:flex; width:370px; border:1px solid; padding-bottom: 3px;">
-										<a data-emp_code="" class="member_info">
-											<div id="r_msg_sender_img" style="border:1px solid; width:50px; height:50px; margin-top:10px;">
-											이미지
-											</div>
-										</a>
-										<div style="width:400px; border:1px solid; display:flex; flex-direction:column;">
-											<div style="display:flex; height:30px; border:1px solid;">
-												<div id="r_msg_sender_position" style="border:1px solid; padiing:0 5px;">
-												사원
-												</div>
-												<div id="r_msg_sender_name" style="border:1px solid;">
-												조우영
-												</div>
-											</div>
-											<div class="msg_box" style="display:flex; overflow:auto; ">
-											    <div class="msg_contents" style="display:flex; flex-direction:column; float:left; min-width:150px; max-width:360px; padding:3px;  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); border-radius:3px; background-color:rgba(150,200,250,0.3)">
-											       	<div id="r_msg_content" style="min-height:30px;">
-													받은 메세지
-													</div>	    
-													<div id="r_msg_create_date" style="height:20px; text-align:right;">
-													10.17 18:00
-													</div>	  
-											    </div>
-											    <div style="height:100%; width:10px; border:1px solid; display:flex; justify-content: flex-end; align-items: flex-end;">
-											    <span id="r_msg_unread_count">1</span>
-											    </div>
-											</div>
-										</div>
-									</div> -->
-									<!-- 받은 메세지 -->
-									
-									<!-- 보낸 메세지 -->
-									<!-- <div class="msg_box" style="display:flex; width:370px; border:1px solid; padding-bottom: 3px; margin-left:auto;">
-										<div style="height:100%; width:10px; border:1px solid; display:flex; justify-content: flex-end; align-items: flex-end; margin-left:auto;">
-										<span id="s_msg_unread_count">1</span>
-									    </div>
-										<div class="msg_contents" style="display:flex; flex-direction:column; float:right; min-width:150px; max-width:360px; padding:3px;  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); border-radius:3px; background-color:rgba(0,0,150,0.2)">
-									       	<div id="s_msg_content" style="min-height:30px;">
-											보낸 메세지
-											</div>	    
-											<div id="s_msg_create_date" style="height:20px; text-align:right;">
-											10.17 18:00
-											</div>	  
-									    </div>
-									</div> -->
-									<!-- 보낸 메세지 -->
 								</div>
 								<!-- 채팅방 안쪽 -->
 								

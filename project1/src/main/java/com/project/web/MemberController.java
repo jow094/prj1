@@ -124,7 +124,7 @@ public class MemberController {
 			logger.debug(" getTeam : 조회 대상 아이디 : "+emp_id);
 			
 			List<MemberVO> memberList = mService.getTeammate(emp_id);
-			logger.debug(" getTeam : 조회 결과 : "+memberList);
+			logger.debug(" getTeam : 조회 결과 : "+memberList.size());
 			
 			return memberList;
 		}
@@ -160,6 +160,7 @@ public class MemberController {
 			String emp_id = (String)session.getAttribute("emp_id");
 			vo.setPersonal_sender_emp_id(emp_id);
 			vo.setPersonal_sender_emp_name((String)session.getAttribute("emp_name"));
+			vo.setPersonal_sender_emp_position((String)session.getAttribute("emp_position"));
 			int room_id = vo.getRoom_id();
 			
 			if(room_id==0) {
@@ -185,10 +186,19 @@ public class MemberController {
 		public List<MessageVO> showChatRoomList(HttpSession session) {
 			String emp_id = (String)session.getAttribute("emp_id");
 			List<MessageVO> result = msgService.getChatRoomList(emp_id);
+			logger.debug("showChatRoomList :" + result.size());
 			logger.debug("showChatRoomList :" + result);
 			return result;
 		}
 		
-		
+		@RequestMapping(value = "/msgSearch",method = RequestMethod.GET)
+		@ResponseBody
+		public List<MessageVO> searchToMessage(HttpSession session,String keyword) {
+			String emp_id = (String)session.getAttribute("emp_id");
+			logger.debug(" /member/msgSearch -> searchToMessage("+emp_id+","+keyword+"); 실행");
+			
+			List<MessageVO> roomList = msgService.searchRoom(emp_id,keyword);
+			return roomList;
+		}
 		
 }

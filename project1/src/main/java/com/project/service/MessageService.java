@@ -12,7 +12,7 @@ public interface MessageService {
 	public int createChatRoom(MessageVO vo);
 	public void enterRoom(MessageVO vo);
 	public void sendMessage(MessageVO vo);
-	public int countUnread(MessageVO vo);
 	public List<MessageVO> getChatRoomList(String emp_id);
+	public List<MessageVO> searchRoom(String emp_id, String keyword);
 	
 }

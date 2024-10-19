@@ -101,7 +101,21 @@
 	</insert>
 	
 	<select id="selectChatList" resultType="MessageVO">
-	    SELECT r.room_id, r.room_name, r.room_last_message, r.room_last_message_date
+	    SELECT r.room_id, 
+           r.room_name, 
+           r.room_last_message, 
+           r.room_last_message_date, 
+           r.room_last_sender_name, 
+           r.room_last_sender_position, 
+           r.room_thumbnail, 
+           r.room_thumbnail_2, 
+           r.room_thumbnail_3, 
+           r.room_thumbnail_4,
+           (SELECT COUNT(m.msg_id)
+            FROM messages m
+            WHERE m.room_id = r.room_id
+              AND m.msg_reader NOT LIKE CONCAT('%', #{emp_id}, '%')
+           ) AS room_alarm_count
 	    FROM msg_room r
 	    WHERE r.room_id IN (
 	        SELECT p.room_id
@@ -133,6 +147,57 @@
 	          #{msg_id}
 	      </foreach>;
 	</update>
+	
+	<update id="updateRoomInfo" parameterType="MessageVO">
+		update msg_room
+		set room_last_message = #{msg_content}, room_last_message_date = now(),
+		room_last_sender_name = #{personal_sender_emp_name}, room_last_sender_position = #{personal_sender_emp_position}
+		where room_id = #{room_id}
+	</update>
+	
+	<select id="getSearchedRoomList" resultType="Integer" parameterType="map">
+	    WITH user_rooms AS (
+	        SELECT p.room_id
+	        FROM msg_room_participant p
+	        WHERE p.room_people = #{emp_id}
+	    )
+	    SELECT DISTINCT r.room_id
+	    FROM msg_room r
+	    LEFT JOIN messages m ON r.room_id = m.room_id
+	    WHERE r.room_id IN (
+	        SELECT room_id FROM user_rooms
+	    )
+	    AND (
+	        -- 채팅방 이름에서 검색어 찾기 (공백 무시)
+	        REPLACE(r.room_name, ' ', '') LIKE CONCAT('%', #{keyword}, '%')
+	        OR
+	        -- 메시지 내용에서 검색어 찾기
+	        REPLACE(m.msg_content, ' ', '') LIKE CONCAT('%', #{keyword}, '%')
+	    );
+	</select>
+	
+	<select id="getSearchedRoom" resultType="MessageVO">
+	    SELECT r.room_id, 
+           r.room_name, 
+           r.room_last_message, 
+           r.room_last_message_date, 
+           r.room_last_sender_name, 
+           r.room_last_sender_position, 
+           r.room_thumbnail, 
+           r.room_thumbnail_2, 
+           r.room_thumbnail_3, 
+           r.room_thumbnail_4,
+           (SELECT COUNT(m.msg_id)
+            FROM messages m
+            WHERE m.room_id = r.room_id
+              AND m.msg_reader NOT LIKE CONCAT('%', #{emp_id}, '%')
+           ) AS room_alarm_count
+	    FROM msg_room r
+	    WHERE r.room_id IN 
+	      <foreach item="room_id" collection="room_id" open="(" separator="," close=")">
+	          #{room_id}
+	      </foreach>
+	</select>
 	
 </mapper>  
   

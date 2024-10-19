@@ -76,7 +76,7 @@ function search(input) {
 					type: 'GET',
 					data: { keyword: keyword },
 					success: function (data) {
-						console.log('correct value input. start search for', data);
+						console.log('correct value input. start search, result:', data);
 						if (data.length === 0) {
 							$('#search_notify').css('display', 'none');
 							$('#search_null li').text('"' + keyword + '" 로 검색한 결과값이 없습니다.');

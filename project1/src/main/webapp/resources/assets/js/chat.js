@@ -57,10 +57,20 @@ $(document).ready(function () {
         });
     });
 	
+	$('#messenger_search').blur(function() {
+	    if( $('#messenger_search').val().trim() === '' ){
+	        $('#messenger_search').val(''); // 인풋 필드에서 공백 제거
+	        $('.messenger_body_menu').children('.messenger_search_result').remove(); // 검색 결과 제거
+	    }
+	});
 	
+	$('#room_search').blur(function() {
+	    if( $('#room_search').val().trim() === '' ){
+	        $('#room_search').val(''); // 인풋 필드에서 공백 제거
+	        $('.messenger_body_chat.list').children('.room_search_result').remove(); // 검색 결과 제거
+	    }
+	});
 });
-	
-	
 	
 function getMembers() {
     
@@ -69,12 +79,22 @@ function getMembers() {
 		type: 'GET',
 		success: function (data) {
 			console.log('getMembers :'+data);
-			
+			$('.messenger_body_menu').children(':not(.messenger_search)').remove();
+			$('.messenger_body_menu').append(`
+					<div style="width:100%, height:5px;">
+					팀원 (${data.length})
+					</div>
+			`);
 			for (const memberVO of data) {
 		    	$('.messenger_body_menu').append(`
-					<div style="display:flex;">
+					<div class="person" style="display:flex;">
 						<div class="member_info" data-emp_id="${memberVO.emp_id}" style="flex:0.3; display:flex; justify-content: center;  align-items: center;">
-						${memberVO.emp_profile}
+							<div style="flex:2; display:flex; justify-content: center; align-items: center;">
+							<i class="fa-solid fa-star" style="font-size:20px; color:rgba(0,0,0,0.1);"></i>
+							</div>
+							<div style="flex:8; display:flex; justify-content: center; align-items: center;">
+							${memberVO.emp_progile}
+							</div>
 						</div>
 						<div class="member_info" data-emp_id="${memberVO.emp_id}" style="flex:0.5; display:flex; flex-direction: column;">
 							<div style="display:flex; flex:0.4;">
@@ -209,29 +229,43 @@ function chatRoomList() {
 		type: 'GET',
 		success: function (data) {
 			console.log('load chat list :'+data);
-			$('.messenger_body_chat.list').empty();
+			$('.messenger_body_chat.list').children(':not(.messenger_room_search)').remove();
 			for (const rooms of data) {
+				console.log(rooms);
 				$('.messenger_body_chat.list').append(`
 					<a data-room_id="${rooms.room_id}" id="to_chat_room">
-						<div style="display:flex; justify-content: center; align-items: center;">
+						<div class="room" style="display:flex; justify-content: center; align-items: center;">
 							<div style="flex:2; display:flex; justify-content: center; align-items: center;">
-							이미지
+								<div style="flex:2; display:flex; justify-content: center; align-items: center;">
+								<i class="fa-solid fa-thumbtack" style="font-size:20px; color:rgba(0,0,0,0.1);"></i>
+								</div>
+								<div style="flex:8; display:flex; justify-content: center; align-items: center;">
+								${rooms.room_thumbnail}
+								</div>
 							</div>
 							<div style="flex:6; display:flex; flex-direction:column; justify-content: center; align-items: center;">
 								<div style="flex:3; display:flex; width:100%; justify-content: flex-start; align-items: center;">
-									<div style="flex:0.7; height:100%; display:flex; justify-content: flex-start; align-items: center;">
+									<div style="width:100%; height:100%; display:flex; justify-content: flex-start; align-items: center;">
 									${rooms.room_name}
 									</div>
+								</div>
+								<div style="flex:3; display:flex; width:100%; justify-content: flex-start; align-items: center;">
+									<div style="flex:0.2; height:100%; display:flex; justify-content: center; align-items: center;">
+									${rooms.room_last_sender_position}
+									</div>
+									<div style="flex:0.5; height:100%; display:flex; justify-content: flex-start; align-items: center;">
+									${rooms.room_last_sender_name}
+									</div>
 									<div style="flex:0.3; height:100%; display:flex; justify-content: flex-end; align-items: center;">
-									${rooms.room_last_message_date}
+									${getMsgDate(rooms.room_last_message_date)}
 									</div>
 								</div>
-								<div style="flex:7; display:flex; width:100%; justify-content: center; align-items: center;">
+								<div style="flex:4; display:flex; width:100%; justify-content: flex-start; align-items: center; padding-left:10px;">
 								${rooms.room_last_message}
 								</div>
 							</div>
 							<div style="flex:1; display:flex; justify-content: center; align-items: center;">
-							갯수
+							${rooms.room_alarm_count}
 							</div>
 						</div>
 					</a>`
@@ -255,3 +289,117 @@ const getMsgDate = (stringDate) => {
 	       String(date.getHours()).padStart(2, '0') + ':' +
 	       String(date.getMinutes()).padStart(2, '0');
 };
+
+let prev_messenger_search;
+function messenger_search(input) {
+	const keyword = input.replace(/\s+/g, '');
+
+	if (keyword.length >= 2 && /^[a-zA-Z가-힣0-9]+$/.test(keyword)) {
+		if (prev_messenger_search) {
+			prev_messenger_search.abort();
+			}
+		prev_messenger_search = 
+			$.ajax({
+			url: '/member/search',
+			type: 'GET',
+			data: { keyword: keyword },
+			success: function (data) {
+				console.log('correct value input. start messenger_search, result:', data);
+				$('.messenger_body_menu').children('.msg_search_result').remove();
+				$('.messenger_body_menu').children('.msg_search_person').remove();
+				$('.messenger_search').after(`
+						<div class="messenger_search_result" style="width:100%, height:5px;">
+							'${keyword}' 검색 결과 (${data.length})
+						</div>
+				`);
+				for (const memberVO of data) {
+					$('.msg_search_result').after(`
+						<div class="msg_search_person" style="display:flex;">
+						<div class="member_info" data-emp_id="${memberVO.emp_id}" style="flex:0.3; display:flex; justify-content: center;  align-items: center;">
+							<div style="flex:2; display:flex; justify-content: center; align-items: center;">
+							<i class="fa-solid fa-star" style="font-size:20px; color:rgba(0,0,0,0.1);"></i>
+							</div>
+							<div style="flex:8; display:flex; justify-content: center; align-items: center;">
+							${memberVO.emp_progile}
+							</div>
+						</div>
+						<div class="member_info" data-emp_id="${memberVO.emp_id}" style="flex:0.5; display:flex; flex-direction: column;">
+							<div style="display:flex; flex:0.4;">
+								<div style="flex:0.4; height:auto; display:flex; justify-content: center;  align-items: center;">
+								${memberVO.emp_position}
+								</div>
+								<div style="flex:0.6; height:auto; display:flex; justify-content: center;  align-items: center;">
+								${memberVO.emp_name}
+								</div>
+							</div>
+							<div style="flex:0.3; display:flex; padding-left:20px; justify-content: flex-start;  align-items: center;">
+							${memberVO.emp_bnum}
+							</div>
+							<div style="display:flex; flex:0.3;">
+								<div style="flex:0.5; height:auto; display:flex; justify-content: center;  align-items: center;">
+								${memberVO.emp_dnum}
+								</div>
+								<div style="flex:0.5; height:auto; display:flex; justify-content: center;  align-items: center;">
+								${memberVO.emp_job}
+								</div>
+							</div>
+						</div>
+						<div style="flex:0.2; display:flex; flex-direction:column; justify-content: center;  align-items: center;">
+							<div>상태</div>
+							<div id="to_personal_room" data-receiver_emp_id="${memberVO.emp_id}">메세지</div>
+						</div>
+					</div>
+					
+					
+					
+					
+					`);
+				}
+			},
+			error: function (xhr, status, error) {
+				if (status !== 'abort') {
+					console.error('AJAX 요청 실패:', status, error);
+					console.log('xhr:', xhr);
+				}
+			}
+		}); // ajax end
+	}
+}
+
+let prev_room_search;
+function room_search(input) {
+	const keyword = input.replace(/\s+/g, '');
+
+	if (keyword.length >= 2 && /^[a-zA-Z가-힣0-9]+$/.test(keyword)) {
+		if (prev_room_search) {
+			prev_room_search.abort();
+			}
+		prev_room_search = 
+			$.ajax({
+			url: '/member/msgSearch',
+			type: 'GET',
+			data: { keyword: keyword },
+			success: function (data) {
+				console.log('correct value input. start room_search, result:', data);
+				$('.room_search_result').remove();
+				$('.messenger_room_search').after(`
+						<div class="room_search_result" style="width:100%, height:5px;">
+							'${keyword}' 검색 결과 (${data.length})
+						</div>
+				`);
+				for (const memberVO of data) {
+					$('room_search_result').after(`
+					asdasd
+					
+					`);
+				}
+			},
+			error: function (xhr, status, error) {
+				if (status !== 'abort') {
+					console.error('AJAX 요청 실패:', status, error);
+					console.log('xhr:', xhr);
+				}
+			}
+		}); // ajax end
+	}
+}

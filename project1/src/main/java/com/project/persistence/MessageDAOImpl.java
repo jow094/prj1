@@ -103,10 +103,22 @@ public class MessageDAOImpl implements MessageDAO {
 	}
 
 	@Override
-	public int update_unread_count(MessageVO vo) {
+	public void update_room_info(MessageVO vo) {
+		sqlSession.update(NAMESPACE + ".updateRoomInfo",vo);
+	}
+
+	@Override
+	public List<MessageVO> search_into_rooms(String emp_id,String keyword) {
 		
-		
-		return 0;
+		Map<String, Object> param = new HashMap<String, Object>();
+	    param.put("emp_id", emp_id);
+	    param.put("keyword", keyword);
+		List<Integer> roomList = sqlSession.selectList(NAMESPACE + ".getSearchedRoomList",param);
+		if(roomList.size()>0) {
+			param.put("room_id",roomList);
+			return sqlSession.selectList(NAMESPACE + ".getSearchedRoom",param);
+		}
+		return null;
 	}
 	
 }
