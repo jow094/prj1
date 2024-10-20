@@ -179,8 +179,9 @@ public class ProjectController {
 			
 			String emp_id = (String)session.getAttribute("emp_id");
 			Map<String, Object> alarms = wService.realtimeCheckWorkflow(emp_id);
-			alarms.put("messageList",msgService.getMessageUnreadAlarm(emp_id));
-			int messageAlarmCount = ((List<WorkflowVO>)alarms.get("messageList")).size();
+			alarms.put("unread_messageList",msgService.getMessageUnreadAlarm(emp_id));
+			alarms.put("realtimeAlarm_messageList",msgService.getMessageRealtimeAlarm(emp_id));
+			int messageAlarmCount = ((List<WorkflowVO>)alarms.get("unread_messageList")).size();
 			alarms.put("messageAlarmCount",messageAlarmCount);
 			logger.debug(" checkAlarm for "+ emp_id + ", smallAlarm :" + alarms.get("smallAlarm") + ", messageAlarmCount :" + messageAlarmCount);
 			

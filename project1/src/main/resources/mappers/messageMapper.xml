@@ -31,6 +31,21 @@
 	        <result property="emp_profile" column="msg_sender_emp_profile"/>
 	    </association>
 	</resultMap>
+	
+	<resultMap id="getRoomResultMap" type="com.project.domain.MessageVO">
+	    <id property="room_id" column="room_id"/>
+	    <result property="room_name" column="room_name"/>
+	    <result property="room_admin" column="room_admin"/>
+	    <result property="room_create_date" column="room_create_date"/>
+	    <result property="room_last_message" column="room_last_message"/>
+	    <result property="room_last_message_date" column="room_last_message_date"/>
+	    <result property="room_last_sender_name" column="room_last_sender_name"/>
+	    <result property="room_last_sender_position" column="room_last_sender_position"/>
+	    
+	    <collection property="room_people" ofType="com.project.domain.MemberVO">
+	        <result property="emp_id" column="room_people"/>
+	    </collection>
+	</resultMap>
 
 	<select id="findRoom" resultType="int">
         WITH RoomWithTwoPeople AS (
@@ -254,9 +269,25 @@
 	
 	<update id="updateMessageAlarmToken" parameterType="MessageVO">
 	    UPDATE messages
-	    SET msg_alarm_token = TRIM(BOTH ', ' FROM REPLACE(CONCAT(', ', INFULL(msg_alarm_token, ''), ', '), CONCAT(', ', #{emp_id}, ', '), ', '))
-	    WHERE msg_id = #{msg_id}
+	    SET msg_alarm_token = TRIM(BOTH ', ' FROM REPLACE(CONCAT(', ', IFNULL(msg_alarm_token, ''), ', '), CONCAT(', ', #{emp_id}, ', '), ', '))
+	    WHERE msg_id in 	      
+	   	 	<foreach item="msg_id" collection="msg_id" open="(" separator="," close=")">
+	        	#{msg_id}
+	    	</foreach>
 	</update>
+	
+	<select id="checkParticipantCount" resultType="int">
+	    SELECT count(*)
+	    FROM msg_room_participant
+	    WHERE room_id = #{room_id}
+	</select>
+	
+	<select id="getRoomInfo" resultMap="getRoomResultMap">
+	    SELECT r.*, p.emp_id as room_people
+		 FROM msg_room r
+		 JOIN msg_participant p ON r.room_id = p.room_id
+		 WHERE r.room_id = #{room_id}
+	</select>
 	
 </mapper>  
   

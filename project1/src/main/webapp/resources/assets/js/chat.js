@@ -56,11 +56,21 @@ $(document).ready(function () {
 	    }, 1000);
 	});
 	
+	if ($('.messenger_body_chat.room').css('display') === 'none') {
+	    (function() {
+	    	if (room_check_interval) {
+		        clearInterval(room_check_interval);
+		    }
+	    	console.log('user get out from room. clear interval.')
+	    })();
+	}
+	
 	$(document).on('click', '.messenger_invite', function (e) {
 		let room_id = $('#hidden_room_id').val();
+		let room_name = $('#hidden_room_name').val();
 		let emp_id = $(this).data('emp_id');
 		console.log(emp_id + 'invited to :' + room_id);
-		inviteRoom(emp_id,room_id);
+		inviteRoom(emp_id,room_id,room_name);
 	});
 	
 	$(document).on('click', '.messenger_exit_room', function (e) {
@@ -488,21 +498,20 @@ function room_search(input) {
 	}
 }
 
-function inviteRoom(emp_id,room_id){
+function inviteRoom(emp_id,room_id,room_name){
 	$.ajax({
 		url: '/member/invite',
 		type: 'GET',
 		data: { emp_id: emp_id ,
-				room_id : room_id},
+				room_id : room_id,
+				room_name : room_name
+		},
 		success: function (data) {
 			console.log(emp_id + 'is entered into ' + room_id);
 			getMessages(room_id,null);
 			console.log('reset chat room ' + room_id);
 		},error:function (xhr, status, error) {
-			if (status !== 'abort') {
-				console.error('AJAX 요청 실패:', status, error);
-				console.log('xhr:', xhr);
-			}
+			alert('이미 해당 방에 초대된 사용자입니다.');
 		}
 	});
 }

@@ -158,12 +158,31 @@ public class MessageDAOImpl implements MessageDAO {
 	public List<MessageVO> get_message_realtime_alarm(String emp_id) {
 		List<MessageVO> realtimeAlarms = sqlSession.selectList(NAMESPACE + ".messageRealtimeAlarm",emp_id);
 			
-		/*
-		 * if(realtimeAlarms.size()>0) { for(MessageVO vo : realtimeAlarms) {
-		 * vo.getMsg_id(); } }
-		 */
+		List<Integer> msg_id = new ArrayList<Integer>();
 		
+			if(realtimeAlarms.size()>0) { 
+				for(MessageVO vo : realtimeAlarms) {
+					msg_id.add(vo.getMsg_id());
+					Map<String, Object> param = new HashMap<String, Object>();
+					param.put("emp_id", emp_id);
+					param.put("msg_id", msg_id);
+					sqlSession.selectList(NAMESPACE + ".updateMessageAlarmToken",param);
+				} 
+			}
 		return realtimeAlarms;
 	}
+
+	@Override
+	public int check_participant_count(int room_id) {
+			sqlSession.selectList(NAMESPACE + ".checkParticipantCount",room_id);
+		return 0;
+	}
+
+	@Override
+	public MessageVO get_room_info(int room_id) {
+		return sqlSession.selectOne(NAMESPACE + ".getRoomInfo",room_id);
+	}
+	
+	
 	
 }

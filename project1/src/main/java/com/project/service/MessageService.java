@@ -20,5 +20,6 @@ public interface MessageService {
 	public List<MessageVO> getMessageUnreadAlarm(String emp_id);
 	public List<MessageVO> getMessageRealtimeAlarm(String emp_id);
 	public void systemMessage(MessageVO vo);
-	
+	public int countParticipant(int room_id);
+	public MessageVO checkRoomInfo(int room_id);
 }

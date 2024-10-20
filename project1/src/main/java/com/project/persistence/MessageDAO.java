@@ -22,5 +22,6 @@ public interface MessageDAO {
 	public List<MessageVO> get_message_unread_alarm(String emp_id);
 	public List<MessageVO> get_message_realtime_alarm(String emp_id);
 	public void insert_system_message(MessageVO vo);
-	
+	public int check_participant_count(int room_id);
+	public MessageVO get_room_info(int room_id);
 }

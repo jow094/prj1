@@ -126,6 +126,16 @@ public class MessageServiceImpl implements MessageService{
 	public List<MessageVO> getMessageRealtimeAlarm(String emp_id) {
 		return msgdao.get_message_realtime_alarm(emp_id);
 	}
+
+	@Override
+	public int countParticipant(int room_id) {
+		return msgdao.check_participant_count(room_id);
+	}
+
+	@Override
+	public MessageVO checkRoomInfo(int room_id) {
+		return msgdao.get_room_info(room_id);
+	}
 	
 	
 }

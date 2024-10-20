@@ -224,24 +224,39 @@ public class MemberController {
 		
 		@RequestMapping(value = "/invite",method = RequestMethod.GET)
 		@ResponseBody
-		public void inviteToRoom(HttpSession session,String emp_id, int room_id) {
+		public void inviteToRoom(HttpSession session,String emp_id, int room_id, String room_name) {
 			logger.debug(" /member/invite -> invite("+emp_id+","+room_id+"); 실행");
 			String inviter_emp_id = (String)session.getAttribute("emp_id");
 			String inviter_emp_name = (String)session.getAttribute("emp_name");
-			MessageVO vo = new MessageVO();
-			vo.setInviter_emp_id(inviter_emp_id);
-			vo.setInviter_emp_name(inviter_emp_name);
-			vo.setRoom_id(room_id);
-			vo.setEnter_emp_id(emp_id);
-			vo.setEnter_emp_name(mService.memberInfo(emp_id).getEmp_name());
-			vo.setMsg_content(inviter_emp_name+"님이 "+vo.getEnter_emp_name()+"님을 초대하였습니다.");
-			logger.debug("System Message : "+inviter_emp_name+"님이 "+vo.getEnter_emp_name()+"님을 초대하였습니다.");
-			msgService.systemMessage(vo);
-			logger.debug("System Message : "+vo.getEnter_emp_name()+"님이 대화방에 입장하셨습니다.");
-			vo.setMsg_content(vo.getEnter_emp_name()+"님이 대화방에 입장하셨습니다.");
-			msgService.systemMessage(vo);
-			msgService.enterRoom(vo);
-			msgService.changeRoomName(vo);
+			
+			if(msgService.countParticipant(room_id)>2) {
+				MessageVO vo = new MessageVO();
+				vo.setInviter_emp_id(inviter_emp_id);
+				vo.setInviter_emp_name(inviter_emp_name);
+				vo.setRoom_id(room_id);
+				vo.setEnter_emp_id(emp_id);
+				vo.setEnter_emp_name(mService.memberInfo(emp_id).getEmp_name());
+				vo.setMsg_content(inviter_emp_name+"님이 "+vo.getEnter_emp_name()+"님을 초대하였습니다.");
+				logger.debug("System Message : "+inviter_emp_name+"님이 "+vo.getEnter_emp_name()+"님을 초대하였습니다.");
+				msgService.systemMessage(vo);
+				logger.debug("System Message : "+vo.getEnter_emp_name()+"님이 대화방에 입장하셨습니다.");
+				vo.setMsg_content(vo.getEnter_emp_name()+"님이 대화방에 입장하셨습니다.");
+				msgService.systemMessage(vo);
+				msgService.enterRoom(vo);
+				msgService.changeRoomName(vo);
+			}else {
+				MessageVO room_info = msgService.checkRoomInfo(room_id);
+				
+				/*room_info 에서 기존의 참가자 명단을 뽑아낸 뒤에, mService.memberInfo(emp_id).getEmp_name() 해서 초대받은사람 이름 이어붙여서 룸네임으로 주고 
+				해당 룸네임과 inviter_emp_id를 어드민으로 넣은 방을 새로 만드는 메서드 생성해야함
+				
+				그 뒤 위 세명을 모두 대상으로 enterRoom 메서드 실행*/
+				
+				
+				
+				
+				
+			}
 		}
 		
 		@RequestMapping(value = "/getOutRoom",method = RequestMethod.GET)
