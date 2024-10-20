@@ -19,7 +19,7 @@ $(document).ready(function () {
 	success: function(data) {
 			/* success start*/
 			console.log('loginAlarm :',data);
-			$('#welcome').text("welcome, dear "+ data.emp_id);
+			$('#welcome').text("welcome, dear "+ data.emp_name);
 			$('#smallAlarm').text(data.smallAlarm);
 			
 		    if(data.receiverWorkflowList == null && data.sentWorkflowList == null){

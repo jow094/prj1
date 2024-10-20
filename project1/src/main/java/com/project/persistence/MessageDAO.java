@@ -19,5 +19,8 @@ public interface MessageDAO {
 	public void update_room_name(MessageVO vo);
 	public void delete_room_name(MessageVO vo);
 	public List<MemberVO> get_person(int room_id);
+	public List<MessageVO> get_message_unread_alarm(String emp_id);
+	public List<MessageVO> get_message_realtime_alarm(String emp_id);
 	public void insert_system_message(MessageVO vo);
+	
 }

@@ -4,6 +4,22 @@ $(document).ready(function () {
             extendNavbar();
         }
 	});
+	
+	$(document).on('click', '#extend_messenger', function (e) {
+		if (!window.location.href.includes('main')) { 
+			if ($('#open_messenger').css('display') === 'none') {
+				extendMessenger();
+	        }
+		}
+	});
+	
+	$(document).on('click', '#extend_calendar', function (e) {
+		if (!window.location.href.includes('main')) { 
+			if ($('#open_calendar').css('display') === 'none') {
+				extendCalendar();
+	        }
+		}
+	});
 		
 	$(document).on('click', function (e) {
         if (!$(e.target).closest('#extended_navbar').length 
@@ -14,10 +30,38 @@ $(document).ready(function () {
         	closeNavbar();
         }
     });
+	
+	$(document).on('click', function (e) {
+		if (!window.location.href.includes('main')) { 
+	        if (!$(e.target).closest('#extend_messenger').length 
+	            && !$(e.target).closest('.modal').length
+	            && !$(e.target).closest('#open_messenger').length
+	            && $('#open_messenger').css('display') === 'flex') 
+	        {
+	            closeMessenger();
+	        }
+	    }
+	});
+	
+	$(document).on('click', function (e) {
+		if (!window.location.href.includes('main')) { 
+	        if (!$(e.target).closest('#extend_calendar').length 
+	        		&& !$(e.target).closest('.modal').length
+	        		&& !$(e.target).closest('#open_calendar').length
+	        		&& $('#open_calendar').css('display') === 'flex') 
+	        {
+	        	closeCalendar();
+	        }
+		}
+    });
 
     $(document).on('keydown', function (e) {
         if (e.key === "Escape") {
         	closeNavbar();
+        	if (!window.location.href.includes('main')) { 
+	        	closeMessenger();
+	        	closeCalendar();
+        	}
         }
     });	
 });/* doc rdy end*/
@@ -29,6 +73,22 @@ function extendNavbar() {
 	showAlarmedWorkflow();
 }
 
+function extendMessenger() {
+	console.log('Messenger extended!');
+	document.getElementById("open_messenger").style.animation = 'dropDown 0.5s forwards';
+	document.getElementById("open_messenger").style.display = 'flex';
+	$('#open_messenger').css('position','absolute'); 
+	$('#open_messenger').addClass('right_top');
+}
+
+function extendCalendar() {
+	console.log('Calendar extended!');
+	document.getElementById("open_calendar").style.animation = 'dropDown 0.5s forwards';
+	document.getElementById("open_calendar").style.display = 'flex';
+	$('#open_calendar').css('position','absolute'); 
+	$('#open_calendar').addClass('right_top');
+}
+
 function closeNavbar() {
     console.log('Navbar closed.');
     document.getElementById("extended_navbar").style.animation = 'dropUp 0.5s forwards';
@@ -37,6 +97,22 @@ function closeNavbar() {
         $('#extended_navbar_inner').empty();
     }, 500);
     $('#extended_navbar_inner').empty();
+}
+
+function closeMessenger() {
+    console.log('Messenger closed.');
+    document.getElementById("open_messenger").style.animation = 'dropUp 0.5s forwards';
+    setTimeout(function() {
+        document.getElementById("open_messenger").style.display = 'none';
+    }, 500);
+}
+
+function closeCalendar() {
+    console.log('Calendar closed.');
+    document.getElementById("open_calendar").style.animation = 'dropUp 0.5s forwards';
+    setTimeout(function() {
+        document.getElementById("open_calendar").style.display = 'none';
+    }, 500);
 }
 
 function showAlarmedWorkflow() {

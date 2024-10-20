@@ -25,6 +25,7 @@ import com.project.persistence.MemberDAO;
 import com.project.persistence.WorkflowDAO;
 import com.project.persistence.WorkflowDAOImpl;
 import com.project.service.MemberService;
+import com.project.service.MessageService;
 import com.project.service.WorkflowService;
 
 //@RequestMapping(value = "/member/*")
@@ -47,6 +48,8 @@ public class ProjectController {
 	@Inject
 	private WorkflowService wService;
 
+	@Inject
+	private MessageService msgService;
 
 	
 	
@@ -176,7 +179,10 @@ public class ProjectController {
 			
 			String emp_id = (String)session.getAttribute("emp_id");
 			Map<String, Object> alarms = wService.realtimeCheckWorkflow(emp_id);
-			logger.debug(" checkAlarm for "+ emp_id + ", smallAlarm :" + alarms.get("smallAlarm"));
+			alarms.put("messageList",msgService.getMessageUnreadAlarm(emp_id));
+			int messageAlarmCount = ((List<WorkflowVO>)alarms.get("messageList")).size();
+			alarms.put("messageAlarmCount",messageAlarmCount);
+			logger.debug(" checkAlarm for "+ emp_id + ", smallAlarm :" + alarms.get("smallAlarm") + ", messageAlarmCount :" + messageAlarmCount);
 			
 			int alarmCount = ((List<WorkflowVO>)alarms.get("sentWorkflowList")).size() + ((List<WorkflowVO>)alarms.get("receivedWorkflowList")).size();
 			
@@ -193,12 +199,14 @@ public class ProjectController {
 		public Map<String, Object> loginAlarm(HttpSession session) {
 			
 			String emp_id = (String)session.getAttribute("emp_id");
+			String emp_name = (String)session.getAttribute("emp_name");
 			Map<String, Object> loginAlarms = wService.loginCheckWorkflow(emp_id);
 			logger.debug(" loginAlarm for "+ emp_id + ", smallAlarm :" + loginAlarms.get("smallAlarm"));
+			loginAlarms.put("messageList",msgService.getMessageUnreadAlarm(emp_id));
 			
-			loginAlarms.put("emp_id", emp_id);
+			loginAlarms.put("emp_name", emp_name);
 			
-			int alarmCount =((List<WorkflowVO>)loginAlarms.get("sentWorkflowList")).size() + ((List<WorkflowVO>)loginAlarms.get("receivedWorkflowList")).size();
+			int alarmCount =((List<WorkflowVO>)loginAlarms.get("sentWorkflowList")).size() + ((List<WorkflowVO>)loginAlarms.get("receivedWorkflowList")).size() + ((List<WorkflowVO>)loginAlarms.get("messageList")).size();
 				
 				if (alarmCount>0) {
 				logger.debug(" gotten Alarms : " + (alarmCount + "개의 로그인 알람이 있습니다."));
@@ -223,11 +231,7 @@ public class ProjectController {
 	    public List<Map<String, Object>> getCalendarEvents() {
 	        List<Map<String, Object>> events = new ArrayList<Map<String, Object>>();
 
-	        // 예시 이벤트 데이터
 	        Map<String, Object> event = new HashMap<String, Object>();
-	        event.put("title", "회의");
-	        event.put("start", "2024-10-18");
-	        event.put("end", "2024-10-20");
 
 	        events.add(event);
 	        return events;

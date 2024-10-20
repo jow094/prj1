@@ -2,30 +2,58 @@ $(document).ready(function () {
 	
 	getMembers();
 	chatRoomList();
+	setInterval(checkRoomList, 5000);
+	
 	$('.messenger_body_chat.list').css('display', 'block');
 	
 	$(document).on('click', '#to_chat_list', function (e) {
+		if (room_check_interval) {
+	        clearInterval(room_check_interval);
+	    }
 		console.log('to_chat_list');
 		chatRoomList();
-		$('.messenger_invite').css('display', 'none');
-	    $('.messenger_body_chat.room').css('display', 'none');
-	    $('.messenger_body_chat.list').css('display', 'block');
+		$('.messenger_invite').css('display', 'none').removeClass('fadeIn').addClass('fadeOut');
+	    $('.messenger_body_chat.room').css('display', 'none').removeClass('fadeUp').addClass('fadeDown');
+	    $('.messenger_body_chat.list').css('display', 'block').removeClass('fadeDown').addClass('fadeUp');
 	});
 	
+	let room_check_interval;
+	
 	$(document).on('click', '#to_chat_room', function (e) {
-		console.log('to_chat_room : room_id = ',+$(this).data('room_id'));
-		getMessages($(this).data('room_id'),null)
-		$('.messenger_invite').css('display', 'block');
-	    $('.messenger_body_chat.list').css('display', 'none');
-	    $('.messenger_body_chat.room').css('display', 'flex');
+		if (room_check_interval) {
+	        clearInterval(room_check_interval);
+	    }
+		
+		const room_id = $(this).data('room_id');
+	    console.log('to_chat_room : room_id = ', room_id);
+	    
+	    getMessages(room_id, null);
+	    $('.messenger_invite').css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+	    $('.messenger_body_chat.list').css('display', 'none').removeClass('fadeUp').addClass('fadeDown');
+	    $('.messenger_body_chat.room').css('display', 'flex').removeClass('fadeDown').addClass('fadeUp');
+	
+	    room_check_interval = setInterval(function() {
+	        getMessages(room_id, null);
+	        console.log('check room ',room_id);
+	    }, 1000);
 	});
 	
 	$(document).on('click', '#to_personal_room', function (e) {
-		console.log('to_personal_room');
-		getMessages(null,$(this).data('receiver_emp_id'));
-		$('.messenger_invite').css('display', 'block');
-	    $('.messenger_body_chat.list').css('display', 'none');
-	    $('.messenger_body_chat.room').css('display', 'flex');
+		if (room_check_interval) {
+	        clearInterval(room_check_interval);
+	    }
+		
+		const receiver_emp_id = $(this).data('receiver_emp_id');
+		console.log('to_personal_room : receiver_emp_id = ',receiver_emp_id);
+		getMessages(null,receiver_emp_id);
+		$('.messenger_invite').css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+	    $('.messenger_body_chat.list').css('display', 'none').removeClass('fadeUp').addClass('fadeDown');
+	    $('.messenger_body_chat.room').css('display', 'flex').removeClass('fadeDown').addClass('fadeUp');
+	    
+	    room_check_interval = setInterval(function() {
+	        getMessages(null,receiver_emp_id);
+	        console.log('check room with ',receiver_emp_id);
+	    }, 1000);
 	});
 	
 	$(document).on('click', '.messenger_invite', function (e) {
@@ -36,6 +64,9 @@ $(document).ready(function () {
 	});
 	
 	$(document).on('click', '.messenger_exit_room', function (e) {
+		if (room_check_interval) {
+	        clearInterval(room_check_interval);
+	    }
 		let room_id = $('#hidden_room_id').val();
 		getOutRoom(room_id);
 	});
@@ -497,4 +528,11 @@ function getOutRoom(room_id){
 			}
 		}
 	});
+}
+
+function checkRoomList() {
+    if ($('.messenger_body_chat.list').css('display') === 'block') {
+    	console.log('user is on room list. let us check room list!');
+        chatRoomList(); // 메서드 실행
+    }
 }

@@ -10,6 +10,7 @@ public class MessageVO {
 	private int msg_id;
 	private Timestamp msg_date;
 	private String msg_reader;
+	private String msg_unreader;
 	private int msg_unread_count;
 	private String msg_content;
 	

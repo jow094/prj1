@@ -116,6 +116,16 @@ public class MessageServiceImpl implements MessageService{
 	public void systemMessage(MessageVO vo) {
 		msgdao.insert_system_message(vo);
 	}
+
+	@Override
+	public List<MessageVO> getMessageUnreadAlarm(String emp_id) {
+		return msgdao.get_message_unread_alarm(emp_id);
+	}
+
+	@Override
+	public List<MessageVO> getMessageRealtimeAlarm(String emp_id) {
+		return msgdao.get_message_realtime_alarm(emp_id);
+	}
 	
 	
 }

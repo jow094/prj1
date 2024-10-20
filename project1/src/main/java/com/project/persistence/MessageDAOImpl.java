@@ -1,5 +1,6 @@
 package com.project.persistence;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,6 +147,23 @@ public class MessageDAOImpl implements MessageDAO {
 	@Override
 	public void insert_system_message(MessageVO vo) {
 		sqlSession.insert(NAMESPACE + ".systemMessage",vo);
+	}
+	
+	@Override
+	public List<MessageVO> get_message_unread_alarm(String emp_id) {
+		return sqlSession.selectList(NAMESPACE + ".messageSmallAlarm",emp_id);
+	}
+
+	@Override
+	public List<MessageVO> get_message_realtime_alarm(String emp_id) {
+		List<MessageVO> realtimeAlarms = sqlSession.selectList(NAMESPACE + ".messageRealtimeAlarm",emp_id);
+			
+		/*
+		 * if(realtimeAlarms.size()>0) { for(MessageVO vo : realtimeAlarms) {
+		 * vo.getMsg_id(); } }
+		 */
+		
+		return realtimeAlarms;
 	}
 	
 }

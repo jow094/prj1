@@ -177,6 +177,7 @@ public class MemberController {
 		public Integer sendMessage(HttpSession session, MessageVO vo) {
 			logger.debug("/member/sendMessage -> sendMessage() 실행 :"+vo);
 			String emp_id = (String)session.getAttribute("emp_id");
+			String emp_name = (String)session.getAttribute("emp_name");
 			vo.setPersonal_sender_emp_id(emp_id);
 			vo.setPersonal_sender_emp_name((String)session.getAttribute("emp_name"));
 			vo.setPersonal_sender_emp_position((String)session.getAttribute("emp_position"));
@@ -247,6 +248,7 @@ public class MemberController {
 		@ResponseBody
 		public void getOutRoom(HttpSession session, int room_id) {
 			String emp_id = (String)session.getAttribute("emp_id");
+			String emp_name = (String)session.getAttribute("emp_name");
 			logger.debug(" /member/getOutRoom -> getOutRoom("+emp_id+","+room_id+"); 실행");
 			MessageVO vo = new MessageVO();
 			vo.setRoom_id(room_id);
@@ -254,6 +256,8 @@ public class MemberController {
 			vo.setEnter_emp_name(mService.memberInfo(emp_id).getEmp_name());
 			msgService.exitRoom(vo);
 			msgService.cutRoomName(vo);
+			vo.setMsg_content(emp_name+"님이 대화방에서 퇴장하였습니다.");
+			msgService.systemMessage(vo);
 		}
 		
 		

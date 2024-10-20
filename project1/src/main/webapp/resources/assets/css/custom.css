@@ -82,6 +82,14 @@
     background: rgba(0, 0, 0, 0.7); /* 핸들의 hover 색상 */
 }
 
+.right_top{
+	position: fixed; 
+	top: calc(100% + 5px);
+    right: 20px; 
+	z-index: 1050;   
+	display: flex;
+}
+
 .realtime_alarm{
 	position: fixed; /* 뷰포트에 고정 */
 	bottom: 20px;    /* 아래에서 20px 위로 위치 */
@@ -177,6 +185,44 @@
        opacity: 0;
    }
 }
+
+.fadeOut {
+    animation: fadeOut 0.5s ease forwards; /* 페이드 인 애니메이션 */
+}
+
+.fadeIn {
+    animation: fadeIn 0.5s ease forwards; /* 페이드 아웃 애니메이션 */
+}
+@keyframes fadeUp {
+    0% {
+        opacity: 0; /* 처음에 보이지 않음 */
+        transform: scale(0.95); /* 작게 시작 */
+    }
+    100% {
+        opacity: 1; /* 완전히 보임 */
+        transform: scale(1); /* 원래 크기로 돌아옴 */
+    }
+}
+
+@keyframes fadeDown {
+    0% {
+        opacity: 1;
+        transform: scale(1); 
+    }
+    100% {
+        opacity: 0; 
+        transform: scale(0.95); 
+    }
+}
+
+.fadeDown {
+    animation: fadeDown 0.1s ease forwards; /* 페이드 인 애니메이션 */
+}
+
+.fadeUp {
+    animation: fadeUp 0.1s ease forwards; /* 페이드 아웃 애니메이션 */
+}
+
 
 @keyframes dropDown {
     from {
@@ -328,6 +374,13 @@ a:active {
     color: inherit !important; /* 방문, 호버, 활성 상태에서도 글자색을 유지 */
 }
 
+button {
+	background: transparent; /* 배경색을 투명으로 설정 */
+    border: none;           /* 테두리를 없앰 */
+    cursor: pointer;       /* 마우스 포인터를 손가락으로 변경 */
+    outline: none;         /* 클릭 시 생기는 외곽선을 제거 */
+}
+
 .card-box{
 	background-color: rgba(0,0,0,0.3);
 	display:flex; 
@@ -408,17 +461,8 @@ a:active {
 	margin:0px;
 }
 
-.bell {
-	position: relative;
-    display: inline-block; /* 인라인 블록으로 설정 */
-    width: 30px; /* 아이콘 크기 */
-    height: 30px; /* 아이콘 크기 */
-    background-image: url('../img/project/bell.png'); /* 이미지 경로 */
-    background-size: cover; /* 이미지 크기 조정 */
-    background-repeat: no-repeat; /* 반복하지 않음 */
-}
 
-.bell.shake{
+.shake{
 	animation: shake 1s infinite;
 }
 
@@ -430,17 +474,17 @@ a:active {
     color: black; /* 글자색을 흰색으로 설정 */
     font-weight:bold;
     border-radius: 50%; /* 동그란 모양으로 설정 */
-    width: 25px; /* 배지의 너비 */
+    width: 20px; /* 배지의 너비 */
     height: 50px; /* 배지의 높이 */
     display: flex; /* flexbox를 사용하여 중앙 정렬 */
     align-items: center; /* 수직 중앙 정렬 */
     justify-content: center; /* 수평 중앙 정렬 */
-    font-size: 14px; /* 글자 크기 설정 */
+    font-size: 12px; /* 글자 크기 설정 */
     border: none; /* 테두리 제거 */
     box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
 }
 
-.badge.twinkle{
+.twinkle{
 	animation: twinkle 1s infinite;
 }
 
@@ -479,7 +523,6 @@ a:active {
 	font-weight:regular;
 	background: transparent; /* 배경색을 투명으로 설정 */
     border: none;           /* 테두리를 없앰 */
-    padding: 0;            /* 패딩을 0으로 설정 */
     cursor: pointer;       /* 마우스 포인터를 손가락으로 변경 */
     outline: none;         /* 클릭 시 생기는 외곽선을 제거 */
     padding:0px 20px;
@@ -524,7 +567,6 @@ a:active {
 .days {
 	border-radius:5px;
 	display:flex;
-	flex-direction:column;
     align-items: flex-start;
     justify-content: flex-start;
     border-bottom: 1px solid #ccc; /* 칸의 테두리 */
@@ -533,10 +575,38 @@ a:active {
     height: 60px; /* 최소 높이 설정 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.days.saturday{
+.days .date{
+	display:flex;
+	width:7px;
+	font-size:16px;
+	padding:0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-right:8px;
+}
+.days .flag{
+	display:flex;
+	width:8px;
+	font-size:12px;
+	padding:0px;
+	margin-left:6px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+}
+.days .flag.workflow{
+	color:rgba(150,200,250,0.9);
+}
+.days .flag.enter{
+	color:rgba(119, 221, 119, 0.8);
+}
+.days .flag.workout{
+	color:rgba(255, 182, 193, 0.8);
+}
+.days.saturday .date{
 	color:rgba(0,100,200,1) ;
 }
-.days.sunday{
+.days.sunday .date{
 	color:rgba(204,0,0,1) ;
 }
 .days:hover{
@@ -554,6 +624,10 @@ a:active {
 }
 .today:hover{
     border: 3px solid rgba(0,0,0,0.3);
+}
+.fa-solid.fa-bookmark{ 
+	font-size: 10px; 
+	transform: scaleY(2);
 }
 .main-box-title{
 	font-size:18px;
@@ -606,6 +680,9 @@ a:active {
 td,th{
 	text-align: center; 
 	padding:0px !important;
+	white-space: nowrap; 
+	overflow: hidden; 
+	text-overflow: ellipsis;
 }
 td a{
 	box-sizing: border-box; 
@@ -613,7 +690,6 @@ td a{
 	cursor: pointer; 
 	width: 100%; 
 	height: 100%;
-	
 }
 
 .messenger_body{

@@ -24,7 +24,8 @@ $(document).ready(function() {
         $('#day').text(currentDay);
 
         // 날짜를 초기화
-        $('.days').text(''); // 모든 날짜 초기화
+        $('.date').text(''); // 모든 날짜 초기화
+        $('.flag').text(''); // 모든 날짜 초기화
         $('.days').removeClass('today');
         $('.days').removeClass('null');
         
@@ -42,11 +43,16 @@ $(document).ready(function() {
         for (let i = 1; i <= daysInMonth; i++) {
             // 첫 날의 요일에 맞춰 칸 위치 설정
             const position = startDay + i - 1; 
-            $(`#d_${position + 1}`).text(i); // 날짜 설정
+            $(`#d_${position + 1}`).html(`
+                    <div class="date">${i}</div>
+                    <div class="flag workflow"><i class="fa-solid fa-bookmark"></i></div>
+            		<div class="flag enter"><i class="fa-solid fa-bookmark"></i></div>
+            		<div class="flag workout"><i class="fa-solid fa-bookmark"></i></div>
+                `);
         }
         
         $('.days').each(function() {
-            if ($(this).text().trim() === '') {  // 값이 없을 경우
+            if ($(this).find('.date').text().trim() === '') {  // 값이 없을 경우 
                 $(this).addClass('null');
             }
         });

@@ -17,6 +17,8 @@ public interface MessageService {
 	public void sendMessage(MessageVO vo);
 	public List<MessageVO> getChatRoomList(String emp_id, String emp_name);
 	public List<MessageVO> searchRoom(String emp_id, String keyword);
+	public List<MessageVO> getMessageUnreadAlarm(String emp_id);
+	public List<MessageVO> getMessageRealtimeAlarm(String emp_id);
 	public void systemMessage(MessageVO vo);
 	
 }

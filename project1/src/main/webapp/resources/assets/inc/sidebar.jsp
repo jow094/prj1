@@ -2,6 +2,8 @@
 <%@ include file="/resources/assets/inc/get_employee_info.jsp" %>
 <%@ include file="/resources/assets/inc/realtime_alarm.jsp" %>
 <%@ include file="/resources/assets/inc/workflow_modal.jsp" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/brands.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/custom.css" />
       <!-- Sidebar -->
       <div class="sidebar" data-background-color="dark">

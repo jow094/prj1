@@ -1,5 +1,8 @@
 $(document).ready(function () {
 	
+	checkAlarm();
+	setInterval(checkAlarm, 10000);
+	
 	const getDate = (stringDate) => {
 	    if (!stringDate) return '';
 	    const date = new Date(stringDate);
@@ -18,21 +21,33 @@ $(document).ready(function () {
 	        	console.log('checked Alarm : ', data);
 	        	
 	        	if(data.smallAlarm>0){
-	        		$('#smallAlarm').text(data.smallAlarm);
-	        		$('.bell').addClass('shake');
-	        		$('.badge').addClass('twinkle');
+	        		$('#alarm_workflow').addClass('shake');
+	        		$('#alarm_workflow_badge').text(data.smallAlarm);
+	        		$('#alarm_workflow_badge').addClass('twinkle');
 	        	}else{
-	        		$('.bell').removeClass('highlight');
-	        		$('.badge').removeClass('twinkle');
+	        		$('#alarm_workflow').removeClass('shake');
+	        		$('#alarm_workflow').removeClass('twinkle');
 	        	} 
+	        	
+	        	if(data.messageAlarmCount>0){
+	        		$('#alarm_message').addClass('shake');
+	        		$('#alarm_message_badge').text(data.smallAlarm);
+	        		$('#alarm_message_badge').addClass('twinkle');
+	        	}else{
+	        		$('#alarm_message').removeClass('shake');
+	        		$('#alarm_message').removeClass('twinkle');
+	        	} 
+	        	
+	        	
+	        	
 	            if (data.receivedWorkflowList.length != 0) {
 	            	for (const workflowVO of data.receivedWorkflowList) {
-	            		showAlert(workflowVO,'received_alarm');
+	            		WorkflowAlarm(workflowVO,'received_alarm');
 	            	}
 	            }
 	            if (data.sentWorkflowList.length != 0) {
 	            	for (const workflowVO of data.receivedWorkflowList) {
-	            		showAlert(data,'sent_alarm');
+	            		WorkflowAlarm(data,'sent_alarm');
 	            	}
 	            }
 	        },
@@ -42,7 +57,7 @@ $(document).ready(function () {
 	    });
 	}
 	
-	function showAlert(workflowVO,which) {
+	function showWorkflowAlarm(workflowVO,which) {
 		console.log(which+' shown');
 		console.log(workflowVO);
 		const alarmBox = document.getElementById(which);
@@ -74,7 +89,8 @@ $(document).ready(function () {
 			
 		}, 10000);
 	}
-	checkAlarm();
-	setInterval(checkAlarm, 10000);
+	
+	
+	
 	
 });

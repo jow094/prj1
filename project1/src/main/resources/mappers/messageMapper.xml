@@ -9,6 +9,7 @@
 	    <id property="msg_id" column="msg_id"/>
 	    <result property="msg_date" column="msg_date"/>
 	    <result property="msg_reader" column="msg_reader"/>
+	    <result property="msg_unreader" column="msg_unreader"/>
 	    <result property="msg_unread_count" column="msg_unread_count"/>
 	    <result property="msg_content" column="msg_content"/>
 	    
@@ -32,12 +33,19 @@
 	</resultMap>
 
 	<select id="findRoom" resultType="int">
-	    select room_id
-	     from msg_room_participant
-	     where room_people in (#{sender_emp_id}, #{receiver_emp_id})
-	     group by room_id
-	     having count(distinct room_people) = 2
-	</select>
+        WITH RoomWithTwoPeople AS (
+            SELECT room_id
+            FROM msg_room_participant
+            GROUP BY room_id
+            HAVING COUNT(room_people) = 2
+        )
+        SELECT room_id
+        FROM msg_room_participant
+        WHERE room_id IN (SELECT room_id FROM RoomWithTwoPeople)
+          AND room_people IN (#{sender_emp_id}, #{receiver_emp_id})
+        GROUP BY room_id
+        HAVING COUNT(DISTINCT room_people) = 2;
+    </select>
 
     <select id="selectLastRoomId" resultType="int">
 	SELECT LAST_INSERT_ID()
@@ -47,7 +55,6 @@
 	    SELECT 
 	        m.msg_id, 
 	        m.msg_date, 
-	        m.msg_reader, 
 	        m.msg_unread_count, 
 	        m.msg_content,
 	        r.room_id, 
@@ -86,16 +93,28 @@
 	</insert>
 	
 	<insert id="sendMessage" parameterType="MessageVO">
-	    INSERT INTO messages (room_id, msg_sender, msg_content,  msg_reader, msg_unread_count)
+	    INSERT INTO messages (room_id, msg_sender, msg_content, msg_unreader, msg_unread_count, msg_alarm_token)
 	    VALUES (
 	        #{room_id},
 	        #{personal_sender_emp_id},
 	        #{msg_content},
-	        #{personal_sender_emp_id},
 	        (
-	            SELECT COUNT(*) - 1
+	            SELECT GROUP_CONCAT(room_people SEPARATOR ',')
 	            FROM msg_room_participant
 	            WHERE room_id = #{room_id}
+	              AND room_people != #{personal_sender_emp_id}
+	        ),
+	        (
+	            SELECT COUNT(*)
+	            FROM msg_room_participant
+	            WHERE room_id = #{room_id}
+	              AND room_people != #{personal_sender_emp_id}
+	        ),
+	        (
+	            SELECT GROUP_CONCAT(room_people SEPARATOR ',')
+	            FROM msg_room_participant
+	            WHERE room_id = #{room_id}
+	              AND room_people != #{personal_sender_emp_id}
 	        )
 	    )
 	</insert>
@@ -110,7 +129,7 @@
            (SELECT COUNT(m.msg_id)
             FROM messages m
             WHERE m.room_id = r.room_id
-              AND m.msg_reader NOT LIKE CONCAT('%', #{emp_id}, '%')
+              AND m.msg_unreader LIKE CONCAT('%', #{emp_id}, '%')
            ) AS room_alarm_count
 	    FROM msg_room r
 	    WHERE r.room_id IN (
@@ -124,23 +143,19 @@
 	    SELECT msg_id 
 	    FROM messages 
 	    WHERE room_id = #{room_id} 
-	      AND msg_reader NOT LIKE CONCAT('%', #{msg_reader}, '%');
+	      AND msg_unreader LIKE CONCAT('%', #{msg_reader}, '%');
 	</select>
 	
 	<update id="updateMessageReader" parameterType="MessageVO">
 	    UPDATE messages
-	    SET 
-	        msg_reader = CONCAT(IFNULL(msg_reader, ''), 
-	                            CASE 
-	                                WHEN msg_reader IS NULL OR msg_reader = '' THEN ''
-	                                ELSE ',' 
-	                            END, 
-	                            #{msg_reader}),
-	        msg_unread_count = msg_unread_count - 1
+	     SET 
+	   		 msg_unreader = TRIM(BOTH ',' FROM REPLACE(CONCAT(',', IFNULL(msg_unreader, ''), ','), CONCAT(',', #{msg_reader}, ','), ',')),
+	   		 msg_alarm_token = TRIM(BOTH ', ' FROM REPLACE(CONCAT(', ', INFULL(msg_alarm_token, ''), ', '), CONCAT(', ', #{msg_reader}, ', '), ', '))
+   			 msg_unread_count = msg_unread_count - 1
 	   		 WHERE room_id = #{room_id}
-	      AND msg_id IN 
+	    	 AND msg_id IN 
 	      <foreach item="msg_id" collection="msg_id" open="(" separator="," close=")">
-	          #{msg_id}
+	     	 #{msg_id}
 	      </foreach>;
 	</update>
 	
@@ -164,10 +179,8 @@
 	        SELECT room_id FROM user_rooms
 	    )
 	    AND (
-	        -- 채팅방 이름에서 검색어 찾기 (공백 무시)
 	        REPLACE(r.room_name, ' ', '') LIKE CONCAT('%', #{keyword}, '%')
 	        OR
-	        -- 메시지 내용에서 검색어 찾기
 	        REPLACE(m.msg_content, ' ', '') LIKE CONCAT('%', #{keyword}, '%')
 	    );
 	</select>
@@ -182,7 +195,7 @@
            (SELECT COUNT(m.msg_id)
             FROM messages m
             WHERE m.room_id = r.room_id
-              AND m.msg_reader NOT LIKE CONCAT('%', #{emp_id}, '%')
+              AND m.msg_unreader LIKE CONCAT('%', #{emp_id}, '%')
            ) AS room_alarm_count
 	    FROM msg_room r
 	    WHERE r.room_id IN 
@@ -206,7 +219,7 @@
 	
 	<update id="deleteRoomName" parameterType="MessageVO">
 	    UPDATE msg_room
-	    SET room_name = TRIM(BOTH ', ' FROM REPLACE(CONCAT(', ', room_name, ', '), CONCAT(', ', #{enter_emp_name}, ', '), ', '))
+	    SET room_name = TRIM(BOTH ', ' FROM REPLACE(CONCAT(', ', IFNULL(room_name, ''), ', '), CONCAT(', ', #{enter_emp_name}, ', '), ', '))
 	    WHERE room_id = #{room_id}
 	</update>
 	
@@ -226,6 +239,24 @@
 	        #{msg_content}
 	    )
 	</insert>
+	
+	<select id="messageSmallAlarm" parameterType="String" resultType="MessageVO">
+	    SELECT *
+	    FROM messages
+	    WHERE msg_unreader LIKE CONCAT('%', #{emp_id}, '%')
+	</select>
+	
+	<select id="messageRealtimeAlarm" parameterType="String" resultType="MessageVO">
+	    SELECT *
+	    FROM messages
+	    WHERE msg_alarm_token LIKE CONCAT('%', #{emp_id}, '%')
+	</select>
+	
+	<update id="updateMessageAlarmToken" parameterType="MessageVO">
+	    UPDATE messages
+	    SET msg_alarm_token = TRIM(BOTH ', ' FROM REPLACE(CONCAT(', ', INFULL(msg_alarm_token, ''), ', '), CONCAT(', ', #{emp_id}, ', '), ', '))
+	    WHERE msg_id = #{msg_id}
+	</update>
 	
 </mapper>  
   
