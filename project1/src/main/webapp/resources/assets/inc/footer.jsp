@@ -23,7 +23,7 @@
               <a href="">project_2team</a>
             </div> -->
             <div id="easter_egg">
-              <a href='/project/game'>Distributed by project_2team</a>
+            	Distributed by project_2team
             </div>
           </div>
         </footer>

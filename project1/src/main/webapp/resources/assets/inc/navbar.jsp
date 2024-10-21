@@ -115,8 +115,9 @@
                       />
                     </div>
                     <span class="profile-username" style="color:white;">
-                      <span class="op-7">Hi ! dear,</span>
-                      <span class="fw-bold">${emp_name} </span>
+                      <span class="op-7">안녕하세요, </span>
+                      <span class="fw-bold">${emp_name}</span>
+                      <span class="op-7"> 님!</span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">

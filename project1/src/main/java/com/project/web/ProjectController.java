@@ -69,10 +69,12 @@ public class ProjectController {
 		public Map<String,Object> mainGET(HttpSession session) {
 			String emp_id = (String)session.getAttribute("emp_id");
 			List<WorkflowVO> receivedWorkflowList = wService.showReceivedWorkflowList(emp_id,"1");
+			
 			getCalendarEvents();
 			Map<String,Object> data = new HashMap<String,Object>();
 			data.put("receivedWorkflowList", receivedWorkflowList);
 			data.put("calender",getCalendarEvents());
+			data.put("memberVO",mService.memberInfo(emp_id));
 			return data;
 		}
 	

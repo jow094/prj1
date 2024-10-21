@@ -819,7 +819,7 @@ table tr{
 	width:1000px;
 	height:1000px;
 	border:1px solid black;
-    grid-template-columns: repeat(200, 1fr); /* 100개의 열 생성 */
+    grid-template-columns: repeat(100, 1fr); /* 100개의 열 생성 */
     grid-template-rows: repeat(100, 1fr); /* 100개의 행 생성 */
     gap: 1px; /* 각 셀 사이의 간격 */
     margin:0px !important;

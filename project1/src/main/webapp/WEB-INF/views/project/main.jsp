@@ -167,13 +167,13 @@
 								</div>
 								<div style="flex:0.6; display:flex; flex-direction:column; font-size:16px;">
 									<div style="flex:1; display:flex; align-items: flex-end; justify-content: flex-start;">
-									부산지사
+										${memberVO.emp_bnum}
 									</div>
 									<div style="flex:1; display:flex; align-items: center; justify-content: flex-start;">
-									개발부 사원 엔지니어
+										${memberVO.emp_dnum} ${memberVO.emp_position} ${memberVO.emp_job}
 									</div>
 									<div style="flex:1; display:flex; align-items: flex-start; justify-content: flex-start; font-size:20px;">
-									조우영
+										${memberVO.emp_name}
 									</div>
 								</div>
 							</div>
@@ -326,9 +326,15 @@
 	  	<%@ include file="/resources/assets/inc/login_alarm_modal.jsp" %>
 	</c:if>
 	
+	<%@ include file="/resources/assets/inc/game.jsp" %>
+	
 	<script>
 	document.getElementById("open_calendar").style.display = 'flex';
 	document.getElementById("open_messenger").style.display = 'flex';
+	
+	$(document).on('click', '#easter_egg', function (e) {
+		$('#game').modal('show');
+	});
 	</script>
 	
 	</body>

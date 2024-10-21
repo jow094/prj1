@@ -1,22 +1,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<html>
-
-<head>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/custom.css" />
-</head>
-<body>
-
-<div class="game">
-    <c:forEach var="i" begin="0" end="99" varStatus="inum">
-        <c:forEach var="j" begin="0" end="199" varStatus="jnum">
-            <div class="box" id="${inum.index}_${jnum.index}"></div>
-        </c:forEach>
-    </c:forEach>
+<div id="game" class="modal fade" tabindex="0" aria-labelledby="game" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content" style="background-color: rgba(0,0,0,0.3); width:1240px !important; height:1200px !important; display: flex; justify-content: center; align-items: center; ">
+			<div class="card" style="margin:0px; padding:0px; width:95%; height:95%; display: flex;">
+				<div class="game">
+				    <c:forEach var="i" begin="0" end="99" varStatus="inum">
+				        <c:forEach var="j" begin="0" end="99" varStatus="jnum">
+				            <div class="box" id="${inum.index}_${jnum.index}"></div>
+				        </c:forEach>
+				    </c:forEach>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <script>
-    $(document).ready(function () {
+$('#game').on('shown.bs.modal', function (e) {
         const snake = [[0, 0]]; // 초기 지렁이 위치 (머리)
         const maxLength = 6; // 지렁이의 최대 길이
         let direction = null; // 현재 방향
@@ -24,9 +24,9 @@
         $('#0_0').addClass('user'); // 초기 위치에 user 클래스 추가
         
         const monsters = []; // 몬스터 배열
-        const monsterCount = 150; // 몬스터 개수
+        const monsterCount = 50; // 몬스터 개수
         const coins = []; // 코인 배열
-        const coinCount = 50; // 코인 개수
+        const coinCount = 30; // 코인 개수
 
         // 게임 오버 메서드
         function gameOver() {
@@ -46,7 +46,7 @@
                 let row, col;
                 do {
                     row = Math.floor(Math.random() * 100);
-                    col = Math.floor(Math.random() * 200);
+                    col = Math.floor(Math.random() * 100);
                 } while (isPositionOccupied(row, col)); // 다른 객체와 겹치지 않도록
                 coins.push([row, col]);
                 $('#' + row + '_' + col).addClass('coin'); // 초기 코인 위치에 클래스 추가
@@ -85,7 +85,7 @@
         // 몬스터 초기화
         function initializeMonsters() {
             for (let i = 0; i < monsterCount; i++) {
-                const monsterSnake = [[Math.floor(Math.random() * 100), Math.floor(Math.random() * 200)]];
+                const monsterSnake = [[Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)]];
                 const direction = getRandomDirection();
                 monsters.push({ snake: monsterSnake, direction });
             }
@@ -114,7 +114,7 @@
                 let moveRow = newRow;
                 let moveCol = newCol;
 
-                if (direction === 'right' && moveCol < 199) {
+                if (direction === 'right' && moveCol < 99) {
                     moveCol++;
                 } else if (direction === 'left' && moveCol > 0) {
                     moveCol--;
@@ -162,7 +162,7 @@
             let newCol = snake[0][1];
 
             // 방향키에 따라 이동
-            if (e.key === 'ArrowRight' && direction !== 'left' && newCol < 199) {
+            if (e.key === 'ArrowRight' && direction !== 'left' && newCol < 99) {
                 newCol++;
                 direction = 'right'; // 현재 방향 설정
             } else if (e.key === 'ArrowLeft' && direction !== 'right' && newCol > 0) {
@@ -218,7 +218,7 @@
                 let newCol = snake[0][1];
 
                 // 방향에 따라 위치 변경
-                if (direction === 'right' && newCol < 199) {
+                if (direction === 'right' && newCol < 99) {
                     newCol++;
                 } else if (direction === 'left' && newCol > 0) {
                     newCol--;
@@ -251,6 +251,3 @@
         initializeMonsters(); // 몬스터 초기화
     });
 </script>
-
-</body>
-</html>
