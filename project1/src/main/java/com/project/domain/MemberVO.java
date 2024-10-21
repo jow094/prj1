@@ -59,7 +59,5 @@ public class MemberVO {
 	private Date emp_quit_date;
 	private String emp_power;
 	private String emp_level;
-	
-	
-
+	private boolean emp_log_on;
 }

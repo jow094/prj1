@@ -13,6 +13,7 @@ public interface MessageDAO {
 	public int insert_message(MessageVO vo);
 	public List<MessageVO> join_messages(String reader, Integer room_id);
 	public int insert_msg_room(MessageVO vo);
+	public int insert_party_room(MessageVO vo);
 	public List<MessageVO> select_rooms(String emp_id);
 	public List<MessageVO> search_into_rooms(String emp_id,String keyword);
 	public void update_room_info(MessageVO vo);

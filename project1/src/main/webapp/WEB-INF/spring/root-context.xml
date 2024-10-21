@@ -12,7 +12,7 @@
 	<!--  웹 정보를 제외한 모든 정보를 가지고 있다 -->
 	
 	<!-- HikariCP 설정정보 객체 (로컬디비) -->
-	<bean id="hikariConfig" 
+	<!-- <bean id="hikariConfig" 
 	      class="com.zaxxer.hikari.HikariConfig">
 	      <property name="driverClassName" 
 	                value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
@@ -20,12 +20,12 @@
 	                value="jdbc:log4jdbc:mysql://localhost:3306/local_temp" />
 	      <property name="username" value="root" />
 	      <property name="password" value="1234" />    
-	</bean>
+	</bean> -->
 	<!-- HikariCP 설정정보 객체 (로컬디비) -->
 	
 	
 	<!-- HikariCP 설정정보 객체 -->
-	<!-- <bean id="hikariConfig" 
+	<bean id="hikariConfig" 
 	      class="com.zaxxer.hikari.HikariConfig">
 	      <property name="driverClassName" 
 	                value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
@@ -33,7 +33,7 @@
 	                value="jdbc:log4jdbc:mysql://itwillbs.com:3306/c6d2406t2" />
 	      <property name="username" value="c6d2406t2" />
 	      <property name="password" value="1234" />        
-	</bean> -->
+	</bean>
 	<!-- HikariCP 설정정보 객체 -->
 	
 	

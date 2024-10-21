@@ -10,6 +10,7 @@ public interface MessageService {
 	public List<MessageVO> openChatRoom(String msg_reader, Integer room_id);
 	public List<MessageVO> openPersonalChat(String sender_emp_id, String receiver_emp_id);
 	public int createChatRoom(MessageVO vo);
+	public int createPartyRoom(MessageVO vo);
 	public void enterRoom(MessageVO vo);
 	public void exitRoom(MessageVO vo);
 	public void changeRoomName(MessageVO vo);

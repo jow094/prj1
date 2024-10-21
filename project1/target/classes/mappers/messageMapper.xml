@@ -283,11 +283,16 @@
 	</select>
 	
 	<select id="getRoomInfo" resultMap="getRoomResultMap">
-	    SELECT r.*, p.emp_id as room_people
+	    SELECT r.*, p.room_people as room_people
 		 FROM msg_room r
-		 JOIN msg_participant p ON r.room_id = p.room_id
+		 JOIN msg_room_participant p ON r.room_id = p.room_id
 		 WHERE r.room_id = #{room_id}
 	</select>
+	
+	<insert id="insertNewPartyRoom" parameterType="MessageVO">
+	    INSERT INTO msg_room (room_name, room_admin)
+	     VALUES (#{room_name},#{room_admin})
+	</insert>
 	
 </mapper>  
   

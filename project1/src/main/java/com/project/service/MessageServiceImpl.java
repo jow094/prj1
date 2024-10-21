@@ -136,6 +136,13 @@ public class MessageServiceImpl implements MessageService{
 	public MessageVO checkRoomInfo(int room_id) {
 		return msgdao.get_room_info(room_id);
 	}
+
+	@Override
+	public int createPartyRoom(MessageVO vo) {
+		int result = msgdao.insert_party_room(vo);
+		logger.debug("msgServiceImpl : createPartyRoom 실행 :" + result + "번 채팅방 생성");
+		return result;
+	}
 	
 	
 }

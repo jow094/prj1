@@ -182,6 +182,12 @@ public class MessageDAOImpl implements MessageDAO {
 	public MessageVO get_room_info(int room_id) {
 		return sqlSession.selectOne(NAMESPACE + ".getRoomInfo",room_id);
 	}
+
+	@Override
+	public int insert_party_room(MessageVO vo) {
+		sqlSession.insert(NAMESPACE + ".insertNewPartyRoom",vo);
+		return sqlSession.selectOne(NAMESPACE + ".selectLastRoomId");
+	}
 	
 	
 	
