@@ -43,7 +43,12 @@
 	    <result property="room_last_sender_position" column="room_last_sender_position"/>
 	    
 	    <collection property="room_people" ofType="com.project.domain.MemberVO">
-	        <result property="emp_id" column="room_people"/>
+	        <result property="emp_id" column="emp_id"/>
+	        <result property="emp_name" column="emp_name"/>
+	        <result property="emp_dnum" column="emp_dnum"/>
+	        <result property="emp_bnum" column="emp_bnum"/>
+	        <result property="emp_position" column="emp_position"/>
+	        <result property="emp_job" column="emp_job"/>
 	    </collection>
 	</resultMap>
 
@@ -95,7 +100,7 @@
 	<insert id="insertMsgRoom" parameterType="MessageVO">
 	    INSERT INTO msg_room (room_name, room_admin)
 	     VALUES (
-	         CONCAT(#{personal_sender_emp_name}, ',', #{personal_receiver_emp_name}),
+	         CONCAT(#{personal_sender_emp_name}, ', ', #{personal_receiver_emp_name}),
 	         #{personal_sender_emp_id}
 	     )
 	</insert>
@@ -283,9 +288,10 @@
 	</select>
 	
 	<select id="getRoomInfo" resultMap="getRoomResultMap">
-	    SELECT r.*, p.room_people as room_people
+	    SELECT r.*,e.emp_id,e.emp_name, e.emp_dnum, e.emp_bnum, e.emp_position, e.emp_job
 		 FROM msg_room r
 		 JOIN msg_room_participant p ON r.room_id = p.room_id
+		 join employee e on p.room_people = e.emp_id
 		 WHERE r.room_id = #{room_id}
 	</select>
 	

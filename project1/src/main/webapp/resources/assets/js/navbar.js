@@ -64,6 +64,10 @@ $(document).ready(function () {
         	}
         }
     });	
+    
+    let clickCount = 0;
+    let timer;
+
 });/* doc rdy end*/
 	
 function extendNavbar() {

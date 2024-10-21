@@ -157,9 +157,55 @@
 			</div>	
 		</div>
 		<div style="flex:0.25;">
-			<div id="main-info-box" style="width:100%; height:130%; display:flex; flex-direction:column;">
-				<div style="width:100%; background-color: gray; height:100%;">
-				</div>
+			<div class="card-box" style="width:100%; height:130%;">
+				<div class="card" style="width:96%; height:94%;">
+					<div id="main-info-box" style="width:100%; height:100%; display:flex; flex-direction:column;">
+						<div style="width:100%; height:100%; display:flex; flex-direction:column;">
+							<div style="flex:1; display:flex; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
+								<div style="flex:0.4;">
+								<img src="" style="border:1px solid black; height: 100%; object-fit: cover; width: auto; border-radius: 50%;">
+								</div>
+								<div style="flex:0.6; display:flex; flex-direction:column; font-size:16px;">
+									<div style="flex:1; display:flex; align-items: flex-end; justify-content: flex-start;">
+									부산지사
+									</div>
+									<div style="flex:1; display:flex; align-items: center; justify-content: flex-start;">
+									개발부 사원 엔지니어
+									</div>
+									<div style="flex:1; display:flex; align-items: flex-start; justify-content: flex-start; font-size:20px;">
+									조우영
+									</div>
+								</div>
+							</div>
+							<div style="flex:1; display:flex; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
+								<div style="flex:0.4; display:flex; flex-direction:column; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
+									<div style="flex:1; display:flex; flex-direction:column; align-items: center; justify-content: flex-start;">
+										<div style="flex:1; display:flex; align-items: flex-end; justify-content: flex-start; text-align: left;">
+											<i class="fa-solid fa-message" style="font-size:15px; padding-right:10px;"></i>
+											 읽지 않은 메세지 :
+										</div>
+										<div style="flex:1; display:flex; align-items: flex-start;">
+											asdasd
+										</div>
+									</div>
+									<div style="flex:1; display:flex; flex-direction:column; align-items: center; justify-content: flex-start;">
+										<div style="flex:1; display:flex; align-items: flex-end; justify-content: flex-start; text-align: left;">
+											<i class="fa-solid fa-bell" style="font-size:15px; padding-right:10px;"></i>
+											 받은 승인요청 :
+										</div>
+										<div style="flex:1; display:flex; align-items: flex-start;">
+											asdasd
+										</div>
+									</div>
+								</div>
+								<div style="flex:0.6; padding:10px 0px 0px 30px;">
+								<i class="fa-solid fa-list" style="font-size:15px; padding-right:10px;"></i>
+								오늘의 일정
+								</div>
+							</div>
+						</div>
+					</div>	
+				</div>	
 			</div>	
 		</div>
 	</div>

@@ -8,6 +8,7 @@ $(document).ready(function () {
 	});
 	
     $(document).on('click', function (e) {
+    	console.log('Clicked element:', e.target); 
         if (!$(e.target).closest('#search_form').length 
         		&& !$(e.target).closest('#search_form_extended').length 
         		&& !$(e.target).closest('.modal').length

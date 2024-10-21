@@ -22,9 +22,8 @@
               made by
               <a href="">project_2team</a>
             </div> -->
-            <div>
-              Distributed by
-              <a>project_2team</a>
+            <div id="easter_egg">
+              <a href='/project/game'>Distributed by project_2team</a>
             </div>
           </div>
         </footer>

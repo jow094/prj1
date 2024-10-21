@@ -65,7 +65,7 @@
 			  <!-- 드롭다운 메뉴들 -->
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
               	<!-- 아이콘1 -->
-                <li style="margin-right:30px;" id="extend_calender" class="nav-item topbar-icon dropdown hidden-caret">
+                <li style="margin-right:30px;" id="to_home" class="nav-item topbar-icon dropdown hidden-caret">
                  	<button type="button" style="border: none !important;">
                  		<a href='/project/main'>
                  			<i style="color:white; font-size:25px;" class="fa-solid fa-house"></i>
@@ -74,7 +74,7 @@
                 </li>
                 <!-- 아이콘1 -->
               	<!-- 아이콘1 -->
-                <li style="margin-right:30px;" id="extend_calender" class="nav-item topbar-icon dropdown hidden-caret">
+                <li style="margin-right:30px;" id="extend_calendar" class="nav-item topbar-icon dropdown hidden-caret">
                  	<button type="button" style="border: none !important;">
                  		<i style="color:white; font-size:25px;" class="fa-solid fa-calendar"></i>
 					</button>

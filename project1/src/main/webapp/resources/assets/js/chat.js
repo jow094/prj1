@@ -1,6 +1,6 @@
+let room_check_interval;
+
 $(document).ready(function () {
-	
-	let room_check_interval;
 	
 	getMembers();
 	chatRoomList();
@@ -78,6 +78,10 @@ $(document).ready(function () {
 	    }
 		let room_id = $('#hidden_room_id').val();
 		getOutRoom(room_id);
+		chatRoomList();
+		$('.messenger_invite').css('display', 'none').removeClass('fadeIn').addClass('fadeOut');
+	    $('.messenger_body_chat.room').css('display', 'none').removeClass('fadeUp').addClass('fadeDown');
+	    $('.messenger_body_chat.list').css('display', 'block').removeClass('fadeDown').addClass('fadeUp');
 	});
 	
 	$('#msg_content').keydown(function(e) {
@@ -191,6 +195,8 @@ function getMembers() {
 }	
 	
 function getMessages(room_id,receiver_emp_id) {
+	console.log('getMessages('+room_id+','+receiver_emp_id+') run');
+	
 	$.ajax({
 		url: '/member/getMessages',
 		type: 'GET',
@@ -199,8 +205,7 @@ function getMessages(room_id,receiver_emp_id) {
 		success: function (data) {
 			console.log('getMessages :'+data);
 			$('.chat_content').empty();
-	    	/////////////////////////////////여기에 가지고 온 메세지리스트 있으면 밑에 실행하고 없으면 입력란만 새로 파주는 로직 추가 -> 서브밋 하면 방 생성, 입장정보 양쪽에서 추가, 메세지 인설트
-		    if(data.messageList.length==0){
+		    if(data.messageList.length==0 && room_id == null){
 				$('#hidden_room_id').val(0);
 				$('.chat_room_name').text(data.personal_receiver_memberVO.emp_name);
 				$('#hidden_personal_receiver_emp_id').val(data.personal_receiver_memberVO.emp_id);
@@ -293,11 +298,14 @@ function getMessages(room_id,receiver_emp_id) {
 }
 
 function chatRoomList() {
+	if (room_check_interval) {
+        clearInterval(room_check_interval);
+    }
 	$.ajax({
 		url: '/member/getChatRoomList',
 		type: 'GET',
 		success: function (data) {
-			console.log('load chat list :'+data);
+			console.log('load chat list :'+data.length);
 			$('.messenger_body_chat.list').children(':not(.messenger_room_search)').remove();
 			for (const rooms of data) {
 				console.log(rooms);
@@ -319,14 +327,14 @@ function chatRoomList() {
 								</div>
 								<div style="flex:3; display:flex; width:100%; justify-content: flex-start; align-items: center;">
 									<div style="font-size:12px; flex:1; height:100%; display:flex; justify-content: flex-start; align-items: center;">
-									${rooms.room_last_sender_position}  ${rooms.room_last_sender_name}
+									${rooms.room_last_sender_position  ? rooms.room_last_sender_position : ""}  ${rooms.room_last_sender_name  ? rooms.room_last_sender_name : ""}
 									</div>
 									<div style="font-size:12px; flex:1; height:100%; display:flex; justify-content: flex-end; align-items: center;">
 									${getMsgDate(rooms.room_last_message_date)}
 									</div>
 								</div>
 								<div style="font-size:12px; flex:3; display:flex; width: 300px; box-sizing: border-box; justify-content: flex-start; align-items: center; padding-left:3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">
-								${rooms.room_last_message}
+								${rooms.room_last_message ? rooms.room_last_message : "입력 된 메세지가 없습니다."}
 								</div>
 							</div>
 							<div style="flex:1; justify-content: center; align-items: center; display:flex;">
@@ -418,6 +426,9 @@ function messenger_search(input) {
 						</div>
 					`);
 				}
+				if ($('.messenger_body_chat.room').css('display') === 'flex') {
+					$('.messenger_invite').css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+				}
 			},
 			error: function (xhr, status, error) {
 				if (status !== 'abort') {
@@ -506,22 +517,36 @@ function inviteRoom(emp_id,room_id){
 				room_id : room_id,
 		},
 		success: function (data) {
-			
-			console.log(emp_id + 'is entered into ' + data.room_id);
-			getMessages(data.room_id,null);
-			console.log('reset chat room ' + data.room_id);
+			console.log('invite result : ',data)
+			console.log(emp_id + ' is entered into ' + data);
+			getMessages(data,null);
+			console.log('reset chat room ' + data);
 			
 			if (room_check_interval) {
-		        clearInterval(room_check_interval);
-		    }
+				clearInterval(room_check_interval);
+			}
 			
-			room_check_interval = setInterval(function() {
-				getMessages(data.room_id,null);
-				console.log('check room with ',receiver_emp_id);
-			}, 1000);
+			if(data == 0){
+				alert('초대 할 수 없는 사용자입니다.');
+				room_check_interval = setInterval(function() {
+					getMessages(room_id,null);
+				}, 1000);
+			}
 			
+			if(data == -1){
+				alert('이미 해당 방에 입장한 사용자 입니다.');
+				room_check_interval = setInterval(function() {
+					getMessages(room_id,null);
+				}, 1000);
+			}
+			if(data == 0 && data == -1){
+				
+				room_check_interval = setInterval(function() {
+					getMessages(data,null);
+				}, 1000);
+			}
 		},error:function (xhr, status, error) {
-			alert('이미 해당 방에 초대된 사용자입니다.');
+			alert('초대에 실패했습니다.');
 		}
 	});
 }
@@ -533,13 +558,7 @@ function getOutRoom(room_id){
 		data: {room_id : room_id},
 		success: function (data) {
 			console.log('exit from' + room_id);
-			chatRoomList();
 			console.log('get Room List again');
-			$('.messenger_invite').css('display', 'none');
-		    $('.messenger_body_chat.room').css('display', 'none');
-		    console.log('dont show gb');
-		    $('.messenger_body_chat.list').css('display', 'block');
-		    console.log('show list');
 		},error:function (xhr, status, error) {
 			if (status !== 'abort') {
 				console.error('AJAX 요청 실패:', status, error);

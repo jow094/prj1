@@ -238,4 +238,9 @@ public class ProjectController {
 	        return events;
 	    }
 		
+		@RequestMapping(value = "/game",method = RequestMethod.GET)
+	    public String game() {
+	        return "/project/game";
+	    }
+		
 }

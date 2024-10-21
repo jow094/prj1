@@ -226,10 +226,27 @@ public class MemberController {
 		@ResponseBody
 		public int inviteToRoom(HttpSession session,String emp_id, int room_id) {
 			logger.debug(" /member/invite -> invite("+emp_id+","+room_id+"); 실행");
+			int currentPeopleCount = msgService.countParticipant(room_id);
+			logger.debug(" /member/invite -> "+room_id+"번 채팅방의 현재 참가자 수 :"+currentPeopleCount);
+			
 			String inviter_emp_id = (String)session.getAttribute("emp_id");
 			String inviter_emp_name = (String)session.getAttribute("emp_name");
 			
-			if(msgService.countParticipant(room_id)>2) {
+			MessageVO room_info = msgService.checkRoomInfo(room_id);
+			MemberVO new_person = mService.memberInfo(emp_id);
+			
+			if(inviter_emp_id.equals(emp_id)) {
+				return 0;
+			}
+			
+			for(MemberVO vo : room_info.getRoom_people()) {
+				if(vo.getEmp_id().equals(emp_id)){
+					return -1;
+				}
+			}
+			
+			if(currentPeopleCount>2) {
+				logger.debug(" 단톡방 초대 실행 ");
 				MessageVO vo = new MessageVO();
 				vo.setInviter_emp_id(inviter_emp_id);
 				vo.setInviter_emp_name(inviter_emp_name);
@@ -247,15 +264,13 @@ public class MemberController {
 				msgService.changeRoomName(vo);
 				return room_id;
 			}else {
-				MessageVO room_info = msgService.checkRoomInfo(room_id);
+				logger.debug(" 개인톡 -> 단체톡 생성 및 이동 실행 ");
 				
-				/*room_info 에서 기존의 참가자 명단을 뽑아낸 뒤에, mService.memberInfo(emp_id).getEmp_name() 해서 초대받은사람 이름 이어붙여서 룸네임으로 주고 
-				해당 룸네임과 inviter_emp_id를 어드민으로 넣은 방을 새로 만드는 메서드 생성해야함
-				
-				그 뒤 위 세명을 모두 대상으로 enterRoom 메서드 실행*/
 				StringBuilder prev_room_name = new StringBuilder();
 				List<String> people_emp_id = new ArrayList<String>();
 				List<String> people_emp_name = new ArrayList<String>();
+				
+				logger.debug("room_info :"+room_info);
 
 				for (MemberVO vo : room_info.getRoom_people()) {
 				    if (prev_room_name.length() > 0) {
@@ -265,8 +280,8 @@ public class MemberController {
 				    people_emp_id.add(vo.getEmp_id());
 				    people_emp_name.add(vo.getEmp_name());
 				}
-
-				String new_room_name = prev_room_name.append(", "+mService.memberInfo(emp_id).getEmp_name()).toString();
+				
+				String new_room_name = prev_room_name.append(", "+ new_person.getEmp_name()).toString();
 				MessageVO param = new MessageVO();
 				param.setRoom_name(new_room_name);
 				param.setRoom_admin(inviter_emp_id);
@@ -279,16 +294,18 @@ public class MemberController {
 				sysMsg.setMsg_content("새로운 채팅방이 개설되었습니다.");
 				msgService.systemMessage(sysMsg);
 				
-				sysMsg.setMsg_content(inviter_emp_name+"님이 "+people_emp_name.get(0)+", "+people_emp_name.get(1)+"님을 초대하였습니다.");
+				sysMsg.setMsg_content(inviter_emp_name+"님이 "+people_emp_name.get(1)+", "+new_person.getEmp_name()+"님을 초대하였습니다.");
 				msgService.systemMessage(sysMsg);
 				
 				param.setEnter_emp_id(people_emp_id.get(0));
 				msgService.enterRoom(param);
 				param.setEnter_emp_id(people_emp_id.get(1));
 				msgService.enterRoom(param);
+				param.setEnter_emp_id(new_person.getEmp_id());
+				msgService.enterRoom(param);
 				
 				
-				logger.debug(inviter_emp_name+"님이 새로 생성된 "+room_id+"번 단체 대화방에 "+people_emp_name.get(0)+", "+people_emp_name.get(1)+"님을 초대하였습니다.");
+				logger.debug(inviter_emp_name+"님이 새로 생성된 "+room_id+"번 단체 대화방에 "+people_emp_name.get(1)+", "+new_person.getEmp_name()+"님을 초대하였습니다.");
 				return room_id;
 			}
 		}

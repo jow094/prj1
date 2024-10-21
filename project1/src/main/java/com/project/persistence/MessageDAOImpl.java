@@ -174,8 +174,7 @@ public class MessageDAOImpl implements MessageDAO {
 
 	@Override
 	public int check_participant_count(int room_id) {
-			sqlSession.selectList(NAMESPACE + ".checkParticipantCount",room_id);
-		return 0;
+		return sqlSession.selectOne(NAMESPACE + ".checkParticipantCount",room_id);
 	}
 
 	@Override
