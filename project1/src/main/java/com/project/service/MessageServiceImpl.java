@@ -74,19 +74,25 @@ public class MessageServiceImpl implements MessageService{
 	public List<MessageVO> getChatRoomList(String emp_id,String emp_name) {
 		List<MessageVO> result = msgdao.select_rooms(emp_id);
 		for(MessageVO vo : result) {			
-			vo.setRoom_name(
-			vo.getRoom_name().replaceAll("(^|,)"+ emp_name + "(,|$)", "$1$2")
-            .replaceAll(",,", ",") // 중복 쉼표 제거
-            .replaceAll("^,|,$", ""));
 			
-	        if((vo.getRoom_name().split(",")).length<2) {	
-	        	List<MemberVO> people = msgdao.get_person(vo.getRoom_id());		
-		        for(MemberVO person : people) {									
-		        	if(!person.getEmp_id().equals(emp_id)){						
-		        		vo.setRoom_thumbnail(person.getEmp_profile());			
-		        	}
-		        }
-		    }
+			if((vo.getRoom_name().split(",")).length==2) {	
+				List<MemberVO> people = msgdao.get_person(vo.getRoom_id());		
+				for(MemberVO person : people) {									
+					if(!person.getEmp_id().equals(emp_id)){						
+						vo.setRoom_thumbnail(person.getEmp_profile());			
+					}
+				}
+			}
+			
+			logger.debug("기존의 room_name : "+vo.getRoom_name()+"에서 "+emp_name+"을 제거합니다.");
+			vo.setRoom_name(
+					vo.getRoom_name()
+				    .replaceAll("(^|,)\\s*" + emp_name.trim() + "\\s*(,|$)", "$1$2")  // 쉼표 뒤 공백 포함하여 이름 제거
+				    .replaceAll(",,", ",")   // 중복 쉼표 제거
+				    .replaceAll("^,|,$", "") // 앞뒤 쉼표 제거
+            );
+			
+	        logger.debug("본인 이름을 제거한 room_name : "+vo.getRoom_name());
 		}
 		return result;
 	}

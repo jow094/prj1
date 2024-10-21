@@ -161,9 +161,9 @@ public class MemberController {
 				List<MessageVO> messageList = msgService.openChatRoom(emp_id, room_id);
 				if (!messageList.isEmpty() && messageList.get(0) != null) {
 					messageList.get(0).setRoom_name(
-					messageList.get(0).getRoom_name().replaceAll("(^|,)"+ emp_name + "(,|$)", "$1$2")
-		            .replaceAll(",,", ",") 
-		            .replaceAll("^,|,$", "")
+					messageList.get(0).getRoom_name().replaceAll("(^|,)\\s*" + emp_name.trim() + "\\s*(,|$)", "$1$2") 
+				    .replaceAll(",,", ",")  
+				    .replaceAll("^,|,$", "")
 		            );
 				}
 				data.put("messageList", messageList);
@@ -318,8 +318,8 @@ public class MemberController {
 			logger.debug(" /member/getOutRoom -> getOutRoom("+emp_id+","+room_id+"); 실행");
 			MessageVO vo = new MessageVO();
 			vo.setRoom_id(room_id);
-			vo.setEnter_emp_id(emp_id);
-			vo.setEnter_emp_name(mService.memberInfo(emp_id).getEmp_name());
+			vo.setLeaver_emp_id(emp_id);
+			vo.setLeaver_emp_name(mService.memberInfo(emp_id).getEmp_name());
 			msgService.exitRoom(vo);
 			msgService.cutRoomName(vo);
 			vo.setMsg_content(emp_name+"님이 대화방에서 퇴장하였습니다.");

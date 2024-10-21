@@ -25,4 +25,5 @@ public interface MessageDAO {
 	public void insert_system_message(MessageVO vo);
 	public int check_participant_count(int room_id);
 	public MessageVO get_room_info(int room_id);
+	
 }

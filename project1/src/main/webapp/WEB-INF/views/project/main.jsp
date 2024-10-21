@@ -147,8 +147,8 @@
 		<div style="flex:0.3;">
 			<div id="main-board-box" style="width:100%; height:100%; display:flex; flex-direction:column;">
 				<div class="main-box-title">
-					<div>교육 일정</div>
-					<div>우수 사원</div>
+					<div style="box-shadow: 2px 0px 2px 1px rgba(0, 0, 0, 0.4);">교육 일정</div>
+					<div style="box-shadow: 2px 0px 2px 1px rgba(0, 0, 0, 0.4);">우수 사원</div>
 				</div>
 				<div class="main-box-body" style="display:flex; flex-direction:column;">
 					<div></div>
@@ -181,22 +181,20 @@
 								<div style="flex:0.4; display:flex; flex-direction:column; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
 									<div style="flex:1; display:flex; flex-direction:column; align-items: center; justify-content: flex-start;">
 										<div style="flex:1; display:flex; align-items: flex-end; justify-content: flex-start; text-align: left;">
-											<i class="fa-solid fa-message" style="font-size:15px; padding-right:10px;"></i>
+											<i id = "unread_message_main_badge" class="fa-solid fa-message" style="line-height:25px; font-size:15px; padding-right:10px;"></i>
 											 읽지 않은 메세지 :
 										</div>
-										<div style="flex:1; display:flex; align-items: flex-start;">
-											asdasd
+										<div id = "unread_message_main" style="flex:1; display:flex; align-items: flex-start;">
 										</div>
 									</div>
-									<div style="flex:1; display:flex; flex-direction:column; align-items: center; justify-content: flex-start;">
-										<div style="flex:1; display:flex; align-items: flex-end; justify-content: flex-start; text-align: left;">
-											<i class="fa-solid fa-bell" style="font-size:15px; padding-right:10px;"></i>
-											 받은 승인요청 :
+										<div style="flex:1; display:flex; flex-direction:column; align-items: center; justify-content: flex-start;">
+											<div style="flex:1; display:flex; align-items: flex-end; justify-content: flex-start; text-align: left;">
+												<i id = "unread_workflow_main_badge" class="fa-solid fa-bell" style="line-height:25px; font-size:15px; padding-right:10px;"></i>
+												 받은 승인요청 :
+											</div>
+												<div id = "unread_workflow_main" style="flex:1; display:flex; align-items: flex-start;">
+												</div>
 										</div>
-										<div style="flex:1; display:flex; align-items: flex-start;">
-											asdasd
-										</div>
-									</div>
 								</div>
 								<div style="flex:0.6; padding:10px 0px 0px 30px;">
 								<i class="fa-solid fa-list" style="font-size:15px; padding-right:10px;"></i>

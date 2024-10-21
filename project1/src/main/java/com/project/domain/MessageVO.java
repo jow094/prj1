@@ -30,6 +30,8 @@ public class MessageVO {
 	private String inviter_emp_name;
 	private String enter_emp_id;
 	private String enter_emp_name;
+	private String leaver_emp_id;
+	private String leaver_emp_name;
 	private String personal_sender_emp_id;
 	private String personal_sender_emp_name;
 	private String personal_sender_emp_position;

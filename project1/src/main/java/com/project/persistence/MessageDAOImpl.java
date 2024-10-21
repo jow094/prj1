@@ -131,6 +131,17 @@ public class MessageDAOImpl implements MessageDAO {
 	@Override
 	public void delete_participant(MessageVO vo) {
 		sqlSession.delete(NAMESPACE + ".deleteParticipant",vo);
+		
+		int room_id = vo.getRoom_id();
+		String emp_id = vo.getLeaver_emp_id();
+		List<Integer> garbageMsg = sqlSession.selectList(NAMESPACE + ".getGarbageMessage",vo);
+		Map<String, Object> param = new HashMap<String, Object>();
+	    param.put("emp_id", emp_id);
+	    param.put("msg_reader", emp_id);
+	    param.put("room_id", room_id);
+	    param.put("msg_id", garbageMsg);
+	    sqlSession.update(NAMESPACE + ".updateMessageReader",param);
+	    sqlSession.update(NAMESPACE + ".updateMessageAlarmToken",param);
 	}
 
 	@Override
@@ -151,23 +162,25 @@ public class MessageDAOImpl implements MessageDAO {
 	
 	@Override
 	public List<MessageVO> get_message_unread_alarm(String emp_id) {
-		return sqlSession.selectList(NAMESPACE + ".messageSmallAlarm",emp_id);
+		return sqlSession.selectList(NAMESPACE + ".messageUnreadAlarm",emp_id);
 	}
-
+	
 	@Override
 	public List<MessageVO> get_message_realtime_alarm(String emp_id) {
 		List<MessageVO> realtimeAlarms = sqlSession.selectList(NAMESPACE + ".messageRealtimeAlarm",emp_id);
-			
+		logger.debug(emp_id+" 사용자에 대한 realtimeAlarms : "+realtimeAlarms.size()+"개, :"+realtimeAlarms);
 		List<Integer> msg_id = new ArrayList<Integer>();
 		
 			if(realtimeAlarms.size()>0) { 
+				Map<String, Object> param = new HashMap<String, Object>();
 				for(MessageVO vo : realtimeAlarms) {
 					msg_id.add(vo.getMsg_id());
-					Map<String, Object> param = new HashMap<String, Object>();
-					param.put("emp_id", emp_id);
-					param.put("msg_id", msg_id);
-					sqlSession.selectList(NAMESPACE + ".updateMessageAlarmToken",param);
 				} 
+				param.put("msg_id", msg_id);
+				param.put("emp_id", emp_id);
+				sqlSession.selectList(NAMESPACE + ".updateMessageAlarmToken",param);
+				logger.debug(emp_id+" 사용자가 "+msg_id+"에 대한 알람을 확인하였습니다. 알람토큰을 삭제합니다.");
+				logger.debug(" 전달 파라메터 :"+param);
 			}
 		return realtimeAlarms;
 	}

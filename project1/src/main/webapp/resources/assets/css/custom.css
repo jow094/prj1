@@ -107,6 +107,23 @@
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
+.realtime_alarm.left_down{
+	position: fixed; /* 뷰포트에 고정 */
+	bottom: 20px;    /* 아래에서 20px 위로 위치 */
+	left: 15px;      /* 왼쪽에서 20px 오른쪽으로 위치 */
+	background-color: rgba(0, 0, 0, 0.5); /* 배경색 설정 */
+	color: black;    /* 텍스트 색상 */
+	border-radius: 5px; /* 둥근 모서리 */
+	z-index: 1050;   /* 다른 요소보다 위에 나타나도록 설정 */
+	width: 450px;
+	height: 200px;
+	display: none; /* 기본적으로 숨김 */
+	justify-content: center; /* 가로 가운데 정렬 */
+	align-items: center;     /* 세로 가운데 정렬 */
+	text-align: center;      /* 텍스트가 여러 줄일 경우 가운데 정렬 */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
 #small_alarm_section{
 	position: fixed; /* 뷰포트에 고정 */
 	bottom: 5px;    /* 아래에서 20px 위로 위치 */
@@ -255,6 +272,18 @@
     }
     100% {
         background-color: rgba(150,200,255,0.9);
+    }
+}
+
+@keyframes twinkle_inner {
+    0% {
+        color: rgba(150,200,255,0.9);
+    }
+    50% {
+        color: black;
+    }
+    100% {
+        color: rgba(150,200,255,0.9);
     }
 }
 
@@ -488,6 +517,11 @@ button {
 	animation: twinkle 1s infinite;
 }
 
+.twinkle_inner{
+	animation: twinkle_inner 1s infinite;
+}
+
+
 #search_form.focus_border{
 	animation: focus_border 2s infinite;
 }
@@ -635,6 +669,7 @@ button {
 	height:40px;
 	display:flex; 
 	color:rgba(0,0,0,0.8);
+	z-index:0;
 }
 .main-box-title div{
 	background-color:rgba(130,130,130,0.1); 
@@ -643,6 +678,7 @@ button {
 	justify-content: center; 
 	align-items: center; 
 	border-radius: 10px 10px 0 0;
+	box-shadow: 2px 0px 2px 1px rgba(0, 0, 0, 0.4);
 }
 .main-box-title div.run{
 	background-color:rgba(50,50,50,0.2); 
@@ -665,6 +701,7 @@ button {
 	color: white;
 }
 .main-box-body{
+	z-index:5;
 	background-color: rgba(200,200,200,0.1);
 	overflow-y: auto;
 	height:180px;

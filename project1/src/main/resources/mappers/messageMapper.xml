@@ -119,7 +119,7 @@
 	        #{personal_sender_emp_id},
 	        #{msg_content},
 	        (
-	            SELECT GROUP_CONCAT(room_people SEPARATOR ',')
+	            SELECT GROUP_CONCAT(room_people SEPARATOR ', ')
 	            FROM msg_room_participant
 	            WHERE room_id = #{room_id}
 	              AND room_people != #{personal_sender_emp_id}
@@ -131,7 +131,7 @@
 	              AND room_people != #{personal_sender_emp_id}
 	        ),
 	        (
-	            SELECT GROUP_CONCAT(room_people SEPARATOR ',')
+	            SELECT GROUP_CONCAT(room_people SEPARATOR ', ')
 	            FROM msg_room_participant
 	            WHERE room_id = #{room_id}
 	              AND room_people != #{personal_sender_emp_id}
@@ -169,8 +169,8 @@
 	<update id="updateMessageReader" parameterType="MessageVO">
 	    UPDATE messages
 	     SET 
-	   		 msg_unreader = TRIM(BOTH ',' FROM REPLACE(CONCAT(',', IFNULL(msg_unreader, ''), ','), CONCAT(',', #{msg_reader}, ','), ',')),
-	   		 msg_alarm_token = TRIM(BOTH ', ' FROM REPLACE(CONCAT(', ', INFULL(msg_alarm_token, ''), ', '), CONCAT(', ', #{msg_reader}, ', '), ', '))
+	   		 msg_unreader = TRIM(BOTH ', ' FROM REPLACE(CONCAT(', ', IFNULL(msg_unreader, ''), ', '), CONCAT(', ', #{msg_reader}, ', '), ', ')),
+	   		 msg_alarm_token = TRIM(BOTH ', ' FROM REPLACE(CONCAT(', ', IFNULL(msg_alarm_token, ''), ', '), CONCAT(', ', #{msg_reader}, ', '), ', ')),
    			 msg_unread_count = msg_unread_count - 1
 	   		 WHERE room_id = #{room_id}
 	    	 AND msg_id IN 
@@ -234,7 +234,7 @@
 	<delete id="deleteParticipant" parameterType="MessageVO">
 	    DELETE FROM msg_room_participant
 	     WHERE room_id = #{room_id}
-	       AND room_people = #{enter_emp_id}
+	       AND room_people = #{leaver_emp_id}
 	</delete>
 	
 	<update id="deleteRoomName" parameterType="MessageVO">
@@ -260,16 +260,18 @@
 	    )
 	</insert>
 	
-	<select id="messageSmallAlarm" parameterType="String" resultType="MessageVO">
+	<select id="messageUnreadAlarm" parameterType="String" resultType="MessageVO">
 	    SELECT *
 	    FROM messages
 	    WHERE msg_unreader LIKE CONCAT('%', #{emp_id}, '%')
+	    AND msg_unreader IS NOT NULL
 	</select>
 	
 	<select id="messageRealtimeAlarm" parameterType="String" resultType="MessageVO">
 	    SELECT *
 	    FROM messages
 	    WHERE msg_alarm_token LIKE CONCAT('%', #{emp_id}, '%')
+	    AND msg_alarm_token IS NOT NULL
 	</select>
 	
 	<update id="updateMessageAlarmToken" parameterType="MessageVO">
@@ -299,6 +301,13 @@
 	    INSERT INTO msg_room (room_name, room_admin)
 	     VALUES (#{room_name},#{room_admin})
 	</insert>
+	
+	<select id="getGarbageMessage" parameterType="MessageVO">
+	    SELECT m.msg_id
+		 FROM messages m
+		 JOIN msg_room r on m.room_id = r.room_id 
+		 WHERE r.room_id = #{room_id} and msg_unreader LIKE CONCAT('%', #{leaver_emp_id}, '%') or msg_alarm_token LIKE CONCAT('%', #{leaver_emp_id}, '%')
+	</select>
 	
 </mapper>  
   
