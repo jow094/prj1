@@ -48,9 +48,11 @@
 	     ) and emp_id != #{emp_id}
 	</select>
 	
-	
-	
-	
+	<select id="searchTools" resultType="SettingVO">
+		select *
+	     from tools
+	     where tool_name like concat('%', #{keyword}, '%')
+	</select>
 
 </mapper>  
   

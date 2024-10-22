@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.project.domain.MemberVO;
+import com.project.domain.SettingVO;
 import com.project.service.MessageServiceImpl;
 
 /**
@@ -69,6 +70,11 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List<MemberVO> getTeamList(String emp_id) {
 		return sqlSession.selectList(NAMESPACE + ".getTeamList",emp_id);
+	}
+
+	@Override
+	public List<SettingVO> getToolList(String keyword) {
+		return sqlSession.selectList(NAMESPACE + ".searchTools",keyword);
 	}
 	
 	

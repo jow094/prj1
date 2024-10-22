@@ -424,6 +424,11 @@ button {
     transform: scale(1.02);
 }
 
+.card-box.hover{
+    background-color: rgba(150,200,250,0.9);
+    transform: scale(1.02);
+}
+
 .card-box .card .card-header{
 	flex:0.1;
 	padding:0px;

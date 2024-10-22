@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.MemberVO;
 import com.project.domain.MessageVO;
+import com.project.domain.SettingVO;
 import com.project.persistence.MemberDAO;
 import com.project.service.MemberService;
 import com.project.service.MessageService;
@@ -220,6 +221,14 @@ public class MemberController {
 			
 			List<MessageVO> roomList = msgService.searchRoom(emp_id,keyword);
 			return roomList;
+		}
+		
+		@RequestMapping(value = "/toolSearch",method = RequestMethod.GET)
+		@ResponseBody
+		public List<SettingVO> searchToTools(String keyword) {
+			
+			List<SettingVO> Tools = mService.searchTools(keyword.trim());
+			return Tools;
 		}
 		
 		@RequestMapping(value = "/invite",method = RequestMethod.GET)

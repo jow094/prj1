@@ -22,6 +22,76 @@ $(document).ready(function () {
     $(document).on('click', '#update_setting', function (e) {
     	runUserSetting();
     });
+    
+    $(document).on('click', '#tool_1', function (e) {
+    	$('#tool_selected').val('favorite_tools_1');
+    	$('#tool_1').addClass('hover');
+    });
+    
+    $(document).on('click', '#tool_1', function (e) {
+    	$('#tool_selected').val('favorite_tools_1');
+    	$('#tool_1').addClass('hover');
+    });
+    
+    $(document).on('click', '#tool_1', function (e) {
+    	$('#tool_selected').val('favorite_tools_1');
+    	$('#tool_1').addClass('hover');
+    });
+    
+    $(document).on('click', '#tool_1', function (e) {
+    	$('#tool_selected').val('favorite_tools_1');
+    	$('#tool_1').addClass('hover');
+    	$('#tool_2').removeClass('hover');
+    	$('#tool_3').removeClass('hover');
+    	$('#tool_4').removeClass('hover');
+    });
+    
+    $(document).on('click', '#tool_2', function (e) {
+    	$('#tool_selected').val('favorite_tools_2');
+    	$('#tool_2').addClass('hover');
+    	$('#tool_1').removeClass('hover');
+    	$('#tool_3').removeClass('hover');
+    	$('#tool_4').removeClass('hover');
+    });
+    
+    $(document).on('click', '#tool_3', function (e) {
+    	$('#tool_selected').val('favorite_tools_3');
+    	$('#tool_3').addClass('hover');
+    	$('#tool_1').removeClass('hover');
+    	$('#tool_2').removeClass('hover');
+    	$('#tool_4').removeClass('hover');
+    });
+    
+    $(document).on('click', '#tool_4', function (e) {
+    	$('#tool_selected').val('favorite_tools_4');
+    	$('#tool_4').addClass('hover');
+    	$('#tool_1').removeClass('hover');
+    	$('#tool_2').removeClass('hover');
+    	$('#tool_3').removeClass('hover');
+    });
+    
+    $(document).on('click', '#selected_name', function (e) {
+    	if($('#tool_selected').val()=='favorite_tools_1'){
+    		$('#tool_1 .selected_tool_name').text('hover');
+    		
+    	}
+    });
+    
+    
+    $(document).on('click', '#update_setting', function (e) {
+    	 $.ajax({
+ 	        url: '/member/',
+ 	        type: 'GET',
+ 	        data: {emp_id: emp_id},
+ 	        success: function (emp) {
+ 	        },
+ 	        error: function(xhr, status, error) {
+ 	            console.error('AJAX fail:', status, error);
+ 	            console.log('xhr:', xhr);
+ 	        }
+ 	    });
+    });
+    
 });
 
 function extendUserSetting() {
@@ -48,9 +118,9 @@ function closeUserSetting() {
 
 let prev_setting_search;
 
-function setting_search(input) {
+function tool_search(input) {
 	const keyword = input.replace(/\s+/g, '');
-	$('#setting_search_result').empty();
+	$('#tool_search_result').empty();
 
 	if (keyword.length >= 2 && /^[a-zA-Z가-힣0-9]+$/.test(keyword)) {
 			if (prev_setting_search) {
@@ -58,19 +128,19 @@ function setting_search(input) {
 				}
 				prev_setting_search = 
 					$.ajax({
-					url: '/member/search',
+					url: '/member/toolSearch',
 					type: 'GET',
 					data: { keyword: keyword },
 					success: function (data) {
 						console.log('correct value input. start search, result:', data);
 						if (data.length === 0) {
-							$('#setting_search_result').append(`
+							$('#tool_search_result').append(`
 					    			<div style="display:flex; height:25px; width:83%; flex-shrink: 0; border-bottom:1px solid rgba(0,0,0,0.1); margin-left:50px;"> 
 										"${keyword}" 로 검색한 결과값이 없습니다.
 									</div>
 						    `);
 							}else{
-								showResult(data);
+									showResult(data);
 							}
 						},
 						error: function (xhr, status, error) {
@@ -86,9 +156,9 @@ function setting_search(input) {
 function showResult(data) {
     let count = 0;
     for (const result of data) {
-    	$('#setting_search_result').append(`
-    			<div style="display:flex; height:25px; width:83%; flex-shrink: 0; border-bottom:1px solid rgba(0,0,0,0.1); margin-left:50px;"> 
-						${result}
+    	$('#tool_search_result').append(`
+    			<div id="selected_name" data-tool_name = "${result.tool_name}" data-tool_url = "${result.tool_url}" style="display:flex; height:25px; width:83%; flex-shrink: 0; border-bottom:1px solid rgba(0,0,0,0.1); margin-left:50px;"> 
+						${result.tool_name}
 				</div>
 	    `);
     }

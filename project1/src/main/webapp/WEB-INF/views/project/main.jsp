@@ -95,8 +95,8 @@
 		<div class="card-box button">
 			<div class="card">
 				<div class="card-body">
-					<a href="${empty memberVO.favorite_tools_1_url ? '#' : memberVO.favorite_tools_1_url}">
-						<div>${empty memberVO.favorite_tools_1 ? '+' : memberVO.favorite_tools_1}</div>
+					<a style="display:flex; justify-content:center; align-items: cente; font-size:30px;" href="${empty memberVO.setting.favorite_tool_1_url ? '#' : memberVO.setting.favorite_tool_1_url}">
+						${empty memberVO.setting.favorite_tool_1 ? '+' : memberVO.setting.favorite_tool_1}
 					</a>
 				</div>
 			</div>
@@ -104,8 +104,8 @@
 		<div class="card-box button">
 			<div class="card">
 				<div class="card-body">
-					<a href="${empty memberVO.favorite_tools_2_url ? '#' : memberVO.favorite_tools_2_url}">
-						<div>${empty memberVO.favorite_tools_2 ? '+' : memberVO.favorite_tools_2}</div>
+					<a style="display:flex; justify-content:center; align-items: cente; font-size:30px;" href="${empty memberVO.setting.favorite_tool_2_url ? '#' : memberVO.setting.favorite_tool_2_url}">
+						${empty memberVO.setting.favorite_tool_2 ? '+' : memberVO.setting.favorite_tool_2}
 					</a>
 				</div>
 			</div>
@@ -113,8 +113,8 @@
 		<div class="card-box button">
 			<div class="card">
 				<div class="card-body">
-					<a href="${empty memberVO.favorite_tools_3_url ? '#' : memberVO.favorite_tools_3_url}">
-						<div>${empty memberVO.favorite_tools_3 ? '+' : memberVO.favorite_tools_3}</div>
+					<a style="display:flex; justify-content:center; align-items: cente; font-size:30px;" href="${empty memberVO.setting.favorite_tool_3_url ? '#' : memberVO.setting.favorite_tool_3_url}">
+						${empty memberVO.setting.favorite_tool_3 ? '+' : memberVO.setting.favorite_tool_3}
 					</a>
 				</div>
 			</div>
@@ -122,8 +122,8 @@
 		<div class="card-box button">
 			<div class="card">
 				<div class="card-body">
-					<a href="${empty memberVO.favorite_tools_4_url ? '#' : memberVO.favorite_tools_4_url}">
-						<div>${empty memberVO.favorite_tools_4 ? '+' : memberVO.favorite_tools_4}</div>
+					<a style="display:flex; justify-content:center; align-items: cente; font-size:30px;" href="${empty memberVO.setting.favorite_tool_4_url ? '#' : memberVO.setting.favorite_tool_4_url}">
+						${empty memberVO.setting.favorite_tool_4 ? '+' : memberVO.setting.favorite_tool_4}
 					</a>
 				</div>
 			</div>
@@ -137,12 +137,11 @@
 				<div class="card" style="width:95%; height:96%; display:flex; flex-direction: column; justify-content: flex-start; align-content: center;">
 					<div style="display:flex; flex-direction: column; flex:0.5; width:100%;">
 						<div style="display:flex; flex:1; width:100%;">
-							
 							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
-								<div class="card-box button" style="margin-left:5px; margin-right:5px;">
+								<div id="tool_1" class="card-box button" style="margin-left:5px; margin-right:5px;">
 									<div class="card">
 										<div class="card-body">
-												<div>${memberVO.favorite_tools_1}</div>
+												<div class="selected_tool_name">${memberVO.setting.favorite_tool_1}</div>
 										</div>
 									</div>
 								</div>
@@ -154,10 +153,10 @@
 							</div>
 							
 							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
-								<div class="card-box button" style="margin-left:5px; margin-right:5px;">
+								<div id="tool_2" class="card-box button" style="margin-left:5px; margin-right:5px;">
 									<div class="card">
 										<div class="card-body">
-												<div>${memberVO.favorite_tools_2}</div>
+												<div class="selected_tool_name">${memberVO.setting.favorite_tool_2}</div>
 										</div>
 									</div>
 								</div>
@@ -170,10 +169,10 @@
 						</div>
 						<div style="display:flex; flex:1; width:100%;">
 							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
-								<div class="card-box button" style="margin-left:5px; margin-right:5px;">
+								<div id="tool_3" class="card-box button" style="margin-left:5px; margin-right:5px;">
 									<div class="card">
 										<div class="card-body">
-												<div>${memberVO.favorite_tools_3}</div>
+												<div class="selected_tool_name">${memberVO.setting.favorite_tool_3}</div>
 										</div>
 									</div>
 								</div>
@@ -184,10 +183,10 @@
 								</div>
 							</div>
 							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
-								<div class="card-box button" style="margin-left:5px; margin-right:5px;">
+								<div id="tool_4" class="card-box button" style="margin-left:5px; margin-right:5px;">
 									<div class="card">
 										<div class="card-body">
-												<div>${memberVO.favorite_tools_4}</div>
+												<div class="selected_tool_name">${memberVO.setting.favorite_tool_4}</div>
 										</div>
 									</div>
 								</div>
@@ -206,16 +205,17 @@
 								placeholder="두글자 이상의 검색어를 입력하세요."
 								class="form-control"
 								id="searchInput"
-								oninput="setting_search(this.value)"
+								oninput="tool_search(this.value)"
 								style="text-align:left; line-height:40px; border:none; border-bottom: 1px solid rgba(0,0,0,0.1); margin-right:20px;"
 								/>
 							</div>
 						</div>
 					</div>
 					
-					<div id="setting_search_result" style="display:flex; flex-direction:column; flex:0.4; width:100%; overflow-y: auto;">
+					<div id="tool_search_result" style="display:flex; flex-direction:column; flex:0.4; width:100%; overflow-y: auto;">
 						
 					</div>
+					<input id="tool_selected" type="hidden">
 					<div style="display:flex; flex:0.1; width:100%; align-content: center;">
                         <div id="update_setting" class="input-group" style="width:100%; border:none; margin:10px;">
 	                         <button

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.domain.MemberVO;
+import com.project.domain.SettingVO;
 import com.project.persistence.MemberDAO;
 
 // @Service : 서비스영역 (비지니스 로직 영역)에서의 동작을 구현하도록 설정
@@ -52,6 +53,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<MemberVO> getTeammate(String emp_id) {
 		return mdao.getTeamList(emp_id);
+	}
+
+	@Override
+	public List<SettingVO> searchTools(String keyword) {
+		return mdao.getToolList(keyword);
 	};
 	
 }
