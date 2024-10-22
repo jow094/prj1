@@ -51,6 +51,23 @@
 	        <result property="emp_job" column="emp_job"/>
 	    </collection>
 	</resultMap>
+	
+	<resultMap id="messageRealtimeAlarmResultMap" type="MessageVO">
+	    <id property="msg_id" column="msg_id"/>
+	    <result property="msg_date" column="msg_date"/>
+	    <result property="msg_reader" column="msg_reader"/>
+	    <result property="msg_unreader" column="msg_unreader"/>
+	    <result property="msg_unread_count" column="msg_unread_count"/>
+	    <result property="msg_content" column="msg_content"/>
+	    <result property="room_name" column="room_name"/>
+	    <association property="msg_sender" javaType="MemberVO">
+	        <result property="emp_name" column="emp_name" />
+	        <result property="emp_bnum" column="emp_bnum" />
+	        <result property="emp_dnum" column="emp_dnum" />
+	        <result property="emp_position" column="emp_position" />
+	        <result property="emp_id" column="emp_id" />
+	    </association>
+	</resultMap>
 
 	<select id="findRoom" resultType="int">
         WITH RoomWithTwoPeople AS (
@@ -267,9 +284,12 @@
 	    AND msg_unreader IS NOT NULL
 	</select>
 	
-	<select id="messageRealtimeAlarm" parameterType="String" resultType="MessageVO">
-	    SELECT *
-	    FROM messages
+	<select id="messageRealtimeAlarm" parameterType="String" resultMap="messageRealtimeAlarmResultMap">
+	    SELECT m.*, r.room_name,
+	           e.emp_name, e.emp_bnum, e.emp_dnum, e.emp_position, e.emp_id
+	    FROM messages m
+	    JOIN employee e ON m.msg_sender = e.emp_id
+	    join msg_room r on m.room_id = r.room_id
 	    WHERE msg_alarm_token LIKE CONCAT('%', #{emp_id}, '%')
 	    AND msg_alarm_token IS NOT NULL
 	</select>
@@ -308,6 +328,8 @@
 		 JOIN msg_room r on m.room_id = r.room_id 
 		 WHERE r.room_id = #{room_id} and msg_unreader LIKE CONCAT('%', #{leaver_emp_id}, '%') or msg_alarm_token LIKE CONCAT('%', #{leaver_emp_id}, '%')
 	</select>
+	
+	
 	
 </mapper>  
   

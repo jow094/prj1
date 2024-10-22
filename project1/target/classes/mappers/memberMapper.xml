@@ -13,8 +13,10 @@
 	
 	<!-- 회원정보 조회 -->
 	<select id="getMember" resultType="MemberVO">
-		select * from employee
-		 where emp_id=#{emp_id}	
+		select e.* , s.*
+		 from employee e
+		 left join user_setting s on e.emp_id = s.emp_id
+		 where e.emp_id=#{emp_id}	
 	</select>
 	
 	<!-- 회원정보 목록(list) -->
@@ -32,7 +34,6 @@
 	    or replace(emp_power, ' ', '') like concat('%', #{keyword}, '%')
 	</select>
 	
-	<!-- 팀원 조회 -->
 	<select id="getTeamList" resultType="MemberVO">
 		select *
 	     from employee
@@ -46,6 +47,10 @@
 	         where emp_id = #{emp_id}
 	     ) and emp_id != #{emp_id}
 	</select>
+	
+	
+	
+	
 
 </mapper>  
   

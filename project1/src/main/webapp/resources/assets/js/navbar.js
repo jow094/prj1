@@ -13,6 +13,14 @@ $(document).ready(function () {
 		}
 	});
 	
+	$(document).on('click', '#message_alarm', function (e) {
+		if (!window.location.href.includes('main')) { 
+			if ($('#open_messenger').css('display') === 'none') {
+				extendMessenger();
+	        }
+		}
+	});
+	
 	$(document).on('click', '#extend_calendar', function (e) {
 		if (!window.location.href.includes('main')) { 
 			if ($('#open_calendar').css('display') === 'none') {
@@ -34,8 +42,9 @@ $(document).ready(function () {
 	$(document).on('click', function (e) {
 		if (!window.location.href.includes('main')) { 
 	        if (!$(e.target).closest('#extend_messenger').length 
+	            && !$(e.target).closest('#message_alarm').length
 	            && !$(e.target).closest('.modal').length
-	            && !$(e.target).closest('#open_messenger').length
+ 	            && !$(e.target).closest('#open_messenger').length
 	            && $('#open_messenger').css('display') === 'flex') 
 	        {
 	            closeMessenger();

@@ -32,7 +32,7 @@ $(document).ready(function () {
 	        		$('#alarm_message').removeClass('shake');
 	        		$('#alarm_message').removeClass('twinkle');
 	        		$('#unread_message_main').text('읽지 않은 메세지가 없습니다.');
-	        	} 
+	        	}
 	        	
 	            if (data.receivedWorkflowList.length != 0) {
 	            	for (const workflowVO of data.receivedWorkflowList) {
@@ -45,7 +45,9 @@ $(document).ready(function () {
 	            	}
 	            }
 	            if (data.realtimeAlarm_messageList.length != 0) {
-            		MessageAlarm(data.realtimeAlarm_messageList);
+            		for (const messageVO of data.realtimeAlarm_messageList) {
+	            		MessageAlarm(messageVO);
+	            	}
 	            }
 	        },
 	        error: function(err) {
@@ -87,13 +89,12 @@ $(document).ready(function () {
 		}, 10000);
 	}
 	
-	function MessageAlarm(realtimeAlarm_messageList) {
+	function MessageAlarm(messageVO) {
 		
 		/*$('#realtimeAlarm_date').text(getDate(workflowVO.wf_last_result_date));
 		$('#realtimeAlarm_sender_profile').text(workflowVO.sender_profile);
 		$('#realtimeAlarm_sender_dnum').text(workflowVO.sender_dnum);
 		$('#realtimeAlarm_sender_bnum').text(workflowVO.sender_bnum);
-		$('#realtimeAlarm_sender_name').text(workflowVO.sender_name);
 		$('#realtimeAlarm_sender_position').text(workflowVO.sender_position);
 		$('#realtimeAlarm_wf_type').text(workflowVO.wf_type);
 		$('#realtimeAlarm_wf_progress').text(workflowVO.wf_progress);
@@ -102,6 +103,11 @@ $(document).ready(function () {
 		$('#realtimeAlarm_wf_result_2nd').text(workflowVO.wf_result_2nd);
 		$('#realtimeAlarm_wf_result_3rd').text(workflowVO.wf_result_3rd);
 		$('#workflow_info').attr('data-wf_code', workflowVO.wf_code);*/
+		$('#message_alarm_msg_sender_emp_profile').text(messageVO.msg_sender.emp_profile);
+		$('#message_alarm_room_name').text(messageVO.room_name);
+		$('#message_alarm_msg_sender').text(messageVO.msg_sender.emp_position+ ' ' +messageVO.msg_sender.emp_name);
+		$('#message_alarm_msg_date').text(getDate(messageVO.msg_date));
+		$('#message_alarm_msg_content').text(messageVO.msg_content);
 		
 		$('#message_alarm').css('display', 'flex');
 		$('#message_alarm').css('animation', 'fadeIn 1s forwards, focus 0.5s infinite');

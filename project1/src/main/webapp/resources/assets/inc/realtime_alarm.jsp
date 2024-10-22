@@ -84,30 +84,23 @@
 </div>
 <!-- sent alarm end-->
 <!-- message alarm start-->
-<div id="message_alarm" class="realtime_alarm left_down" style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); animation: focus 0.5s infinite;">
-	<div class="alarm_inner_box">
-		<div style="display:flex; justify-content: center; align-items: center; width: 100%; box-sizing: border-box; overflow-x: hidden;">
-			<div style="flex:2; display:flex; justify-content: center; align-items: center;">
-				<div style="flex:8; display:flex; justify-content: center; align-items: center;">
-					썸네일
-				</div>
+<div id="message_alarm" class="realtime_alarm left_down" style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); animation: focus 0.5s infinite; height:100px;">
+	<div class="alarm_inner_box" style="display:flex; justify-content: center; align-items: center; padding:5px;">
+		<div style="display:flex; justify-content: center; align-items: center; width: 100%; height:100%; margin:0px; box-sizing: border-box; overflow-x: hidden;">
+			<div id="message_alarm_msg_sender_emp_profile" style="flex:0.2; display:flex; height:100%; justify-content: center; align-items: center;">
 			</div>
-			<div style="flex:7; display:flex; flex-direction:column; justify-content: center; align-items: center;">
-				<div style="flex:4; display:flex; width: 100%; box-sizing: border-box; justify-content: flex-start; align-items: center;">
-					<div style="font-size:15px; font-weight:bold; width:100%; height:100%; width: 100%; box-sizing: border-box; display:flex; justify-content: flex-start; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-						방제
+			<div style="flex:0.8; display:flex; height:100%; flex-direction:column; justify-content: center; align-items: center;">
+				<div style="flex:0.3; display:flex; width: 100%; box-sizing: border-box; justify-content: flex-start; align-items: center;">
+					<div id="message_alarm_room_name" style="font-size:15px; font-weight:bold; width:100%; height:100%; width: 100%; box-sizing: border-box; display:flex; justify-content: flex-start; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 					</div>
 				</div>
-				<div style="flex:3; display:flex; width:100%; justify-content: flex-start; align-items: center;">
-					<div style="font-size:12px; flex:1; height:100%; display:flex; justify-content: flex-start; align-items: center;">
-						사원 조우영
+				<div style="flex:0.2; display:flex; width:100%; justify-content: flex-start; align-items: center;">
+					<div id="message_alarm_msg_sender" style="font-size:12px; flex:1; height:100%; display:flex; justify-content: flex-start; align-items: center;">
 					</div>
-					<div style="font-size:12px; flex:1; height:100%; display:flex; justify-content: flex-end; align-items: center;">
-						날짜
+					<div id="message_alarm_msg_date" style="font-size:12px; flex:1; height:100%; display:flex; justify-content: flex-end; align-items: center;">
 					</div>
 				</div>
-				<div style="font-size:12px; flex:3; display:flex; width: 300px; box-sizing: border-box; justify-content: flex-start; align-items: center; padding-left:3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">
-					메세지
+				<div id="message_alarm_msg_content" style="font-size:12px; flex:0.5; width:100%; display:flex; box-sizing: border-box; justify-content: flex-start; align-items: center; text-align:left; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2;">
 				</div>
 			</div>
 		</div>

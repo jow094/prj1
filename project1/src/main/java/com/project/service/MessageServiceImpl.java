@@ -130,7 +130,19 @@ public class MessageServiceImpl implements MessageService{
 
 	@Override
 	public List<MessageVO> getMessageRealtimeAlarm(String emp_id) {
-		return msgdao.get_message_realtime_alarm(emp_id);
+		List<MessageVO> result = msgdao.get_message_realtime_alarm(emp_id);
+		
+		String emp_name = mdao.getMember(emp_id).getEmp_name();
+		
+		for(MessageVO vo : result) {
+			vo.setRoom_name(
+					vo.getRoom_name()
+				    .replaceAll("(^|,)\\s*" + emp_name.trim() + "\\s*(,|$)", "$1$2")  // 쉼표 뒤 공백 포함하여 이름 제거
+				    .replaceAll(",,", ",")   // 중복 쉼표 제거
+				    .replaceAll("^,|,$", "") // 앞뒤 쉼표 제거
+	        );
+		}
+		return result;
 	}
 
 	@Override

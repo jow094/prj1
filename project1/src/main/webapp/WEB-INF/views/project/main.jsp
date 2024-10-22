@@ -42,11 +42,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/plugins.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/kaiadmin.min.css" />
     
+    
     <!--   Core JS Files   -->
 	<script src="${pageContext.request.contextPath }/resources/assets/js/core/jquery-3.7.1.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/assets/js/core/popper.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/assets/js/core/bootstrap.min.js"></script>
 
+    <script src="${pageContext.request.contextPath }/resources/assets/js/main.js"></script>
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/assets/css/demo.css" />
@@ -93,35 +95,141 @@
 		<div class="card-box button">
 			<div class="card">
 				<div class="card-body">
-					<div>+</div>
+					<a href="${empty memberVO.favorite_tools_1_url ? '#' : memberVO.favorite_tools_1_url}">
+						<div>${empty memberVO.favorite_tools_1 ? '+' : memberVO.favorite_tools_1}</div>
+					</a>
 				</div>
 			</div>
 		</div>
 		<div class="card-box button">
 			<div class="card">
 				<div class="card-body">
-					<div>+</div>
+					<a href="${empty memberVO.favorite_tools_2_url ? '#' : memberVO.favorite_tools_2_url}">
+						<div>${empty memberVO.favorite_tools_2 ? '+' : memberVO.favorite_tools_2}</div>
+					</a>
 				</div>
 			</div>
 		</div>
 		<div class="card-box button">
 			<div class="card">
 				<div class="card-body">
-					<div>+</div>
+					<a href="${empty memberVO.favorite_tools_3_url ? '#' : memberVO.favorite_tools_3_url}">
+						<div>${empty memberVO.favorite_tools_3 ? '+' : memberVO.favorite_tools_3}</div>
+					</a>
 				</div>
 			</div>
 		</div>
 		<div class="card-box button">
 			<div class="card">
 				<div class="card-body">
-					<div>+</div>
+					<a href="${empty memberVO.favorite_tools_4_url ? '#' : memberVO.favorite_tools_4_url}">
+						<div>${empty memberVO.favorite_tools_4 ? '+' : memberVO.favorite_tools_4}</div>
+					</a>
 				</div>
 			</div>
 		</div>
-		<div>
-			<button style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
+		<div style="position: relative;">
+			<button id="extend_user_setting" style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
 				<i style="color: rgba(0,0,0,0.5); font-size: 24px;" class="fa-solid fa-gear"></i>
 			</button>
+			<!-- 설정창 -->
+			<div id = "user_setting" class="card-box" style="display:none;">
+				<div class="card" style="width:95%; height:96%; display:flex; flex-direction: column; justify-content: flex-start; align-content: center;">
+					<div style="display:flex; flex-direction: column; flex:0.5; width:100%;">
+						<div style="display:flex; flex:1; width:100%;">
+							
+							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
+								<div class="card-box button" style="margin-left:5px; margin-right:5px;">
+									<div class="card">
+										<div class="card-body">
+												<div>${memberVO.favorite_tools_1}</div>
+										</div>
+									</div>
+								</div>
+								<div style="display:flex; justify-content: center; align-content: center;">
+									<button style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
+										<i style="font-size:20px; color:gray;" class="fa-solid fa-circle-minus"></i>
+									</button>
+								</div>
+							</div>
+							
+							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
+								<div class="card-box button" style="margin-left:5px; margin-right:5px;">
+									<div class="card">
+										<div class="card-body">
+												<div>${memberVO.favorite_tools_2}</div>
+										</div>
+									</div>
+								</div>
+								<div style="display:flex; justify-content: center; align-content: center;">
+									<button style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
+										<i style="font-size:20px; color:gray;" class="fa-solid fa-circle-minus"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div style="display:flex; flex:1; width:100%;">
+							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
+								<div class="card-box button" style="margin-left:5px; margin-right:5px;">
+									<div class="card">
+										<div class="card-body">
+												<div>${memberVO.favorite_tools_3}</div>
+										</div>
+									</div>
+								</div>
+								<div style="display:flex; justify-content: center; align-content: center;">
+									<button style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
+										<i style="font-size:20px; color:gray;" class="fa-solid fa-circle-minus"></i>
+									</button>
+								</div>
+							</div>
+							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
+								<div class="card-box button" style="margin-left:5px; margin-right:5px;">
+									<div class="card">
+										<div class="card-body">
+												<div>${memberVO.favorite_tools_4}</div>
+										</div>
+									</div>
+								</div>
+								<div style="display:flex; justify-content: center; align-content: center;">
+									<button style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
+										<i style="font-size:20px; color:gray;" class="fa-solid fa-circle-minus"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div style="display:flex; flex:1; width:100%;">
+							<div id="setting_search_form" class="input-group" style="height:40px; display:flex; justify-content: center; align-content: center; position: relative; padding: 0px !importatn; margin:0px !important; width:600px !important; padding:0 20px;">
+								<i style="text-align:center; line-height:40px; font-size:20px; margin-right:10px;" class="fa fa-search search-icon"></i>
+								<input
+								type="text"
+								placeholder="두글자 이상의 검색어를 입력하세요."
+								class="form-control"
+								id="searchInput"
+								oninput="setting_search(this.value)"
+								style="text-align:left; line-height:40px; border:none; border-bottom: 1px solid rgba(0,0,0,0.1); margin-right:20px;"
+								/>
+							</div>
+						</div>
+					</div>
+					
+					<div id="setting_search_result" style="display:flex; flex-direction:column; flex:0.4; width:100%; overflow-y: auto;">
+						
+					</div>
+					<div style="display:flex; flex:0.1; width:100%; align-content: center;">
+                        <div id="update_setting" class="input-group" style="width:100%; border:none; margin:10px;">
+	                         <button
+	                         class="btn btn-black btn-border"
+	                         type="submit"
+	                         style="width:100%; border:none !important; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);"
+	                         >
+	                       	  수정하기
+	                         </button>
+                        </div>
+					</div>
+				</div>	
+			</div>	
+			<!-- 설정창 -->
 		</div>
 	</div>
 </div>
@@ -178,7 +286,7 @@
 								</div>
 							</div>
 							<div style="flex:1; display:flex; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
-								<div style="flex:0.4; display:flex; flex-direction:column; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
+								<div style="flex:0.45; display:flex; flex-direction:column; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
 									<div style="flex:1; display:flex; flex-direction:column; align-items: center; justify-content: flex-start;">
 										<div style="flex:1; display:flex; align-items: flex-end; justify-content: flex-start; text-align: left;">
 											<i id = "unread_message_main_badge" class="fa-solid fa-message" style="line-height:25px; font-size:15px; padding-right:10px;"></i>
@@ -196,7 +304,7 @@
 												</div>
 										</div>
 								</div>
-								<div style="flex:0.6; padding:10px 0px 0px 30px;">
+								<div style="flex:0.55; padding:10px 0px 0px 30px;">
 								<i class="fa-solid fa-list" style="font-size:15px; padding-right:10px;"></i>
 								오늘의 일정
 								</div>
@@ -208,6 +316,7 @@
 		</div>
 	</div>
 	<!-- 중단 -->
+	
 	<!-- 최하단 -->
 	<div style="flex:0.8; display: flex; justify-content: space-between; margin-top: 10px;">
 	
@@ -335,6 +444,20 @@
 	$(document).on('click', '#easter_egg', function (e) {
 		$('#game').modal('show');
 	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	</script>
 	
 	</body>

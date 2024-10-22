@@ -59,5 +59,24 @@ public class MemberVO {
 	private Date emp_quit_date;
 	private String emp_power;
 	private String emp_level;
-	private boolean emp_log_on;
+	
+	private boolean log_on;
+	private String favorite_tools_1;
+	private String favorite_tools_1_url;
+	private String favorite_tools_2;
+	private String favorite_tools_2_url;
+	private String favorite_tools_3;
+	private String favorite_tools_3_url;
+	private String favorite_tools_4;
+	private String favorite_tools_4_url;
+	private String favorite_emp_id_1;
+	private String favorite_emp_id_2;
+	private String favorite_emp_id_3;
+	private String favorite_emp_id_4;
+	private String favorite_emp_id_5;
+	private String favorite_room_id_1;
+	private String favorite_room_id_2;
+	private String favorite_room_id_3;
+	private String favorite_room_id_4;
+	private String favorite_room_id_5;
 }

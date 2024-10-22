@@ -847,3 +847,14 @@ table tr{
 .game .box.coin {
     background-color: rgb(255, 215, 0);
 }
+
+#user_setting{
+	position: absolute; /* 부모 요소에 대해 절대 위치 설정 */
+    top: calc(30%); /* 검색 입력창 바로 아래 위치 */
+    right: 0; /* 왼쪽 정렬 */
+    width: 500px; /* 검색 입력창과 동일한 너비 */
+    height: 500px;
+    z-index: 1050; /* 다른 요소 위에 표시되도록 설정 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    border-radius: 6px;
+}

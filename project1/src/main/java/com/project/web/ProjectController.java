@@ -35,13 +35,6 @@ import com.project.service.WorkflowService;
 @RequestMapping(value = "/project/*")
 public class ProjectController {
 	
-	// 객체 주입
-	//@Inject
-	//private MemberDAO mdao;
-	
-	
-	
-	
 	@Inject
 	private MemberService mService;
 	
@@ -50,8 +43,6 @@ public class ProjectController {
 
 	@Inject
 	private MessageService msgService;
-
-	
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 

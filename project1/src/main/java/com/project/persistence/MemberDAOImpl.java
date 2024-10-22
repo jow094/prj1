@@ -8,9 +8,12 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.project.domain.MemberVO;
+import com.project.service.MessageServiceImpl;
 
 /**
  *	 MemberDAO 동작을 수행 
@@ -32,6 +35,8 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	// Mapper namespace 정보 저장
 	private static final String NAMESPACE = "com.project.mapper.MemberMapper";
+	
+	private static final Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
 
 	@Override
 	public MemberVO checkMember(MemberVO vo) {
@@ -50,9 +55,9 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public MemberVO getMember(String userid) {
-		System.out.println(" DAO : getMember(String userid) ");
-		return sqlSession.selectOne(NAMESPACE + ".getMember",userid);
+	public MemberVO getMember(String emp_id) {
+		System.out.println(" DAO : getMember("+emp_id+")");
+		return sqlSession.selectOne(NAMESPACE + ".getMember",emp_id);
 	}
 
 	@Override
