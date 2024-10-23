@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.domain.MemberVO;
 import com.project.domain.MessageVO;
+import com.project.domain.SettingVO;
 import com.project.domain.WorkflowVO;
 import com.project.service.WorkflowServiceImpl;
 
@@ -102,6 +103,11 @@ public class MessageDAOImpl implements MessageDAO {
 	@Override
 	public List<MessageVO> select_rooms(String emp_id) {
 		return sqlSession.selectList(NAMESPACE + ".selectRoomList",emp_id);
+	}
+	
+	@Override
+	public List<MessageVO> select_favorite_rooms(String emp_id) {
+		return sqlSession.selectList(NAMESPACE + ".selectFavoriteRoomList",emp_id);
 	}
 
 	@Override
@@ -199,6 +205,27 @@ public class MessageDAOImpl implements MessageDAO {
 	public int insert_party_room(MessageVO vo) {
 		sqlSession.insert(NAMESPACE + ".insertNewPartyRoom",vo);
 		return sqlSession.selectOne(NAMESPACE + ".selectLastRoomId");
+	}
+	
+	@Override
+	public SettingVO get_messenger_setting(String emp_id) {
+		return sqlSession.selectOne(NAMESPACE + ".getMessengerSetting",emp_id);
+	}
+
+	@Override
+	public void insert_follow_room(String emp_id, Integer room_id) {
+		Map<String, Object> param = new HashMap<String, Object>();
+	    param.put("emp_id", emp_id);
+	    param.put("room_id", room_id);
+		sqlSession.insert(NAMESPACE + ".followRoom",param);
+	}
+
+	@Override
+	public void delete_follow_room(String emp_id, Integer room_id) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("emp_id", emp_id);
+	    param.put("room_id", room_id);
+		sqlSession.delete(NAMESPACE + ".unfollowRoom",param);
 	}
 	
 	

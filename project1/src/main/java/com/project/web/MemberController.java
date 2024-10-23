@@ -120,15 +120,15 @@ public class MemberController {
 		
 		@RequestMapping(value = "/getTeam",method = RequestMethod.GET)
 		@ResponseBody
-		public List<MemberVO> getTeam(HttpSession session) {
+		public Map<String,Object> getTeam(HttpSession session) {
 			String emp_id = (String)session.getAttribute("emp_id");
-			logger.debug("/member/getTeam -> getTeam() 실행");
-			logger.debug(" getTeam : 조회 대상 아이디 : "+emp_id);
-			
 			List<MemberVO> memberList = mService.getTeammate(emp_id);
-			logger.debug(" getTeam : 조회 결과 : "+memberList.size());
+			SettingVO favoriteEmpList = msgService.showMessengerSetting(emp_id);
+			Map<String,Object> data = new HashMap<String,Object>();
+			data.put("memberList", memberList);	
+			data.put("favoriteEmpList", favoriteEmpList);	
 			
-			return memberList;
+			return data;
 		}
 		
 		@RequestMapping(value = "/getMessages",method = RequestMethod.GET)
@@ -204,13 +204,16 @@ public class MemberController {
 		
 		@RequestMapping(value = "/getChatRoomList",method = RequestMethod.GET)
 		@ResponseBody
-		public List<MessageVO> showChatRoomList(HttpSession session) {
+		public Map<String,Object> showChatRoomList(HttpSession session) {
 			String emp_id = (String)session.getAttribute("emp_id");
 			String emp_name = (String)session.getAttribute("emp_name");
-			List<MessageVO> result = msgService.getChatRoomList(emp_id,emp_name);
-			logger.debug("showChatRoomList :" + result.size());
-			logger.debug("showChatRoomList :" + result);
-			return result;
+			List<MessageVO> chatRoomList = msgService.getChatRoomList(emp_id,emp_name);
+			List<MessageVO> favoriteChatRoomList = msgService.getFavoriteChatRoomList(emp_id,emp_name);
+			
+			Map<String,Object> data = new HashMap<String,Object>();
+			data.put("chatRoomList", chatRoomList);	
+			data.put("favoriteChatRoomList", favoriteChatRoomList);	
+			return data;
 		}
 		
 		@RequestMapping(value = "/msgSearch",method = RequestMethod.GET)
@@ -335,5 +338,38 @@ public class MemberController {
 			msgService.systemMessage(vo);
 		}
 		
+		@ResponseBody
+		@RequestMapping(value = "/updateSetting",method = RequestMethod.GET)
+		public void updateSetting(HttpSession session, SettingVO vo) {
+			String emp_id = (String)session.getAttribute("emp_id");
+			vo.setEmp_id(emp_id);
+			mService.settingFavoriteTool(vo);
+			logger.debug("settingVO :"+vo);
+		}
 		
+		@ResponseBody
+		@RequestMapping(value = "/follow",method = RequestMethod.GET)
+		public void followEmp(HttpSession session, String emp_id, Integer room_id) {
+			String user_emp_id = (String)session.getAttribute("emp_id");
+			logger.debug(" follow("+user_emp_id+","+emp_id+"); 실행");
+			if(emp_id != null && room_id == null) {
+				mService.followEmp(user_emp_id, emp_id);
+			}
+			if(emp_id == null && room_id != null) {
+				msgService.followRoom(user_emp_id, room_id);
+			}
+		}
+		
+		@ResponseBody
+		@RequestMapping(value = "/unfollow",method = RequestMethod.GET)
+		public void unFollowEmp(HttpSession session, String emp_id, Integer room_id) {
+			String user_emp_id = (String)session.getAttribute("emp_id");
+			logger.debug(" unfollow("+user_emp_id+","+emp_id+"); 실행");
+			if(emp_id != null && room_id == null) {
+				mService.unFollowEmp(user_emp_id, emp_id);
+			}
+			if(emp_id == null && room_id != null) {
+				msgService.unfollowRoom(user_emp_id, room_id);
+			}
+		}
 }

@@ -4,7 +4,26 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.project.mapper.MessageMapper">
-
+	
+	<resultMap id="MessengerSettingMap" type="com.project.domain.SettingVO">
+    	<id property="emp_id" column="user_emp_id"/>
+    
+	    <collection property="favorite_room_id" ofType="java.lang.Integer">
+	        <result column="favorite_room_id"/>
+	    </collection>
+	    
+	    <collection property="favorite_emp" ofType="com.project.domain.MemberVO">
+	        <id property="emp_id" column="emp_id"/>
+	        <result property="emp_name" column="emp_name"/>
+	        <result property="emp_dnum" column="emp_dnum"/>
+	        <result property="emp_bnum" column="emp_bnum"/>
+	        <result property="emp_position" column="emp_position"/>
+	        <result property="emp_job" column="emp_job"/>
+	        <result property="emp_profile" column="emp_profile"/>
+	        <result property="log_on" column="log_on"/>
+	    </collection>
+	</resultMap>
+	
 	<resultMap id="getMessagesResultMap" type="com.project.domain.MessageVO">
 	    <id property="msg_id" column="msg_id"/>
 	    <result property="msg_date" column="msg_date"/>
@@ -173,7 +192,29 @@
 	        SELECT p.room_id
 	        FROM msg_room_participant p
 	        WHERE p.room_people = #{emp_id}
+	    ) and r.room_id not in (select favorite_room_id from user_favorites where emp_id = #{emp_id} and favorite_room_id is not null)
+	    order by r.room_last_message_date desc;
+	</select>
+	
+	<select id="selectFavoriteRoomList" resultType="MessageVO">
+	    SELECT r.room_id, 
+           r.room_name, 
+           r.room_last_message, 
+           r.room_last_message_date, 
+           r.room_last_sender_name, 
+           r.room_last_sender_position, 
+           (SELECT COUNT(m.msg_id)
+            FROM messages m
+            WHERE m.room_id = r.room_id
+              AND m.msg_unreader LIKE CONCAT('%', #{emp_id}, '%')
+           ) AS room_alarm_count
+	    FROM msg_room r
+	    WHERE r.room_id IN (
+	        SELECT favorite_room_id
+	        FROM user_favorites
+	        WHERE emp_id = #{emp_id} and favorite_room_id is not null
 	    )
+	    order by r.room_last_message_date desc;
 	</select>
 	
 	<select id="checkReadOrNot" resultType="Integer" parameterType="MessageVO">
@@ -329,7 +370,23 @@
 		 WHERE r.room_id = #{room_id} and msg_unreader LIKE CONCAT('%', #{leaver_emp_id}, '%') or msg_alarm_token LIKE CONCAT('%', #{leaver_emp_id}, '%')
 	</select>
 	
+	<select id="getMessengerSetting" resultMap="MessengerSettingMap">
+		select f.emp_id as user_emp_id, f.favorite_room_id,e.emp_id,e.emp_name,e.emp_profile,e.emp_bnum,e.emp_dnum,e.emp_position,e.emp_job,s.log_on
+		 from user_favorites f
+		 left join employee e on f.favorite_emp_id = e.emp_id
+		 left join user_setting s on e.emp_id = s.emp_id
+		 where f.emp_id=#{emp_id};
+	</select>
 	
+	<insert id ="followRoom">
+		insert into user_favorites
+		value (#{emp_id},null,#{room_id})
+	</insert>
+
+	<delete id ="unfollowRoom">
+		delete from user_favorites 
+		where emp_id=#{emp_id} and favorite_room_id=#{room_id};
+	</delete>
 	
 </mapper>  
   

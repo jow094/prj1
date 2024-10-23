@@ -62,5 +62,4 @@ public class MemberVO {
 	private String emp_level;
 	
 	private boolean log_on;
-	private List<SettingVO> setting;
 }

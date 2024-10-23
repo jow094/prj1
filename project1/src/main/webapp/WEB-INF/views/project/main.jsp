@@ -92,38 +92,38 @@
 	  </ul>
 	</div>
 	<div style="display: flex; flex:0.6; justify-content: flex-end;">
-		<div class="card-box button">
+		<div class="card-box button ${empty settingVO.tool_name_1 ? 'extend_user_setting' : ''}">
 			<div class="card">
 				<div class="card-body">
-					<a style="display:flex; justify-content:center; align-items: cente; font-size:30px;" href="${empty memberVO.setting.favorite_tool_1_url ? '#' : memberVO.setting.favorite_tool_1_url}">
-						${empty memberVO.setting.favorite_tool_1 ? '+' : memberVO.setting.favorite_tool_1}
+					<a style="display:flex; justify-content:center; align-items: center; font-size:20px;" href="${empty settingVO.tool_url_1 ? '#' : settingVO.tool_url_1}">
+						${empty settingVO.tool_name_1 ? '+' : settingVO.tool_name_1}
 					</a>
 				</div>
 			</div>
 		</div>
-		<div class="card-box button">
+		<div class="card-box button ${empty settingVO.tool_name_2 ? 'extend_user_setting' : ''}">
 			<div class="card">
 				<div class="card-body">
-					<a style="display:flex; justify-content:center; align-items: cente; font-size:30px;" href="${empty memberVO.setting.favorite_tool_2_url ? '#' : memberVO.setting.favorite_tool_2_url}">
-						${empty memberVO.setting.favorite_tool_2 ? '+' : memberVO.setting.favorite_tool_2}
+					<a style="display:flex; justify-content:center; align-items: center; font-size:20px;" href="${empty settingVO.tool_url_2 ? '#' : settingVO.tool_url_2}">
+						${empty settingVO.tool_name_2 ? '+' : settingVO.tool_name_2}
 					</a>
 				</div>
 			</div>
 		</div>
-		<div class="card-box button">
+		<div class="card-box button ${empty settingVO.tool_name_3 ? 'extend_user_setting' : ''}">
 			<div class="card">
 				<div class="card-body">
-					<a style="display:flex; justify-content:center; align-items: cente; font-size:30px;" href="${empty memberVO.setting.favorite_tool_3_url ? '#' : memberVO.setting.favorite_tool_3_url}">
-						${empty memberVO.setting.favorite_tool_3 ? '+' : memberVO.setting.favorite_tool_3}
+					<a style="display:flex; justify-content:center; align-items: center; font-size:20px;" href="${empty settingVO.tool_url_3 ? '#' : settingVO.tool_url_3}">
+						${empty settingVO.tool_name_3 ? '+' : settingVO.tool_name_3}
 					</a>
 				</div>
 			</div>
 		</div>
-		<div class="card-box button">
+		<div class="card-box button ${empty settingVO.tool_name_4 ? 'extend_user_setting' : ''}">
 			<div class="card">
 				<div class="card-body">
-					<a style="display:flex; justify-content:center; align-items: cente; font-size:30px;" href="${empty memberVO.setting.favorite_tool_4_url ? '#' : memberVO.setting.favorite_tool_4_url}">
-						${empty memberVO.setting.favorite_tool_4 ? '+' : memberVO.setting.favorite_tool_4}
+					<a style="display:flex; justify-content:center; align-items: center; font-size:20px;" href="${empty settingVO.tool_url_4 ? '#' : settingVO.tool_url_4}">
+						${empty settingVO.tool_name_4 ? '+' : settingVO.tool_name_4}
 					</a>
 				</div>
 			</div>
@@ -138,30 +138,30 @@
 					<div style="display:flex; flex-direction: column; flex:0.5; width:100%;">
 						<div style="display:flex; flex:1; width:100%;">
 							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
-								<div id="tool_1" class="card-box button" style="margin-left:5px; margin-right:5px;">
+								<div id="tool_1" data-tool_id="${settingVO.tool_id_1}" class="card-box button" style="margin-left:5px; margin-right:5px;">
 									<div class="card">
 										<div class="card-body">
-												<div class="selected_tool_name">${memberVO.setting.favorite_tool_1}</div>
+												<div class="tool_name" style="display:flex; justify-content:center; align-items: center; font-size:20px;">${settingVO.tool_name_1}</div>
 										</div>
 									</div>
 								</div>
 								<div style="display:flex; justify-content: center; align-content: center;">
-									<button style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
+									<button id="erase_tool_1" style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
 										<i style="font-size:20px; color:gray;" class="fa-solid fa-circle-minus"></i>
 									</button>
 								</div>
 							</div>
 							
 							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
-								<div id="tool_2" class="card-box button" style="margin-left:5px; margin-right:5px;">
+								<div id="tool_2" data-tool_id="${settingVO.tool_id_2}" class="card-box button" style="margin-left:5px; margin-right:5px;">
 									<div class="card">
 										<div class="card-body">
-												<div class="selected_tool_name">${memberVO.setting.favorite_tool_2}</div>
+												<div class="tool_name" style="display:flex; justify-content:center; align-items: center; font-size:20px;">${settingVO.tool_name_2}</div>
 										</div>
 									</div>
 								</div>
 								<div style="display:flex; justify-content: center; align-content: center;">
-									<button style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
+									<button id="erase_tool_2" style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
 										<i style="font-size:20px; color:gray;" class="fa-solid fa-circle-minus"></i>
 									</button>
 								</div>
@@ -169,29 +169,29 @@
 						</div>
 						<div style="display:flex; flex:1; width:100%;">
 							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
-								<div id="tool_3" class="card-box button" style="margin-left:5px; margin-right:5px;">
+								<div id="tool_3" data-tool_id="${settingVO.tool_id_3}" class="card-box button" style="margin-left:5px; margin-right:5px;">
 									<div class="card">
 										<div class="card-body">
-												<div class="selected_tool_name">${memberVO.setting.favorite_tool_3}</div>
+												<div class="tool_name" style="display:flex; justify-content:center; align-items: center; font-size:20px;">${settingVO.tool_name_3}</div>
 										</div>
 									</div>
 								</div>
 								<div style="display:flex; justify-content: center; align-content: center;">
-									<button style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
+									<button id="erase_tool_3" style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
 										<i style="font-size:20px; color:gray;" class="fa-solid fa-circle-minus"></i>
 									</button>
 								</div>
 							</div>
 							<div style="display:flex; flex:0.5; width:100%; justify-content: flex-start; align-content: center;">
-								<div id="tool_4" class="card-box button" style="margin-left:5px; margin-right:5px;">
+								<div id="tool_4" data-tool_id="${settingVO.tool_id_4}" class="card-box button" style="margin-left:5px; margin-right:5px;">
 									<div class="card">
 										<div class="card-body">
-												<div class="selected_tool_name">${memberVO.setting.favorite_tool_4}</div>
+												<div class="tool_name" style="display:flex; justify-content:center; align-items: center; font-size:20px;">${settingVO.tool_name_4}</div>
 										</div>
 									</div>
 								</div>
 								<div style="display:flex; justify-content: center; align-content: center;">
-									<button style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
+									<button id="erase_tool_4" style="background: transparent; border: none; padding: 0; cursor: pointer; outline: none;">
 										<i style="font-size:20px; color:gray;" class="fa-solid fa-circle-minus"></i>
 									</button>
 								</div>

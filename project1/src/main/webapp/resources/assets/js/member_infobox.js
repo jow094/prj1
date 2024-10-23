@@ -1,7 +1,9 @@
 $(document).ready(function () {
 	
 	$(document).on('click', '.member_info', function (e) {
-		
+		if ($(e.target).closest('.follow, .unfollow').length) {
+			return;
+		}
 		var emp_id = $(this).data('emp_id');
 	    
 	    $.ajax({

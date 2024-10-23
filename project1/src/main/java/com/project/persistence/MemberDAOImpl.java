@@ -76,8 +76,42 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<SettingVO> getToolList(String keyword) {
 		return sqlSession.selectList(NAMESPACE + ".searchTools",keyword);
 	}
+
+	@Override
+	public void updateFavoriteTool(SettingVO vo) {
+		sqlSession.update(NAMESPACE + ".updateFavoriteTool",vo);
+	}
+
+	@Override
+	public SettingVO getSetting(String emp_id) {
+		return sqlSession.selectOne(NAMESPACE + ".getSetting",emp_id);
+	}
+
+	@Override
+	public void updateLogout(String emp_id) {
+		sqlSession.update(NAMESPACE + ".logout",emp_id);
+	}
 	
-	
+	@Override
+	public void updateLogin(String emp_id) {
+		sqlSession.update(NAMESPACE + ".login",emp_id);
+	}
+
+	@Override
+	public void insertFollowEmp(String user_emp_id, String emp_id) {
+		Map<String, String> param = new HashMap<String, String>();
+	    param.put("user_emp_id", user_emp_id);
+	    param.put("emp_id", emp_id);
+		sqlSession.insert(NAMESPACE + ".followEmp",param);
+	}
+
+	@Override
+	public void deleteFollowEmp(String user_emp_id, String emp_id) {
+		Map<String, String> param = new HashMap<String, String>();
+	    param.put("user_emp_id", user_emp_id);
+	    param.put("emp_id", emp_id);
+		sqlSession.delete(NAMESPACE + ".unfollowEmp",param);
+	}
 	
 	
 

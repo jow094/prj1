@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.domain.MemberVO;
 import com.project.domain.MessageVO;
+import com.project.domain.SettingVO;
 import com.project.persistence.MemberDAO;
 import com.project.persistence.MessageDAO;
 
@@ -73,6 +74,33 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public List<MessageVO> getChatRoomList(String emp_id,String emp_name) {
 		List<MessageVO> result = msgdao.select_rooms(emp_id);
+		for(MessageVO vo : result) {			
+			
+			if((vo.getRoom_name().split(",")).length==2) {	
+				List<MemberVO> people = msgdao.get_person(vo.getRoom_id());		
+				for(MemberVO person : people) {									
+					if(!person.getEmp_id().equals(emp_id)){						
+						vo.setRoom_thumbnail(person.getEmp_profile());			
+					}
+				}
+			}
+			
+			logger.debug("기존의 room_name : "+vo.getRoom_name()+"에서 "+emp_name+"을 제거합니다.");
+			vo.setRoom_name(
+					vo.getRoom_name()
+				    .replaceAll("(^|,)\\s*" + emp_name.trim() + "\\s*(,|$)", "$1$2")  // 쉼표 뒤 공백 포함하여 이름 제거
+				    .replaceAll(",,", ",")   // 중복 쉼표 제거
+				    .replaceAll("^,|,$", "") // 앞뒤 쉼표 제거
+            );
+			
+	        logger.debug("본인 이름을 제거한 room_name : "+vo.getRoom_name());
+		}
+		return result;
+	}
+	
+	@Override
+	public List<MessageVO> getFavoriteChatRoomList(String emp_id,String emp_name) {
+		List<MessageVO> result = msgdao.select_favorite_rooms(emp_id);
 		for(MessageVO vo : result) {			
 			
 			if((vo.getRoom_name().split(",")).length==2) {	
@@ -160,6 +188,21 @@ public class MessageServiceImpl implements MessageService{
 		int result = msgdao.insert_party_room(vo);
 		logger.debug("msgServiceImpl : createPartyRoom 실행 :" + result + "번 채팅방 생성");
 		return result;
+	}
+
+	@Override
+	public SettingVO showMessengerSetting(String emp_id) {
+		return msgdao.get_messenger_setting(emp_id);
+	}
+
+	@Override
+	public void followRoom(String emp_id, Integer room_id) {
+		msgdao.insert_follow_room(emp_id, room_id);
+	}
+
+	@Override
+	public void unfollowRoom(String emp_id, Integer room_id) {
+		msgdao.delete_follow_room(emp_id, room_id);
 	}
 	
 	

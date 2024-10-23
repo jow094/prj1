@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.project.domain.MemberVO;
 import com.project.domain.MessageVO;
+import com.project.domain.SettingVO;
 
 public interface MessageDAO {
 
@@ -15,6 +16,7 @@ public interface MessageDAO {
 	public int insert_msg_room(MessageVO vo);
 	public int insert_party_room(MessageVO vo);
 	public List<MessageVO> select_rooms(String emp_id);
+	public List<MessageVO> select_favorite_rooms(String emp_id);
 	public List<MessageVO> search_into_rooms(String emp_id,String keyword);
 	public void update_room_info(MessageVO vo);
 	public void update_room_name(MessageVO vo);
@@ -25,5 +27,7 @@ public interface MessageDAO {
 	public void insert_system_message(MessageVO vo);
 	public int check_participant_count(int room_id);
 	public MessageVO get_room_info(int room_id);
-	
+	public SettingVO get_messenger_setting(String emp_id);
+	public void insert_follow_room(String emp_id,Integer room_id);
+	public void delete_follow_room(String emp_id,Integer room_id);
 }

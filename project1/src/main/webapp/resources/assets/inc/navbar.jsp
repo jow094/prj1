@@ -156,6 +156,16 @@
                   </ul>
                 </li>
                 <!-- 개인프로필 -->
+                <!-- 아이콘1 -->
+                <li style="margin-left:20px; margin-right:5px;" id="log_out" class="nav-item topbar-icon dropdown hidden-caret">
+                 	<a href="/project/logout" method="POST">
+	                 	<button type="button" style="border: none !important;">
+	                 		<i style="color:white; font-size:20px;" class="fa-solid fa-circle-xmark"></i>
+						</button>
+					</a>
+					
+                </li>
+                <!-- 아이콘1 -->
                 
               </ul>
               <!-- 드롭다운 메뉴들 -->

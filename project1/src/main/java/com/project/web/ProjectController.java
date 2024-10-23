@@ -66,6 +66,7 @@ public class ProjectController {
 			data.put("receivedWorkflowList", receivedWorkflowList);
 			data.put("calender",getCalendarEvents());
 			data.put("memberVO",mService.memberInfo(emp_id));
+			data.put("settingVO",mService.showSetting(emp_id));
 			return data;
 		}
 	
@@ -156,13 +157,25 @@ public class ProjectController {
 			logger.debug(" /project/loginForm.jsp");
 			MemberVO resultVO = mService.memberLogin(vo);
 			
+			
 			session.removeAttribute("emp_id");
 			session.setAttribute("emp_id", resultVO.getEmp_id());
 			session.setAttribute("emp_name", resultVO.getEmp_name());
 			session.setAttribute("emp_position", resultVO.getEmp_position());
 			session.setAttribute("logined", true);
+			mService.userLogin(resultVO.getEmp_id());
+			logger.debug(resultVO.getEmp_id()+"사용자가 로그인하였습니다. 로그온 정보를 업데이트하였습니다.");
 			
 			return "redirect:/project/main";
+		}
+		
+		// http://localhost:8088/project/logout
+		@RequestMapping(value = "/logout",method = RequestMethod.POST)
+		public void logout(HttpSession session) {
+			String emp_id = (String)session.getAttribute("emp_id");
+			mService.userLogout(emp_id);
+			session.invalidate();
+			logger.debug(emp_id+"사용자가 로그아웃하였습니다. 로그온 정보를 업데이트하였습니다.");
 		}
 			
 		// http://localhost:8088/project/checkAlarm

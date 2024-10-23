@@ -58,6 +58,37 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<SettingVO> searchTools(String keyword) {
 		return mdao.getToolList(keyword);
+	}
+
+	@Override
+	public void settingFavoriteTool(SettingVO vo) {
+		mdao.updateFavoriteTool(vo);
+	}
+
+	@Override
+	public SettingVO showSetting(String emp_id) {
+		return mdao.getSetting(emp_id);
+	}
+
+	@Override
+	public void userLogout(String emp_id) {
+		mdao.updateLogout(emp_id);
 	};
+	
+	@Override
+	public void userLogin(String emp_id) {
+		mdao.updateLogin(emp_id);
+	}
+
+	@Override
+	public void followEmp(String user_emp_id, String emp_id) {
+		mdao.insertFollowEmp(user_emp_id, emp_id);
+	}
+
+	@Override
+	public void unFollowEmp(String user_emp_id, String emp_id) {
+		mdao.deleteFollowEmp(user_emp_id, emp_id);
+	};
+	
 	
 }
