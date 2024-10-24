@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CommonExceptionAdvice {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
+	private static final Logger logger = LoggerFactory.getLogger(WorkflowController.class);
 	
 	@ExceptionHandler (Exception.class)
 	public String commonEx2(Exception e,HttpServletRequest request) {

@@ -1,9 +1,9 @@
 eclipse.preferences.version=1
-encoding//src/main/java/com/Init/controller/MemberController.java=UTF-8
-encoding//src/main/java/com/Init/controller/ProjectController.java=UTF-8
-encoding//src/main/webapp/WEB-INF/views/project/main.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/project/workflow.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/project/workoff.jsp=UTF-8
+encoding//src/main/java/com/Init/controller/MainController.java=UTF-8
+encoding//src/main/java/com/Init/controller/WorkflowController.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/main/home.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/work/workflow.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/work/workoff.jsp=UTF-8
 encoding//src/main/webapp/resources/assets/inc/calendar.jsp=UTF-8
 encoding//src/main/webapp/resources/assets/inc/game.jsp=UTF-8
 encoding//src/main/webapp/resources/assets/inc/login_alarm_modal.jsp=UTF-8

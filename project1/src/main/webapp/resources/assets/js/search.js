@@ -72,7 +72,7 @@ function search(input) {
 				}
 				prev = 
 					$.ajax({
-					url: '/member/search',
+					url: '/main/search',
 					type: 'GET',
 					data: { keyword: keyword },
 					success: function (data) {

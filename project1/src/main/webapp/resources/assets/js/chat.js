@@ -137,7 +137,7 @@ $(document).ready(function () {
 	        e.preventDefault();  
 	
 	        $.ajax({
-	            url: '/member/sendMessage',
+	            url: '/message/sendMessage',
 	            type: 'POST',
 	            data: {
 	                room_id: $('#hidden_room_id').val(),
@@ -174,7 +174,7 @@ $(document).ready(function () {
 			let room_id = $(this).data('room_id');
 			
 			 $.ajax({
-		            url: '/member/unfollow',
+		            url: '/message/unfollow',
 		            type: 'GET',
 		            data: {emp_id:emp_id,
 		            		room_id:room_id
@@ -194,7 +194,7 @@ $(document).ready(function () {
 			let room_id = $(this).data('room_id')
 			
 			 $.ajax({
-		            url: '/member/follow',
+		            url: '/message/follow',
 		            type: 'GET',
 		            data: {emp_id:emp_id,
 	            			room_id:room_id
@@ -217,7 +217,7 @@ function getMembers() {
 	console.log('check members');
 	
 	$.ajax({
-		url: '/member/getTeam',
+		url: '/message/getTeam',
 		type: 'GET',
 		success: function (data) {
 			$('.messenger_body_menu').children(':not(.messenger_search)').remove();
@@ -328,7 +328,7 @@ function getMessages(room_id,receiver_emp_id) {
 	console.log('getMessages('+room_id+','+receiver_emp_id+') run');
 	
 	$.ajax({
-		url: '/member/getMessages',
+		url: '/message/getMessages',
 		type: 'GET',
 		data: {room_id : room_id,
 			receiver_emp_id : receiver_emp_id},
@@ -432,7 +432,7 @@ function chatRoomList() {
         clearInterval(message_check_interval);
     }
 	$.ajax({
-		url: '/member/getChatRoomList',
+		url: '/message/getChatRoomList',
 		type: 'GET',
 		success: function (data) {
 			console.log('load chat list :'+data.length);
@@ -544,7 +544,7 @@ function messenger_search(input) {
 			}
 		prev_messenger_search = 
 			$.ajax({
-			url: '/member/search',
+			url: '/main/search',
 			type: 'GET',
 			data: { keyword: keyword },
 			success: function (data) {
@@ -620,7 +620,7 @@ function room_search(input) {
 			}
 		prev_room_search = 
 			$.ajax({
-			url: '/member/msgSearch',
+			url: '/message/msgSearch',
 			type: 'GET',
 			data: { keyword: keyword },
 			success: function (data) {
@@ -681,7 +681,7 @@ function room_search(input) {
 
 function inviteRoom(emp_id,room_id){
 	$.ajax({
-		url: '/member/invite',
+		url: '/message/invite',
 		type: 'GET',
 		data: { emp_id: emp_id ,
 				room_id : room_id,
@@ -723,7 +723,7 @@ function inviteRoom(emp_id,room_id){
 
 function getOutRoom(room_id){
 	$.ajax({
-		url: '/member/getOutRoom',
+		url: '/message/getOutRoom',
 		type: 'GET',
 		data: {room_id : room_id},
 		success: function (data) {

@@ -111,7 +111,7 @@ function updateUserSetting() {
 	console.log('tool_id_4:',$('#tool_4').data('tool_id'));
 	
 	$.ajax({
-     url: '/member/updateSetting',
+     url: '/main/updateSetting',
      type: 'GET',
      data: {tool_id_1: $('#tool_1').data('tool_id'),
 	        tool_id_2: $('#tool_2').data('tool_id'),
@@ -119,7 +119,7 @@ function updateUserSetting() {
  	        tool_id_4: $('#tool_4').data('tool_id')},
 	     success: function (data) {
 	    	 closeUserSetting();
-	    	 window.location.href = '/project/main';
+	    	 window.location.href = '/main/home';
 	     },
 	     error: function(xhr, status, error) {
 	         console.error('AJAX fail:', status, error);
@@ -144,7 +144,7 @@ function tool_search(input) {
 				}
 				prev_setting_search = 
 					$.ajax({
-					url: '/member/toolSearch',
+					url: '/main/toolSearch',
 					type: 'GET',
 					data: { keyword: keyword },
 					success: function (data) {

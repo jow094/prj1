@@ -7,7 +7,7 @@ $(document).ready(function () {
 		var emp_id = $(this).data('emp_id');
 	    
 	    $.ajax({
-	        url: '/member/memberInfoModal',
+	        url: '/main/memberInfoModal',
 	        type: 'GET',
 	        data: {emp_id: emp_id},
 	        success: function (emp) {

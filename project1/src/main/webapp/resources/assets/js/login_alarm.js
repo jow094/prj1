@@ -14,7 +14,7 @@ $(document).ready(function () {
 	
 	/* ajax start*/
 	$.ajax({
-	url: '/project/loginAlarm',
+	url: '/main/loginAlarm',
 	type: 'GET',
 	success: function(data) {
 			/* success start*/
@@ -97,7 +97,7 @@ $(document).ready(function () {
 		            }
 			        if(data.receivedWorkflowList.length > 3){
 			        	$('#received_workflows').append(`
-			        			<a href="/project/workflow">
+			        			<a href="/work/workflow">
 				        			<div 
 					        			id="notify" 
 					        			style="
@@ -172,7 +172,7 @@ $(document).ready(function () {
 				    }
 			        if(data.sentWorkflowList.length > 3){
 			        	$('#sent_workflows').append(`
-			        			<a href="/project/workflow">
+			        			<a href="/work/workflow">
 				        			<div 
 					        			id="notify" 
 					        			style="

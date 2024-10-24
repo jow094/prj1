@@ -7,7 +7,7 @@ $(document).ready(function () {
 	window.addEventListener('beforeunload', function (e) {
 	    // 페이지가 종료될 때만 로그아웃 요청
 	    if (isPageClosed) {
-	        navigator.sendBeacon('/project/logout');
+	        navigator.sendBeacon('/work/logout');
 	    }
 	});
 
@@ -29,7 +29,7 @@ $(document).ready(function () {
 	
 	function checkAlarm() {
 		$.ajax({
-	        url: '/project/checkAlarm',
+	        url: '/main/checkAlarm',
 			type: 'GET',
 	        success: function(data) {
 	        	console.log('checked Alarm : ', data);
@@ -38,7 +38,7 @@ $(document).ready(function () {
 	        		$('#alarm_workflow').addClass('shake');
 	        		$('#alarm_workflow_badge').text(data.smallAlarm);
 	        		$('#alarm_workflow_badge').addClass('twinkle');
-	        		$('#unread_workflow_main').html(`<a href="/project/workflow">${data.smallAlarm} 개의 받은 승인요청이 있습니다.</a>`);
+	        		$('#unread_workflow_main').html(`<a href="/work/workflow">${data.smallAlarm} 개의 받은 승인요청이 있습니다.</a>`);
 	        		$('#unread_workflow_main_badge').addClass('twinkle_inner');
 	        	}else{
 	        		$('#alarm_workflow').removeClass('shake');

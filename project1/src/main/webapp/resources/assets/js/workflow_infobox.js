@@ -21,7 +21,7 @@ $(document).ready(function () {
 	    console.log('AJAX requested for wf_code :', wf_code); // wf_code 값 출력
 		
 		$.ajax({
-			url: '/project/readWorkflow',
+			url: '/work/readWorkflow',
 			type: 'GET',
 			data: {wf_code: wf_code},
 			success: function (data) {

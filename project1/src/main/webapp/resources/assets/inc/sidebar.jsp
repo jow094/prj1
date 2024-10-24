@@ -10,7 +10,7 @@
         <!-- Start logo -->
         <div class="sidebar-logo" >
           <div class="logo-header" style="background-color: rgba(0,0,0,0.8)">
-          	<a href="/project/main" class="logo" style="padding-top:20px;">
+          	<a href="/main/home" class="logo" style="padding-top:20px;">
               <img
                 src="${pageContext.request.contextPath }/resources/assets/img/project/favicon_black.png"
                 alt="navbar brand"
@@ -19,7 +19,7 @@
                 style="padding-right:10px;"
               />
             </a>
-            <a href="/project/main" class="logo" style="padding-top:20px;">
+            <a href="/main/home" class="logo" style="padding-top:20px;">
               <img
                 src="${pageContext.request.contextPath }/resources/assets/img/project/logo_black.png"
                 alt="navbar brand"
@@ -45,9 +45,9 @@
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
               <li class="nav-item active">
-                <a href="../project/main">
+                <a href="/main/home">
                   <i class="fas fa-home"></i>
-                  <p>Main</p>
+                  <p>HOME</p>
                   <span class="caret"></span>
                 </a>
                 <!-- <div class="collapse" id="dashboard"> 
@@ -62,8 +62,10 @@
               </li>
               
               <li class="nav-item">
-		          <a href="../project/workflow">
-		          	<span class="sub-item">WORK FLOW</span>
+		          <a href="/work/workflow">
+		          	<i class="fa-solid fa-bell"></i>
+		          	<p>WORK FLOW</p>
+		          	<span class="sub-item"></span>
 		          </a>
               </li>
               

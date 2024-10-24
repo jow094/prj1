@@ -130,7 +130,7 @@ function closeCalendar() {
 
 function showAlarmedWorkflow() {
 	$.ajax({
-		url: '/project/smallAlarm_workflow',
+		url: '/main/smallAlarm_workflow',
 		type: 'GET',
 		success: function (data) {
 			console.log(data);
@@ -236,7 +236,7 @@ function appendWorkflow(workflowList) {
     }
     if(workflowList.length > 10){
     	$('#extended_navbar_inner').append(`
-    			<a href="/project/workflow" style="width:100%;">
+    			<a href="/work/workflow" style="width:100%;">
 	    			<div style="display: flex; align-items: center; justify-content: center; width:90%; height:50px; padding-top:10px; font-size:15px;">
 						${workflowList.length-5} 개의 요청이 더 존재합니다!
 	        		</div>
