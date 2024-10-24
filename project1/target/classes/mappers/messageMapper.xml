@@ -3,16 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.project.mapper.MessageMapper">
+<mapper namespace="com.Init.mapper.MessageMapper">
 	
-	<resultMap id="MessengerSettingMap" type="com.project.domain.SettingVO">
+	<resultMap id="MessengerSettingMap" type="SettingVO">
     	<id property="emp_id" column="user_emp_id"/>
     
 	    <collection property="favorite_room_id" ofType="java.lang.Integer">
 	        <result column="favorite_room_id"/>
 	    </collection>
 	    
-	    <collection property="favorite_emp" ofType="com.project.domain.MemberVO">
+	    <collection property="favorite_emp" ofType="MemberVO">
 	        <id property="emp_id" column="emp_id"/>
 	        <result property="emp_name" column="emp_name"/>
 	        <result property="emp_dnum" column="emp_dnum"/>
@@ -24,7 +24,7 @@
 	    </collection>
 	</resultMap>
 	
-	<resultMap id="getMessagesResultMap" type="com.project.domain.MessageVO">
+	<resultMap id="getMessagesResultMap" type="MessageVO">
 	    <id property="msg_id" column="msg_id"/>
 	    <result property="msg_date" column="msg_date"/>
 	    <result property="msg_reader" column="msg_reader"/>
@@ -40,7 +40,7 @@
 	    <result property="room_join_date" column="room_join_date"/>
 	    
 	    <!-- msg_sender는 MemberVO로 매핑 -->
-	    <association property="msg_sender" javaType="com.project.domain.MemberVO">
+	    <association property="msg_sender" javaType="MemberVO">
 	        <id property="emp_id" column="msg_sender_emp_id"/>
 	        <result property="emp_name" column="msg_sender_emp_name"/>
 	        <result property="emp_dnum" column="msg_sender_emp_dnum"/>
@@ -51,7 +51,7 @@
 	    </association>
 	</resultMap>
 	
-	<resultMap id="getRoomResultMap" type="com.project.domain.MessageVO">
+	<resultMap id="getRoomResultMap" type="MessageVO">
 	    <id property="room_id" column="room_id"/>
 	    <result property="room_name" column="room_name"/>
 	    <result property="room_admin" column="room_admin"/>
@@ -61,7 +61,7 @@
 	    <result property="room_last_sender_name" column="room_last_sender_name"/>
 	    <result property="room_last_sender_position" column="room_last_sender_position"/>
 	    
-	    <collection property="room_people" ofType="com.project.domain.MemberVO">
+	    <collection property="room_people" ofType="MemberVO">
 	        <result property="emp_id" column="emp_id"/>
 	        <result property="emp_name" column="emp_name"/>
 	        <result property="emp_dnum" column="emp_dnum"/>
@@ -301,7 +301,7 @@
 	    WHERE room_id = #{room_id}
 	</update>
 	
-	<select id="getPersonalInfo" parameterType="int" resultType="com.project.domain.MemberVO">
+	<select id="getPersonalInfo" parameterType="int" resultType="MemberVO">
 	    SELECT e.emp_id, 
 	           e.emp_profile
 	    FROM msg_room_participant p

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.project.mapper.WorkflowMapper">
+<mapper namespace="com.Init.mapper.WorkflowMapper">
 	
 	<!-- 워크플로우 상세 -->
 	<select id="getWorkflow" parameterType="String" resultType="WorkflowVO">
