@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.Init.domain.MemberVO;
+import com.Init.domain.EmployeeVO;
 import com.Init.domain.MessageVO;
 import com.Init.domain.SettingVO;
-import com.Init.service.MemberService;
+import com.Init.service.EmployeeService;
 import com.Init.service.MessageService;
 import com.Init.service.WorkflowService;
 
@@ -28,7 +28,7 @@ import com.Init.service.WorkflowService;
 public class MessageController {
 	
 	@Inject
-	private MemberService mService;
+	private EmployeeService mService;
 	@Inject
 	private WorkflowService wService;
 	@Inject
@@ -40,7 +40,7 @@ public class MessageController {
 	@ResponseBody
 	public Map<String,Object> getTeam(HttpSession session) {
 		String emp_id = (String)session.getAttribute("emp_id");
-		List<MemberVO> memberList = mService.getTeammate(emp_id);
+		List<EmployeeVO> memberList = mService.getTeammate(emp_id);
 		SettingVO favoriteEmpList = msgService.showMessengerSetting(emp_id);
 		Map<String,Object> data = new HashMap<String,Object>();
 		data.put("memberList", memberList);	
@@ -154,13 +154,13 @@ public class MessageController {
 		String inviter_emp_name = (String)session.getAttribute("emp_name");
 		
 		MessageVO room_info = msgService.checkRoomInfo(room_id);
-		MemberVO new_person = mService.memberInfo(emp_id);
+		EmployeeVO new_person = mService.memberInfo(emp_id);
 		
 		if(inviter_emp_id.equals(emp_id)) {
 			return 0;
 		}
 		
-		for(MemberVO vo : room_info.getRoom_people()) {
+		for(EmployeeVO vo : room_info.getRoom_people()) {
 			if(vo.getEmp_id().equals(emp_id)){
 				return -1;
 			}
@@ -193,7 +193,7 @@ public class MessageController {
 			
 			logger.debug("room_info :"+room_info);
 
-			for (MemberVO vo : room_info.getRoom_people()) {
+			for (EmployeeVO vo : room_info.getRoom_people()) {
 			    if (prev_room_name.length() > 0) {
 			        prev_room_name.append(", ");
 			    }

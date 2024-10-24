@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.Init.domain.MemberVO;
+import com.Init.domain.EmployeeVO;
 import com.Init.domain.MessageVO;
 import com.Init.domain.SettingVO;
 import com.Init.domain.WorkflowVO;
-import com.Init.persistence.MemberDAO;
-import com.Init.service.MemberService;
+import com.Init.persistence.EmployeeDAO;
+import com.Init.service.EmployeeService;
 import com.Init.service.MessageService;
 import com.Init.service.WorkflowService;
 
@@ -31,7 +31,7 @@ import com.Init.service.WorkflowService;
 public class MainController {
 	
 	@Inject
-	private MemberService mService;
+	private EmployeeService mService;
 	@Inject
 	private WorkflowService wService;
 	@Inject
@@ -40,13 +40,15 @@ public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public String loginGet(MemberVO vo) {
+	public String loginGet(EmployeeVO vo) {
+		logger.debug("사용자가 로그인하였습니다. 로그온 정보를 업데이트하였습니다.");
 		return "/main/loginForm";
 	}
 
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
-	public String loginPOST(MemberVO vo,HttpSession session,Model model) {
-		MemberVO resultVO = mService.memberLogin(vo);
+	public String loginPOST(EmployeeVO vo,HttpSession session,Model model) {
+		logger.debug("사용자가 로그인하였습니다. 로그온 정보를 업데이트하였습니다.");
+		EmployeeVO resultVO = mService.memberLogin(vo);
 		
 		session.removeAttribute("emp_id");
 		session.setAttribute("emp_id", resultVO.getEmp_id());
@@ -83,11 +85,11 @@ public class MainController {
 	
 	@RequestMapping(value = "/memberInfoModal",method = RequestMethod.GET)
 	@ResponseBody
-	public MemberVO memberInfoModal(String emp_id) {
+	public EmployeeVO memberInfoModal(String emp_id) {
 		logger.debug("/member/memberInfoModal -> memberInfoModal() 실행");
 		logger.debug(" 조회 대상 아이디 : "+emp_id);
 		
-		MemberVO resultVO = mService.memberInfo(emp_id);
+		EmployeeVO resultVO = mService.memberInfo(emp_id);
 		logger.debug(" 조회 결과 : "+resultVO);
 		
 		return resultVO;
@@ -95,8 +97,8 @@ public class MainController {
 	
 	@RequestMapping(value = "/search",method = RequestMethod.GET)
 	@ResponseBody
-	public List<MemberVO> searchToMember(String keyword) {
-		List<MemberVO> memberList = mService.memberSearch(keyword);
+	public List<EmployeeVO> searchToMember(String keyword) {
+		List<EmployeeVO> memberList = mService.memberSearch(keyword);
 		return memberList;
 	}
 	

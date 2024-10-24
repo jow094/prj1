@@ -12,7 +12,7 @@
 	        <result column="favorite_room_id"/>
 	    </collection>
 	    
-	    <collection property="favorite_emp" ofType="MemberVO">
+	    <collection property="favorite_emp" ofType="EmployeeVO">
 	        <id property="emp_id" column="emp_id"/>
 	        <result property="emp_name" column="emp_name"/>
 	        <result property="emp_dnum" column="emp_dnum"/>
@@ -39,8 +39,7 @@
 	    <result property="room_last_message_date" column="room_last_message_date"/>
 	    <result property="room_join_date" column="room_join_date"/>
 	    
-	    <!-- msg_sender는 MemberVO로 매핑 -->
-	    <association property="msg_sender" javaType="MemberVO">
+	    <association property="msg_sender" javaType="EmployeeVO">
 	        <id property="emp_id" column="msg_sender_emp_id"/>
 	        <result property="emp_name" column="msg_sender_emp_name"/>
 	        <result property="emp_dnum" column="msg_sender_emp_dnum"/>
@@ -61,7 +60,7 @@
 	    <result property="room_last_sender_name" column="room_last_sender_name"/>
 	    <result property="room_last_sender_position" column="room_last_sender_position"/>
 	    
-	    <collection property="room_people" ofType="MemberVO">
+	    <collection property="room_people" ofType="EmployeeVO">
 	        <result property="emp_id" column="emp_id"/>
 	        <result property="emp_name" column="emp_name"/>
 	        <result property="emp_dnum" column="emp_dnum"/>
@@ -79,7 +78,7 @@
 	    <result property="msg_unread_count" column="msg_unread_count"/>
 	    <result property="msg_content" column="msg_content"/>
 	    <result property="room_name" column="room_name"/>
-	    <association property="msg_sender" javaType="MemberVO">
+	    <association property="msg_sender" javaType="EmployeeVO">
 	        <result property="emp_name" column="emp_name" />
 	        <result property="emp_bnum" column="emp_bnum" />
 	        <result property="emp_dnum" column="emp_dnum" />
@@ -301,7 +300,7 @@
 	    WHERE room_id = #{room_id}
 	</update>
 	
-	<select id="getPersonalInfo" parameterType="int" resultType="MemberVO">
+	<select id="getPersonalInfo" parameterType="int" resultType="EmployeeVO">
 	    SELECT e.emp_id, 
 	           e.emp_profile
 	    FROM msg_room_participant p

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.Init.domain.MemberVO;
+import com.Init.domain.EmployeeVO;
 import com.Init.domain.WorkflowVO;
 
 /**

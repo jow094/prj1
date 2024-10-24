@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Init.domain.MemberVO;
+import com.Init.domain.EmployeeVO;
 import com.Init.domain.MessageVO;
 import com.Init.domain.SettingVO;
-import com.Init.persistence.MemberDAO;
+import com.Init.persistence.EmployeeDAO;
 import com.Init.persistence.MessageDAO;
 
 // @Service : 서비스영역 (비지니스 로직 영역)에서의 동작을 구현하도록 설정
@@ -35,7 +35,7 @@ public class MessageServiceImpl implements MessageService{
 	private MessageDAO msgdao;
 	
 	@Inject
-	private MemberDAO mdao;
+	private EmployeeDAO mdao;
 	
 	@Override
 	public List<MessageVO> openPersonalChat(String sender_emp_id, String receiver_emp_id) {
@@ -77,8 +77,8 @@ public class MessageServiceImpl implements MessageService{
 		for(MessageVO vo : result) {			
 			
 			if((vo.getRoom_name().split(",")).length==2) {	
-				List<MemberVO> people = msgdao.get_person(vo.getRoom_id());		
-				for(MemberVO person : people) {									
+				List<EmployeeVO> people = msgdao.get_person(vo.getRoom_id());		
+				for(EmployeeVO person : people) {									
 					if(!person.getEmp_id().equals(emp_id)){						
 						vo.setRoom_thumbnail(person.getEmp_profile());			
 					}
@@ -104,8 +104,8 @@ public class MessageServiceImpl implements MessageService{
 		for(MessageVO vo : result) {			
 			
 			if((vo.getRoom_name().split(",")).length==2) {	
-				List<MemberVO> people = msgdao.get_person(vo.getRoom_id());		
-				for(MemberVO person : people) {									
+				List<EmployeeVO> people = msgdao.get_person(vo.getRoom_id());		
+				for(EmployeeVO person : people) {									
 					if(!person.getEmp_id().equals(emp_id)){						
 						vo.setRoom_thumbnail(person.getEmp_profile());			
 					}

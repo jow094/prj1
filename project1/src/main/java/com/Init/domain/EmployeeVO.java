@@ -14,7 +14,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Data
-public class MemberVO {
+public class EmployeeVO {
 	
 //	private String Uid;
 	//private String uId; //getUId() (x)

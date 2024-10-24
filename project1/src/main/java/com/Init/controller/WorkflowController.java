@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.Init.domain.MemberVO;
+import com.Init.domain.EmployeeVO;
 import com.Init.domain.WorkflowVO;
-import com.Init.persistence.MemberDAO;
+import com.Init.persistence.EmployeeDAO;
 import com.Init.persistence.WorkflowDAO;
 import com.Init.persistence.WorkflowDAOImpl;
-import com.Init.service.MemberService;
+import com.Init.service.EmployeeService;
 import com.Init.service.MessageService;
 import com.Init.service.WorkflowService;
 
@@ -33,7 +33,7 @@ import com.Init.service.WorkflowService;
 public class WorkflowController {
 	
 	@Inject
-	private MemberService mService;
+	private EmployeeService mService;
 	
 	@Inject
 	private WorkflowService wService;

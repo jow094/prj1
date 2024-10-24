@@ -2,18 +2,18 @@ package com.Init.service;
 
 import java.util.List;
 
-import com.Init.domain.MemberVO;
+import com.Init.domain.EmployeeVO;
 import com.Init.domain.SettingVO;
 
-public interface MemberService {
+public interface EmployeeService {
 	
-	public MemberVO memberLogin(MemberVO vo);
+	public EmployeeVO memberLogin(EmployeeVO vo);
 	
-	public MemberVO memberInfo(String userid);
+	public EmployeeVO memberInfo(String userid);
 	
-	public List<MemberVO> memberSearch(String keyword);
+	public List<EmployeeVO> memberSearch(String keyword);
 	
-	public List<MemberVO> getTeammate(String emp_id);
+	public List<EmployeeVO> getTeammate(String emp_id);
 	
 	public List<SettingVO> searchTools(String keyword);
 	

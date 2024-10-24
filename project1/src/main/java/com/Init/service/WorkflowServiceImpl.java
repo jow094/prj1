@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Init.domain.MemberVO;
+import com.Init.domain.EmployeeVO;
 import com.Init.domain.WorkflowVO;
-import com.Init.persistence.MemberDAO;
+import com.Init.persistence.EmployeeDAO;
 import com.Init.persistence.WorkflowDAO;
 
 // @Service : 서비스영역 (비지니스 로직 영역)에서의 동작을 구현하도록 설정

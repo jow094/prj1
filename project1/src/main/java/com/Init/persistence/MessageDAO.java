@@ -2,7 +2,7 @@ package com.Init.persistence;
 
 import java.util.List;
 
-import com.Init.domain.MemberVO;
+import com.Init.domain.EmployeeVO;
 import com.Init.domain.MessageVO;
 import com.Init.domain.SettingVO;
 
@@ -21,7 +21,7 @@ public interface MessageDAO {
 	public void update_room_info(MessageVO vo);
 	public void update_room_name(MessageVO vo);
 	public void delete_room_name(MessageVO vo);
-	public List<MemberVO> get_person(int room_id);
+	public List<EmployeeVO> get_person(int room_id);
 	public List<MessageVO> get_message_unread_alarm(String emp_id);
 	public List<MessageVO> get_message_realtime_alarm(String emp_id);
 	public void insert_system_message(MessageVO vo);

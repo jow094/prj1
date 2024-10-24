@@ -2,7 +2,7 @@ package com.Init.service;
 
 import java.util.List;
 
-import com.Init.domain.MemberVO;
+import com.Init.domain.EmployeeVO;
 import com.Init.domain.MessageVO;
 import com.Init.domain.SettingVO;
 

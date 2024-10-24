@@ -23,7 +23,7 @@ public class SettingVO {
 	private String tool_id_4;
 	private String tool_name_4;
 	private String tool_url_4;
-	private List<MemberVO> favorite_emp;
+	private List<EmployeeVO> favorite_emp;
 	private List<Integer> favorite_room_id;
 	private boolean log_on;
 }

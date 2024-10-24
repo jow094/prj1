@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Init.domain.MemberVO;
+import com.Init.domain.EmployeeVO;
 import com.Init.domain.SettingVO;
-import com.Init.persistence.MemberDAO;
+import com.Init.persistence.EmployeeDAO;
 
 // @Service : 서비스영역 (비지니스 로직 영역)에서의 동작을 구현하도록 설정
 // 			  root-context.xml에 빈(MemberService)으로 등록
@@ -24,34 +24,34 @@ import com.Init.persistence.MemberDAO;
 
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public class EmployeeServiceImpl implements EmployeeService{
 
-	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 	
 	// MemberDAO 객체 주입
 	@Autowired
-	private MemberDAO mdao;
+	private EmployeeDAO mdao;
 	
 	@Override
-	public MemberVO memberLogin(MemberVO vo) {
+	public EmployeeVO memberLogin(EmployeeVO vo) {
 		return mdao.checkMember(vo);
 	}
 	
 	@Override
-	public MemberVO memberInfo(String userid) {
+	public EmployeeVO memberInfo(String userid) {
 		logger.debug(" memberInfo(String userid) 실행)");
 
 		return mdao.getMember(userid);
 	};
 	
 	@Override
-	public List<MemberVO> memberSearch(String keyword) {
+	public List<EmployeeVO> memberSearch(String keyword) {
 		logger.debug(" memberSearch(String keyword) 실행)");
 		return mdao.getMemberList(keyword);
 	}
 
 	@Override
-	public List<MemberVO> getTeammate(String emp_id) {
+	public List<EmployeeVO> getTeammate(String emp_id) {
 		return mdao.getTeamList(emp_id);
 	}
 
